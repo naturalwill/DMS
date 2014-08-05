@@ -28,7 +28,9 @@ namespace DMS
         OleDbCommandBuilder CoBuilder;
         DataTable DtTable;
         List<string> DocTypeList;
-        int pageQuantity=17;//每页显示的数量
+        int pageQuantity = 17;//每页显示的数量
+        string PathCurrent;
+        string PathNew;
         #endregion
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -166,6 +168,7 @@ namespace DMS
                     lvitem.SubItems.Add(DtTable.Rows[row]["DocTitle"].ToString());
                     lvitem.SubItems.Add(DtTable.Rows[row]["ReleaseDate"].ToString());
                     lvitem.SubItems.Add(DtTable.Rows[row]["Provider"].ToString());
+                    lvitem.SubItems.Add(DtTable.Rows[row]["AddTime"].ToString());
                     lvitem.SubItems.Add(DtTable.Rows[row]["DocType"].ToString());
                 }
             }
@@ -180,6 +183,7 @@ namespace DMS
                         lvitem.SubItems.Add(DtTable.Rows[row]["DocTitle"].ToString());
                         lvitem.SubItems.Add(DtTable.Rows[row]["ReleaseDate"].ToString());
                         lvitem.SubItems.Add(DtTable.Rows[row]["Provider"].ToString());
+                        lvitem.SubItems.Add(DtTable.Rows[row]["AddTime"].ToString());
                         lvitem.SubItems.Add(DtTable.Rows[row]["DocType"].ToString());
                     }
                 }
@@ -197,7 +201,7 @@ namespace DMS
                         txtTitle.Text = DtTable.Rows[row]["DocTitle"].ToString();
                         labRTime.Text = DtTable.Rows[row]["ReleaseDate"].ToString();
                         labP.Text = DtTable.Rows[row]["Provider"].ToString();
-                        comboBoxDocType.Text = DtTable.Rows[row]["DocType"].ToString();
+                        comboBoxDocType.Text = PathCurrent = DtTable.Rows[row]["DocType"].ToString();
                         labUrl.Text = DtTable.Rows[row]["Source"].ToString();
                         txtNotes.Text = DtTable.Rows[row]["Notes"].ToString();
                         LabATime.Text = DtTable.Rows[row]["AddTime"].ToString();
@@ -210,6 +214,7 @@ namespace DMS
         private void btnMore_Click(object sender, EventArgs e)
         {
             //List<string> files = new List<string>();
+
             string files = "";
             if (listDoc.CheckedItems.Count > 0)
             {
@@ -248,16 +253,141 @@ namespace DMS
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        #region 打开窗口
+        private void btnMenu_Click(object sender, EventArgs e)
         {
             frmSettings frmS = new frmSettings();
             frmS.ShowDialog();
         }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             frmAddDoc frmAd = new frmAddDoc();
             frmAd.ShowDialog();
         }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            frmScan frmS = new frmScan();
+            frmS.ShowDialog();
+        }
+        #endregion
+
+        #region combobox选择类型
+        private void comboBoxDocType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine(comboBoxDocType.SelectedIndex);
+            //System.Diagnostics.Debug.WriteLine(comboBoxDocType.SelectedItem);
+            try
+            {
+                if (comboBoxDocType.SelectedIndex >= 0)
+                {
+                    for (int row = 0; row < DtTable.Rows.Count; row++)
+                    {
+                        if (listDoc.SelectedItems[0].SubItems[0].Text == DtTable.Rows[row]["ID"].ToString())
+                        {
+                            DtTable.Rows[row]["DocType"] = comboBoxDocType.SelectedItem;
+                            DtAdapter.Update(DtTable);
+                            //System.Diagnostics.Debug.WriteLine(DtTable.Rows[row]["DocType"]);
+                        }
+                    }
+
+                    PathCurrent = cConfig.strWorkPath + "\\" + PathCurrent + "\\" + txtTitle.Text;
+                    PathNew = cConfig.strWorkPath + "\\" + comboBoxDocType.SelectedItem + "\\" + txtTitle.Text;
+                    if (PathCurrent != PathNew)
+                        File.Move(PathCurrent, PathNew);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("请选择文件");
+            }
+        }
+        #endregion
+
+        #region 发布日期分类
+        private void LabATime_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listDoc.Items.Clear();
+            int div = LabATime.Text.IndexOf(' ');
+            for (int i = 0; i < DtTable.Rows.Count; i++)
+            {
+
+                if (LabATime.Text.Substring(0, div) == DtTable.Rows[i]["AddTime"].ToString().Substring(0, div))
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+                }
+            }
+        }
+        #endregion
+
+        #region 收录时间分类
+        private void labRTime_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listDoc.Items.Clear();
+            int div = labRTime.Text.IndexOf(' ');
+            for (int i = 0; i < DtTable.Rows.Count; i++)
+            {
+                if (labRTime.Text.Substring(0, div) == DtTable.Rows[i]["ReleaseDate"].ToString().Substring(0, div))
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+                }
+            }
+        }
+        #endregion
+
+        #region 发布单位分类
+        private void labP_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listDoc.Items.Clear();
+            for (int i = 0; i < DtTable.Rows.Count; i++)
+            {
+                if (labP.Text == DtTable.Rows[i]["Provider"].ToString())
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
+                    lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+                }
+            }
+        }
+        #endregion
+
+        #region 链接浏览器
+        private void labUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                // Change the color of the link text by setting LinkVisited 
+                // to true.
+                labUrl.LinkVisited = true;
+                //Call the Process.Start method to open the default browser 
+                //with a URL:
+                System.Diagnostics.Process.Start(labUrl.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link that was clicked.\n" + ex.Message);
+            }
+        }
+        #endregion
+      
+
     }
 }

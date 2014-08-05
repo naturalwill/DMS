@@ -7,6 +7,10 @@ namespace DMS
 {
     class cConfig
     {
-        //public static 
+        #region 字段
+        public static string strWorkPath = Environment.SpecialFolder.MyDocuments + "\\DMZ";
+		
+		
+        #endregion
     }
 }

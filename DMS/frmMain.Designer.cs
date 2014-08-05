@@ -45,7 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listDocType = new System.Windows.Forms.ListBox();
             this.labPageAll = new System.Windows.Forms.Label();
-            this.btnScam = new System.Windows.Forms.Button();
+            this.btnScan = new System.Windows.Forms.Button();
             this.btnMore = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnPageDown = new System.Windows.Forms.Button();
@@ -58,10 +58,11 @@
             this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderProvider = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDocType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAddTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnContrary = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnMenu = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +86,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 401);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(855, 145);
+            this.groupBox1.Size = new System.Drawing.Size(910, 145);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "公文详细信息";
@@ -97,6 +98,7 @@
             this.LabATime.Name = "LabATime";
             this.LabATime.Size = new System.Drawing.Size(0, 12);
             this.LabATime.TabIndex = 43;
+            this.LabATime.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LabATime_LinkClicked);
             // 
             // groupBox2
             // 
@@ -106,7 +108,7 @@
             this.groupBox2.Controls.Add(this.txtNotes);
             this.groupBox2.Location = new System.Drawing.Point(424, 23);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(425, 113);
+            this.groupBox2.Size = new System.Drawing.Size(480, 113);
             this.groupBox2.TabIndex = 41;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "备注";
@@ -119,7 +121,7 @@
             this.txtNotes.Location = new System.Drawing.Point(15, 20);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(404, 87);
+            this.txtNotes.Size = new System.Drawing.Size(459, 87);
             this.txtNotes.TabIndex = 11;
             // 
             // comboBoxDocType
@@ -129,6 +131,7 @@
             this.comboBoxDocType.Name = "comboBoxDocType";
             this.comboBoxDocType.Size = new System.Drawing.Size(135, 20);
             this.comboBoxDocType.TabIndex = 9;
+            this.comboBoxDocType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocType_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -146,6 +149,7 @@
             this.labP.Name = "labP";
             this.labP.Size = new System.Drawing.Size(0, 12);
             this.labP.TabIndex = 13;
+            this.labP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labP_LinkClicked);
             // 
             // labRTime
             // 
@@ -154,6 +158,7 @@
             this.labRTime.Name = "labRTime";
             this.labRTime.Size = new System.Drawing.Size(0, 12);
             this.labRTime.TabIndex = 12;
+            this.labRTime.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labRTime_LinkClicked);
             // 
             // labUrl
             // 
@@ -161,6 +166,7 @@
             this.labUrl.Name = "labUrl";
             this.labUrl.Size = new System.Drawing.Size(331, 37);
             this.labUrl.TabIndex = 7;
+            this.labUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labUrl_LinkClicked);
             // 
             // labS
             // 
@@ -224,14 +230,12 @@
             this.listDocType.ItemHeight = 17;
             this.listDocType.Location = new System.Drawing.Point(12, 79);
             this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(154, 308);
+            this.listDocType.Size = new System.Drawing.Size(107, 308);
             this.listDocType.TabIndex = 43;
             this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
             // labPageAll
             // 
-            this.labPageAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labPageAll.Location = new System.Drawing.Point(543, 51);
@@ -241,20 +245,20 @@
             this.labPageAll.Text = "1";
             this.labPageAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnScam
+            // btnScan
             // 
-            this.btnScam.Location = new System.Drawing.Point(93, 24);
-            this.btnScam.Name = "btnScam";
-            this.btnScam.Size = new System.Drawing.Size(73, 49);
-            this.btnScam.TabIndex = 50;
-            this.btnScam.Text = "扫描文档";
-            this.btnScam.UseVisualStyleBackColor = true;
+            this.btnScan.Location = new System.Drawing.Point(69, 24);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(50, 48);
+            this.btnScan.TabIndex = 50;
+            this.btnScan.Text = "扫描文档";
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // btnMore
             // 
-            this.btnMore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMore.Location = new System.Drawing.Point(764, 51);
+            this.btnMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMore.Location = new System.Drawing.Point(819, 51);
             this.btnMore.Name = "btnMore";
             this.btnMore.Size = new System.Drawing.Size(107, 21);
             this.btnMore.TabIndex = 49;
@@ -268,7 +272,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Location = new System.Drawing.Point(309, 24);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(246, 21);
+            this.txtSearch.Size = new System.Drawing.Size(301, 21);
             this.txtSearch.TabIndex = 48;
             this.txtSearch.Text = "请输入关键字查找公文";
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
@@ -277,8 +281,6 @@
             // 
             // btnPageDown
             // 
-            this.btnPageDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPageDown.Location = new System.Drawing.Point(616, 51);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
@@ -288,8 +290,6 @@
             // 
             // btnPageUp
             // 
-            this.btnPageUp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPageUp.Location = new System.Drawing.Point(338, 51);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
@@ -299,8 +299,6 @@
             // 
             // textBoxNow
             // 
-            this.textBoxNow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNow.Location = new System.Drawing.Point(451, 51);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -312,8 +310,6 @@
             // 
             // labPage
             // 
-            this.labPage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labPage.Location = new System.Drawing.Point(398, 51);
@@ -334,11 +330,12 @@
             this.columnHeaderName,
             this.columnHeaderTime,
             this.columnHeaderProvider,
+            this.columnHeaderAddTime,
             this.columnHeaderDocType});
             this.listDoc.FullRowSelect = true;
-            this.listDoc.Location = new System.Drawing.Point(175, 79);
+            this.listDoc.Location = new System.Drawing.Point(125, 79);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(696, 313);
+            this.listDoc.Size = new System.Drawing.Size(801, 313);
             this.listDoc.TabIndex = 42;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
@@ -352,28 +349,33 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "公文标题";
-            this.columnHeaderName.Width = 300;
+            this.columnHeaderName.Width = 285;
             // 
             // columnHeaderTime
             // 
             this.columnHeaderTime.Text = "发布时间";
-            this.columnHeaderTime.Width = 171;
+            this.columnHeaderTime.Width = 132;
             // 
             // columnHeaderProvider
             // 
             this.columnHeaderProvider.Text = "发布单位";
-            this.columnHeaderProvider.Width = 107;
+            this.columnHeaderProvider.Width = 117;
             // 
             // columnHeaderDocType
             // 
-            this.columnHeaderDocType.Text = "所属分类";
-            this.columnHeaderDocType.Width = 71;
+            this.columnHeaderDocType.Text = "公文类型";
+            this.columnHeaderDocType.Width = 90;
+            // 
+            // columnHeaderAddTime
+            // 
+            this.columnHeaderAddTime.Text = "收录时间";
+            this.columnHeaderAddTime.Width = 132;
             // 
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(12, 24);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 48);
+            this.btnAdd.Size = new System.Drawing.Size(51, 48);
             this.btnAdd.TabIndex = 52;
             this.btnAdd.Text = "添加公文";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -381,8 +383,6 @@
             // 
             // btnContrary
             // 
-            this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnContrary.Location = new System.Drawing.Point(232, 51);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(51, 21);
@@ -393,8 +393,6 @@
             // 
             // btnAll
             // 
-            this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAll.Location = new System.Drawing.Point(175, 51);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(51, 21);
@@ -403,30 +401,30 @@
             this.btnAll.UseVisualStyleBackColor = true;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
             // 
-            // button1
+            // btnMenu
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(827, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 23);
-            this.button1.TabIndex = 55;
-            this.button1.Text = "菜单";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnMenu.Location = new System.Drawing.Point(827, 12);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(99, 23);
+            this.btnMenu.TabIndex = 55;
+            this.btnMenu.Text = "菜单";
+            this.btnMenu.UseVisualStyleBackColor = true;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 558);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(934, 558);
+            this.Controls.Add(this.btnMenu);
             this.Controls.Add(this.btnContrary);
             this.Controls.Add(this.btnAll);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.listDocType);
             this.Controls.Add(this.labPageAll);
-            this.Controls.Add(this.btnScam);
+            this.Controls.Add(this.btnScan);
             this.Controls.Add(this.btnMore);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnPageDown);
@@ -466,7 +464,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listDocType;
         private System.Windows.Forms.Label labPageAll;
-        private System.Windows.Forms.Button btnScam;
+        private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Button btnMore;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnPageDown;
@@ -477,12 +475,13 @@
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderTime;
         private System.Windows.Forms.ColumnHeader columnHeaderProvider;
-        private System.Windows.Forms.ColumnHeader columnHeaderDocType;
+        private System.Windows.Forms.ColumnHeader columnHeaderAddTime;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnContrary;
         private System.Windows.Forms.Button btnAll;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.ColumnHeader columnHeaderID;
+        private System.Windows.Forms.ColumnHeader columnHeaderDocType;
     }
 }
 

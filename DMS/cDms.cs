@@ -9,7 +9,6 @@ namespace DMS
 {
     class cDms
     {
-
         /// <summary>
         /// 根据输入的链接地址，下载网页源码
         /// </summary>
@@ -23,8 +22,10 @@ namespace DMS
             //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
             return s;
         }
+		
         public static void  getTitle(string webCode)
         { }
+		
         /// <summary>
         /// 批量打印
         /// </summary>
