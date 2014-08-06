@@ -28,25 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LabATime = new System.Windows.Forms.LinkLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtNotes = new System.Windows.Forms.TextBox();
-            this.comboBoxDocType = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.labP = new System.Windows.Forms.LinkLabel();
-            this.labRTime = new System.Windows.Forms.LinkLabel();
-            this.labUrl = new System.Windows.Forms.LinkLabel();
-            this.labS = new System.Windows.Forms.Label();
-            this.labDocType = new System.Windows.Forms.Label();
-            this.txtTitle = new System.Windows.Forms.TextBox();
-            this.labName = new System.Windows.Forms.Label();
-            this.labProvider = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "关于学生缴交2014～2015学年学杂费的通知",
+            "关于学生缴交2014～2015学年学杂费的通知",
+            "2014/7/26/星期一 18:00",
+            "学生处",
+            "2014/7/26/星期一 18:05:22",
+            "通知"}, -1);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.listDocType = new System.Windows.Forms.ListBox();
             this.labPageAll = new System.Windows.Forms.Label();
-            this.btnScan = new System.Windows.Forms.Button();
-            this.btnMore = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnPageDown = new System.Windows.Forms.Button();
             this.btnPageUp = new System.Windows.Forms.Button();
@@ -57,222 +49,70 @@
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderProvider = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDocType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAddTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.columnHeaderDocType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmsListDoc = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiLook = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.btnContrary = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
-            this.btnMenu = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tssbAdd = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmiAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAddMore = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbScan = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tslMove = new System.Windows.Forms.ToolStripLabel();
+            this.tscbMove = new System.Windows.Forms.ToolStripComboBox();
+            this.tsbPrint = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbSetting = new System.Windows.Forms.ToolStripButton();
+            this.tsbClose = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tipListDoc = new System.Windows.Forms.ToolTip(this.components);
+            this.cmsListDoc.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.LabATime);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.comboBoxDocType);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.labP);
-            this.groupBox1.Controls.Add(this.labRTime);
-            this.groupBox1.Controls.Add(this.labUrl);
-            this.groupBox1.Controls.Add(this.labS);
-            this.groupBox1.Controls.Add(this.labDocType);
-            this.groupBox1.Controls.Add(this.txtTitle);
-            this.groupBox1.Controls.Add(this.labName);
-            this.groupBox1.Controls.Add(this.labProvider);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 401);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(910, 145);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "公文详细信息";
-            // 
-            // LabATime
-            // 
-            this.LabATime.AutoSize = true;
-            this.LabATime.Location = new System.Drawing.Point(289, 50);
-            this.LabATime.Name = "LabATime";
-            this.LabATime.Size = new System.Drawing.Size(0, 12);
-            this.LabATime.TabIndex = 43;
-            this.LabATime.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LabATime_LinkClicked);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txtNotes);
-            this.groupBox2.Location = new System.Drawing.Point(424, 23);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(480, 113);
-            this.groupBox2.TabIndex = 41;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "备注";
-            // 
-            // txtNotes
-            // 
-            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNotes.Location = new System.Drawing.Point(15, 20);
-            this.txtNotes.Multiline = true;
-            this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(459, 87);
-            this.txtNotes.TabIndex = 11;
-            // 
-            // comboBoxDocType
-            // 
-            this.comboBoxDocType.FormattingEnabled = true;
-            this.comboBoxDocType.Location = new System.Drawing.Point(77, 47);
-            this.comboBoxDocType.Name = "comboBoxDocType";
-            this.comboBoxDocType.Size = new System.Drawing.Size(135, 20);
-            this.comboBoxDocType.TabIndex = 9;
-            this.comboBoxDocType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocType_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(218, 50);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 42;
-            this.label4.Text = "收录时间：";
-            // 
-            // labP
-            // 
-            this.labP.AutoSize = true;
-            this.labP.Location = new System.Drawing.Point(77, 76);
-            this.labP.Name = "labP";
-            this.labP.Size = new System.Drawing.Size(0, 12);
-            this.labP.TabIndex = 13;
-            this.labP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labP_LinkClicked);
-            // 
-            // labRTime
-            // 
-            this.labRTime.AutoSize = true;
-            this.labRTime.Location = new System.Drawing.Point(289, 76);
-            this.labRTime.Name = "labRTime";
-            this.labRTime.Size = new System.Drawing.Size(0, 12);
-            this.labRTime.TabIndex = 12;
-            this.labRTime.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labRTime_LinkClicked);
-            // 
-            // labUrl
-            // 
-            this.labUrl.Location = new System.Drawing.Point(77, 99);
-            this.labUrl.Name = "labUrl";
-            this.labUrl.Size = new System.Drawing.Size(331, 37);
-            this.labUrl.TabIndex = 7;
-            this.labUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labUrl_LinkClicked);
-            // 
-            // labS
-            // 
-            this.labS.AutoSize = true;
-            this.labS.Location = new System.Drawing.Point(6, 99);
-            this.labS.Name = "labS";
-            this.labS.Size = new System.Drawing.Size(65, 12);
-            this.labS.TabIndex = 6;
-            this.labS.Text = "公文来源：";
-            // 
-            // labDocType
-            // 
-            this.labDocType.AutoSize = true;
-            this.labDocType.Location = new System.Drawing.Point(6, 50);
-            this.labDocType.Name = "labDocType";
-            this.labDocType.Size = new System.Drawing.Size(65, 12);
-            this.labDocType.TabIndex = 5;
-            this.labDocType.Text = "公文类型：";
-            // 
-            // txtTitle
-            // 
-            this.txtTitle.Location = new System.Drawing.Point(77, 20);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(331, 21);
-            this.txtTitle.TabIndex = 1;
-            // 
-            // labName
-            // 
-            this.labName.AutoSize = true;
-            this.labName.Location = new System.Drawing.Point(6, 23);
-            this.labName.Name = "labName";
-            this.labName.Size = new System.Drawing.Size(65, 12);
-            this.labName.TabIndex = 0;
-            this.labName.Text = "公文标题：";
-            // 
-            // labProvider
-            // 
-            this.labProvider.AutoSize = true;
-            this.labProvider.Location = new System.Drawing.Point(6, 76);
-            this.labProvider.Name = "labProvider";
-            this.labProvider.Size = new System.Drawing.Size(65, 12);
-            this.labProvider.TabIndex = 4;
-            this.labProvider.Text = "发布单位：";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(218, 76);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "发布日期：";
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listDocType.BackColor = System.Drawing.SystemColors.Menu;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDocType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listDocType.FormattingEnabled = true;
             this.listDocType.ItemHeight = 17;
             this.listDocType.Location = new System.Drawing.Point(12, 79);
             this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(107, 308);
+            this.listDocType.Size = new System.Drawing.Size(107, 410);
             this.listDocType.TabIndex = 43;
             this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
             // labPageAll
             // 
+            this.labPageAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(543, 51);
+            this.labPageAll.Location = new System.Drawing.Point(489, 493);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(41, 21);
             this.labPageAll.TabIndex = 51;
             this.labPageAll.Text = "1";
             this.labPageAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnScan
-            // 
-            this.btnScan.Location = new System.Drawing.Point(69, 24);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(50, 48);
-            this.btnScan.TabIndex = 50;
-            this.btnScan.Text = "扫描文档";
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
-            // 
-            // btnMore
-            // 
-            this.btnMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMore.Location = new System.Drawing.Point(819, 51);
-            this.btnMore.Name = "btnMore";
-            this.btnMore.Size = new System.Drawing.Size(107, 21);
-            this.btnMore.TabIndex = 49;
-            this.btnMore.Text = "打印选择的公文";
-            this.btnMore.UseVisualStyleBackColor = true;
-            this.btnMore.Click += new System.EventHandler(this.btnMore_Click);
-            // 
             // txtSearch
             // 
-            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(309, 24);
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.Location = new System.Drawing.Point(676, 52);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(301, 21);
+            this.txtSearch.Size = new System.Drawing.Size(250, 21);
             this.txtSearch.TabIndex = 48;
             this.txtSearch.Text = "请输入关键字查找公文";
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
@@ -281,7 +121,8 @@
             // 
             // btnPageDown
             // 
-            this.btnPageDown.Location = new System.Drawing.Point(616, 51);
+            this.btnPageDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPageDown.Location = new System.Drawing.Point(562, 493);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
             this.btnPageDown.TabIndex = 47;
@@ -290,7 +131,8 @@
             // 
             // btnPageUp
             // 
-            this.btnPageUp.Location = new System.Drawing.Point(338, 51);
+            this.btnPageUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPageUp.Location = new System.Drawing.Point(284, 493);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
             this.btnPageUp.TabIndex = 46;
@@ -299,7 +141,8 @@
             // 
             // textBoxNow
             // 
-            this.textBoxNow.Location = new System.Drawing.Point(451, 51);
+            this.textBoxNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxNow.Location = new System.Drawing.Point(397, 493);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBoxNow.Size = new System.Drawing.Size(40, 21);
@@ -310,9 +153,10 @@
             // 
             // labPage
             // 
+            this.labPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(398, 51);
+            this.labPage.Location = new System.Drawing.Point(344, 493);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 45;
@@ -321,9 +165,10 @@
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.BackColor = System.Drawing.SystemColors.Menu;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderID,
@@ -332,13 +177,19 @@
             this.columnHeaderProvider,
             this.columnHeaderAddTime,
             this.columnHeaderDocType});
+            this.listDoc.ContextMenuStrip = this.cmsListDoc;
             this.listDoc.FullRowSelect = true;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem1.ToolTipText = "备注：123";
+            this.listDoc.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
             this.listDoc.Location = new System.Drawing.Point(125, 79);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(801, 313);
+            this.listDoc.Size = new System.Drawing.Size(801, 408);
             this.listDoc.TabIndex = 42;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
+            this.listDoc.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listDoc_ItemChecked);
             this.listDoc.SelectedIndexChanged += new System.EventHandler(this.listDoc_SelectedIndexChanged);
             // 
             // columnHeaderID
@@ -349,41 +200,85 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "公文标题";
-            this.columnHeaderName.Width = 285;
+            this.columnHeaderName.Width = 266;
             // 
             // columnHeaderTime
             // 
             this.columnHeaderTime.Text = "发布时间";
-            this.columnHeaderTime.Width = 132;
+            this.columnHeaderTime.Width = 163;
             // 
             // columnHeaderProvider
             // 
             this.columnHeaderProvider.Text = "发布单位";
             this.columnHeaderProvider.Width = 117;
             // 
-            // columnHeaderDocType
-            // 
-            this.columnHeaderDocType.Text = "公文类型";
-            this.columnHeaderDocType.Width = 90;
-            // 
             // columnHeaderAddTime
             // 
             this.columnHeaderAddTime.Text = "收录时间";
             this.columnHeaderAddTime.Width = 132;
             // 
-            // btnAdd
+            // columnHeaderDocType
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 24);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(51, 48);
-            this.btnAdd.TabIndex = 52;
-            this.btnAdd.Text = "添加公文";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.columnHeaderDocType.Text = "公文类型";
+            this.columnHeaderDocType.Width = 90;
+            // 
+            // cmsListDoc
+            // 
+            this.cmsListDoc.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiLook,
+            this.tsmiLocation,
+            this.toolStripSeparator4,
+            this.tsmiExport,
+            this.tsmiDelete,
+            this.toolStripSeparator3,
+            this.tsmiInfo});
+            this.cmsListDoc.Name = "cmsListDoc";
+            this.cmsListDoc.Size = new System.Drawing.Size(149, 126);
+            // 
+            // tsmiLook
+            // 
+            this.tsmiLook.Name = "tsmiLook";
+            this.tsmiLook.Size = new System.Drawing.Size(148, 22);
+            this.tsmiLook.Text = "查看公文";
+            // 
+            // tsmiLocation
+            // 
+            this.tsmiLocation.Name = "tsmiLocation";
+            this.tsmiLocation.Size = new System.Drawing.Size(148, 22);
+            this.tsmiLocation.Text = "打开公文位置";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(145, 6);
+            // 
+            // tsmiExport
+            // 
+            this.tsmiExport.Name = "tsmiExport";
+            this.tsmiExport.Size = new System.Drawing.Size(148, 22);
+            this.tsmiExport.Text = "导出公文";
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(148, 22);
+            this.tsmiDelete.Text = "删除公文";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(145, 6);
+            // 
+            // tsmiInfo
+            // 
+            this.tsmiInfo.Name = "tsmiInfo";
+            this.tsmiInfo.Size = new System.Drawing.Size(148, 22);
+            this.tsmiInfo.Text = "属性";
             // 
             // btnContrary
             // 
-            this.btnContrary.Location = new System.Drawing.Point(232, 51);
+            this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnContrary.Location = new System.Drawing.Point(182, 493);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(51, 21);
             this.btnContrary.TabIndex = 54;
@@ -393,7 +288,8 @@
             // 
             // btnAll
             // 
-            this.btnAll.Location = new System.Drawing.Point(175, 51);
+            this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAll.Location = new System.Drawing.Point(125, 493);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(51, 21);
             this.btnAll.TabIndex = 53;
@@ -401,45 +297,150 @@
             this.btnAll.UseVisualStyleBackColor = true;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
             // 
-            // btnMenu
+            // toolStrip1
             // 
-            this.btnMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMenu.Location = new System.Drawing.Point(827, 12);
-            this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(99, 23);
-            this.btnMenu.TabIndex = 55;
-            this.btnMenu.Text = "菜单";
-            this.btnMenu.UseVisualStyleBackColor = true;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssbAdd,
+            this.tsbScan,
+            this.toolStripSeparator1,
+            this.tslMove,
+            this.tscbMove,
+            this.tsbPrint,
+            this.toolStripSeparator2,
+            this.tsbSetting,
+            this.tsbClose});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(934, 39);
+            this.toolStrip1.TabIndex = 56;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tssbAdd
+            // 
+            this.tssbAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAdd,
+            this.tsmiAddMore});
+            this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
+            this.tssbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tssbAdd.Name = "tssbAdd";
+            this.tssbAdd.Size = new System.Drawing.Size(104, 36);
+            this.tssbAdd.Text = "添加公文";
+            this.tssbAdd.ButtonClick += new System.EventHandler(this.tssbAdd_ButtonClick);
+            // 
+            // tsmiAdd
+            // 
+            this.tsmiAdd.Name = "tsmiAdd";
+            this.tsmiAdd.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAdd.Text = "添加公文";
+            this.tsmiAdd.Click += new System.EventHandler(this.tssbAdd_ButtonClick);
+            // 
+            // tsmiAddMore
+            // 
+            this.tsmiAddMore.Name = "tsmiAddMore";
+            this.tsmiAddMore.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAddMore.Text = "批量添加公文";
+            this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
+            // 
+            // tsbScan
+            // 
+            this.tsbScan.Image = ((System.Drawing.Image)(resources.GetObject("tsbScan.Image")));
+            this.tsbScan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbScan.Name = "tsbScan";
+            this.tsbScan.Size = new System.Drawing.Size(92, 36);
+            this.tsbScan.Text = "扫描文档";
+            this.tsbScan.Click += new System.EventHandler(this.tsbScan_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
+            // tslMove
+            // 
+            this.tslMove.Enabled = false;
+            this.tslMove.Name = "tslMove";
+            this.tslMove.Size = new System.Drawing.Size(56, 36);
+            this.tslMove.Text = "移动至：";
+            // 
+            // tscbMove
+            // 
+            this.tscbMove.Enabled = false;
+            this.tscbMove.Name = "tscbMove";
+            this.tscbMove.Size = new System.Drawing.Size(121, 39);
+            // 
+            // tsbPrint
+            // 
+            this.tsbPrint.BackColor = System.Drawing.SystemColors.Control;
+            this.tsbPrint.Enabled = false;
+            this.tsbPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
+            this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbPrint.Name = "tsbPrint";
+            this.tsbPrint.Size = new System.Drawing.Size(116, 36);
+            this.tsbPrint.Text = "打印选中公文";
+            this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            // 
+            // tsbSetting
+            // 
+            this.tsbSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbSetting.Image = ((System.Drawing.Image)(resources.GetObject("tsbSetting.Image")));
+            this.tsbSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSetting.Name = "tsbSetting";
+            this.tsbSetting.Size = new System.Drawing.Size(36, 36);
+            this.tsbSetting.Text = "设置";
+            this.tsbSetting.Click += new System.EventHandler(this.tsbSetting_Click);
+            // 
+            // tsbClose
+            // 
+            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
+            this.tsbClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbClose.Name = "tsbClose";
+            this.tsbClose.Size = new System.Drawing.Size(36, 36);
+            this.tsbClose.Text = "退出";
+            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 536);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(934, 22);
+            this.statusStrip1.TabIndex = 57;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tipListDoc
+            // 
+            this.tipListDoc.ToolTipTitle = "备注：";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(934, 558);
-            this.Controls.Add(this.btnMenu);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnContrary);
             this.Controls.Add(this.btnAll);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.listDocType);
             this.Controls.Add(this.labPageAll);
-            this.Controls.Add(this.btnScan);
-            this.Controls.Add(this.btnMore);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnPageDown);
             this.Controls.Add(this.btnPageUp);
             this.Controls.Add(this.textBoxNow);
             this.Controls.Add(this.labPage);
             this.Controls.Add(this.listDoc);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.toolStrip1);
             this.Name = "frmMain";
             this.Text = "公文管理系统";
             this.Load += new System.EventHandler(this.mainForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.cmsListDoc.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,25 +448,8 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.LinkLabel LabATime;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtNotes;
-        private System.Windows.Forms.ComboBox comboBoxDocType;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.LinkLabel labP;
-        private System.Windows.Forms.LinkLabel labRTime;
-        private System.Windows.Forms.LinkLabel labUrl;
-        private System.Windows.Forms.Label labS;
-        private System.Windows.Forms.Label labDocType;
-        private System.Windows.Forms.TextBox txtTitle;
-        private System.Windows.Forms.Label labName;
-        private System.Windows.Forms.Label labProvider;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listDocType;
         private System.Windows.Forms.Label labPageAll;
-        private System.Windows.Forms.Button btnScan;
-        private System.Windows.Forms.Button btnMore;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnPageDown;
         private System.Windows.Forms.Button btnPageUp;
@@ -476,12 +460,32 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTime;
         private System.Windows.Forms.ColumnHeader columnHeaderProvider;
         private System.Windows.Forms.ColumnHeader columnHeaderAddTime;
-        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnContrary;
         private System.Windows.Forms.Button btnAll;
-        private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.ColumnHeader columnHeaderID;
         private System.Windows.Forms.ColumnHeader columnHeaderDocType;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripSplitButton tssbAdd;
+        private System.Windows.Forms.ToolStripButton tsbScan;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel tslMove;
+        private System.Windows.Forms.ToolStripComboBox tscbMove;
+        private System.Windows.Forms.ToolStripButton tsbPrint;
+        private System.Windows.Forms.ToolStripButton tsbSetting;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton tsbClose;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdd;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddMore;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ContextMenuStrip cmsListDoc;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLook;
+        private System.Windows.Forms.ToolStripMenuItem tsmiInfo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExport;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLocation;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolTip tipListDoc;
     }
 }
 

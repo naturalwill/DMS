@@ -30,17 +30,17 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPath = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUser = new System.Windows.Forms.TextBox();
+            this.txtIP = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -50,7 +50,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnBrowse);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtPath);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -62,6 +62,7 @@
             // 
             // btnBrowse
             // 
+            this.btnBrowse.Enabled = false;
             this.btnBrowse.Location = new System.Drawing.Point(215, 62);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(39, 24);
@@ -70,12 +71,13 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // textBox1
+            // txtPath
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 65);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(182, 21);
-            this.textBox1.TabIndex = 3;
+            this.txtPath.Enabled = false;
+            this.txtPath.Location = new System.Drawing.Point(27, 65);
+            this.txtPath.Name = "txtPath";
+            this.txtPath.Size = new System.Drawing.Size(182, 21);
+            this.txtPath.TabIndex = 3;
             // 
             // radioButton2
             // 
@@ -87,6 +89,7 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "自定义：";
             this.radioButton2.UseVisualStyleBackColor = true;
+            //this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -99,13 +102,14 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "默认为“我的文档\\DMS”";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.txtPassword);
+            this.groupBox2.Controls.Add(this.txtUser);
+            this.groupBox2.Controls.Add(this.txtIP);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
@@ -115,6 +119,36 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "备份";
+            // 
+            // label4
+            // 
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(7, 97);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(246, 34);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "注：主机名名为域名或IP地址，如：gdmc.edu.cn、222.16.117.203:21\r\n    ";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(66, 72);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(142, 21);
+            this.txtPassword.TabIndex = 5;
+            // 
+            // txtUser
+            // 
+            this.txtUser.Location = new System.Drawing.Point(66, 45);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Size = new System.Drawing.Size(142, 21);
+            this.txtUser.TabIndex = 4;
+            // 
+            // txtIP
+            // 
+            this.txtIP.Location = new System.Drawing.Point(66, 18);
+            this.txtIP.Name = "txtIP";
+            this.txtIP.Size = new System.Drawing.Size(142, 21);
+            this.txtIP.TabIndex = 3;
             // 
             // label3
             // 
@@ -143,36 +177,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "主机名：";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(66, 18);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(142, 21);
-            this.textBox2.TabIndex = 3;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(66, 45);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(142, 21);
-            this.textBox3.TabIndex = 4;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(66, 72);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(142, 21);
-            this.textBox4.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(7, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(246, 34);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "注：主机名名为域名或IP地址，如：gdmc.edu.cn、222.16.117.203:21\r\n    ";
-            // 
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(197, 253);
@@ -181,6 +185,7 @@
             this.btnCancel.TabIndex = 51;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOK
             // 
@@ -190,6 +195,7 @@
             this.btnOK.TabIndex = 50;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // frmSettings
             // 
@@ -202,6 +208,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmSettings";
             this.Text = "设置";
+            this.Load += new System.EventHandler(this.frmSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -214,7 +221,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -222,9 +229,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtUser;
+        private System.Windows.Forms.TextBox txtIP;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
     }

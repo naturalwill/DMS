@@ -22,15 +22,18 @@ namespace DMS
             //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
             return s;
         }
-		
-        public static void  getTitle(string webCode)
+
+        public static void getTitle(string webCode)
         { }
-		
+    }
+    class PrintFiles
+    {
+        public static string paths;
         /// <summary>
         /// 批量打印
         /// </summary>
         /// <param name="paths">要打印的文件的路径，以“|”分隔</param>
-        public static void printFiles(string paths)
+        public static void printFiles()
         {
             var wordFiles = new List<object>();
             var docs = new List<Word.Document>();
