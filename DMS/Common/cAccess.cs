@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 
-namespace DMS
+namespace DMS.Common
 {
     class cAccess
     {
@@ -51,7 +51,7 @@ namespace DMS
             conn.Close();
         }
 
-        public static void add( string _DocTitle, string _Source, string _LocalPath, string _DocType = "", string _ReleaseDate = "", string _Provider = "", string _Notes = "")
+        public static void add(string _DocTitle, string _Source, string _LocalPath, string _DocType = "", string _ReleaseDate = "", string _Provider = "", string _Notes = "")
         {
             DataRow drNewRow = DtTable.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
 

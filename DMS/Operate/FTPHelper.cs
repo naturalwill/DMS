@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace DMS
+namespace DMS.Operate
 {
     public class FTPHelper
     {

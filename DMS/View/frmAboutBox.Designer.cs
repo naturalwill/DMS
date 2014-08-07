@@ -1,4 +1,4 @@
-﻿namespace DMS
+﻿namespace DMS.View
 {
     partial class frmAboutBox
     {

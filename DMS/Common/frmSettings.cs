@@ -7,13 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DMS
+namespace DMS.Common
 {
     public partial class frmSettings : Form
     {
         public frmSettings()
         {
             InitializeComponent();
+        }
+
+        private void frmSettings_Load(object sender, EventArgs e)
+        {
+
+            if (cConfig.defaultPath == '1')
+            {
+                radioButton1.Checked = true;
+            }
+            else
+            {
+                radioButton2.Checked = true;
+                txtPath.Text = cConfig.strWorkPath;
+            }
+            txtIP.Text = cConfig.FTP_IP;
+            txtUser.Text = cConfig.FTP_user;
+            txtPassword.Text = cConfig.FTP_password;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -27,7 +44,7 @@ namespace DMS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (cConfig.defaultPath=='1')
+            if (cConfig.defaultPath == '1')
                 cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
             else
                 cConfig.strWorkPath = txtPath.Text;
@@ -43,22 +60,7 @@ namespace DMS
             this.Close();
         }
 
-        private void frmSettings_Load(object sender, EventArgs e)
-        {
-
-            if (cConfig.defaultPath=='1')
-            {
-                radioButton1.Checked = true;
-            }
-            else
-            {
-                radioButton2.Checked = true;
-                txtPath.Text = cConfig.strWorkPath;
-            }
-            txtIP.Text = cConfig.FTP_IP;
-            txtUser.Text = cConfig.FTP_user;
-            txtPassword.Text = cConfig.FTP_password;
-        }
+        
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -75,8 +77,5 @@ namespace DMS
                 btnBrowse.Enabled = true;
             }
         }
-
-
-
     }
 }

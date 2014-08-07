@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.IO;
 
-namespace DMS
+namespace DMS.Common
 {
     class cConfig
     {
@@ -83,7 +83,6 @@ namespace DMS
                 SaveConfig();
             }
         }
-
         #endregion
     }
 }

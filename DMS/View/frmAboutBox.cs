@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace DMS
+namespace DMS.View
 {
     partial class frmAboutBox : Form
     {
@@ -100,6 +100,5 @@ namespace DMS
             }
         }
         #endregion
-		
     }
 }

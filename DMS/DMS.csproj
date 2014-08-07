@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E13CDD09-10CA-4367-8AD2-41AEA5A552B3}</ProjectGuid>
+    <ProjectGuid>{95F29424-F76E-46F2-9D8A-1F28168B6105}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DMS</RootNamespace>
@@ -47,69 +47,66 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDoc\frmAddMoreDoc.cs">
+    <Compile Include="Common\cAccess.cs" />
+    <Compile Include="Common\cConfig.cs" />
+    <Compile Include="Common\frmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDoc\frmAddMoreDoc.Designer.cs">
-      <DependentUpon>frmAddMoreDoc.cs</DependentUpon>
+    <Compile Include="Common\frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDoc\frmSetting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddDoc\frmSetting.Designer.cs">
-      <DependentUpon>frmSetting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="cAccess.cs" />
-    <Compile Include="cConfig.cs" />
-    <Compile Include="cDms.cs" />
-    <Compile Include="cFTP.cs" />
-    <Compile Include="frmAboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAboutBox.Designer.cs">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmAddDoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAddDoc.Designer.cs">
-      <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Operate\cMakeWord.cs" />
+    <Compile Include="Operate\FTPHelper.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="cOdList.cs" />
-    <Compile Include="frmScan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmScan.Designer.cs">
-      <DependentUpon>frmScan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSettings.Designer.cs">
-      <DependentUpon>frmSettings.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Operate\cPrintFiles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmAboutBox.resx">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAddDoc.resx">
+    <Compile Include="Store\frmAddDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Store\frmAddDoc.Designer.cs">
       <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Store\frmAddMoreDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Store\frmAddMoreDoc.Designer.cs">
+      <DependentUpon>frmAddMoreDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Store\frmScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Store\frmScan.Designer.cs">
+      <DependentUpon>frmScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Type\frmNewType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Type\frmNewType.Designer.cs">
+      <DependentUpon>frmNewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmAboutBox.Designer.cs">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmProperty.Designer.cs">
+      <DependentUpon>frmProperty.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Common\frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmScan.resx">
-      <DependentUpon>frmScan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmSettings.resx">
-      <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -120,6 +117,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\frmAboutBox.resx">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,20 +129,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="README.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="ADOX">
-      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
-      <VersionMajor>6</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
