@@ -23,15 +23,10 @@ namespace DMS
         }
 
         #region 字段
-        string SearchTips = "请输入关键字查找公文";
-        static string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Environment.CurrentDirectory + @"\DMS.mdb";
-        OleDbConnection conn = new OleDbConnection(connString);
-        OleDbCommand cmd;
-        OleDbDataAdapter DtAdapter;
-        OleDbCommandBuilder CoBuilder;
-        DataTable DtTable;
-        List<string> DocTypeList;
+        string SearchTips = "搜索公文";
         
+        List<string> DocTypeList;
+
         string PathCurrent;
         string PathNew;
         #endregion
@@ -40,35 +35,7 @@ namespace DMS
         {
             try
             {
-                //                if (!(File.Exists(Environment.CurrentDirectory + @"\DMS.mdb")))
-                //                {
-                //                    ADOX.CatalogClass cat = new ADOX.CatalogClass();
-                //                    cat.Create(connString);
-                //                    System.Diagnostics.Debug.Write("Database Created Successfully");
-                //                    cat = null;
-                ////                    conn.Open();
-                ////                    string sql = @"CREATE TABLE [OfficialDocument] 
-                ////(
-                ////[ID] int NOT NULL,
-                ////[AddTime] datetime NOT NULL,
-                ////[DocTitle] varchar(255) NOT NULL,
-                ////[ReleaseDate] datetime,
-                ////[Provider] varchar(255),
-                ////[Source] varchar(max),
-                ////[DocType] varchar(255),
-                ////[LocalPath] varchar(max),
-                ////[Notes] varchar(max)
-                ////)";
-                ////                    cmd = new OleDbCommand(sql, conn);
-                ////                    cmd.ExecuteNonQuery();
-                //                }
-                if (conn.State != ConnectionState.Open)
-                    conn.Open();
-                DtAdapter = new OleDbDataAdapter("Select * From OfficialDocument", conn);
-                CoBuilder = new OleDbCommandBuilder(DtAdapter);
-                DtTable = new DataTable();
-                DtAdapter.Fill(DtTable);
-                conn.Close();
+                cAccess.load();
 
                 readDocTypeList();
                 //saveDocTypeList();
@@ -155,9 +122,9 @@ namespace DMS
                 xe.RemoveAll();
             }
 
-            for (int row = 0; row < DtTable.Rows.Count; row++)
+            for (int row = 0; row <cAccess.DtTable.Rows.Count; row++)
             {
-                string str = DtTable.Rows[row]["DocType"].ToString();
+                string str =cAccess.DtTable.Rows[row]["DocType"].ToString();
 
                 //if (DocTypeList.Count == 0)
                 //{
@@ -196,31 +163,31 @@ namespace DMS
             string strSelected = listDocType.SelectedItem.ToString();
             if (strSelected == "全部类型")
             {
-                for (int row = 0; row < DtTable.Rows.Count; row++)
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
                 {
                     ListViewItem lvitem = new ListViewItem();
 
-                    lvitem = listDoc.Items.Add(DtTable.Rows[row]["ID"].ToString());
-                    lvitem.SubItems.Add(DtTable.Rows[row]["DocTitle"].ToString());
-                    lvitem.SubItems.Add(DtTable.Rows[row]["ReleaseDate"].ToString());
-                    lvitem.SubItems.Add(DtTable.Rows[row]["Provider"].ToString());
-                    lvitem.SubItems.Add(DtTable.Rows[row]["AddTime"].ToString());
-                    lvitem.SubItems.Add(DtTable.Rows[row]["DocType"].ToString());
+                    lvitem = listDoc.Items.Add(cAccess.DtTable.Rows[row]["ID"].ToString());
+                    lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                    lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["ReleaseDate"].ToString());
+                    lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["Provider"].ToString());
+                    lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["AddTime"].ToString());
+                    lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocType"].ToString());
                 }
             }
             else
             {
-                for (int row = 0; row < DtTable.Rows.Count; row++)
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
                 {
-                    if (strSelected == DtTable.Rows[row]["DocType"].ToString())
+                    if (strSelected == cAccess.DtTable.Rows[row]["DocType"].ToString())
                     {
                         ListViewItem lvitem = new ListViewItem();
-                        lvitem = listDoc.Items.Add(DtTable.Rows[row]["ID"].ToString());
-                        lvitem.SubItems.Add(DtTable.Rows[row]["DocTitle"].ToString());
-                        lvitem.SubItems.Add(DtTable.Rows[row]["ReleaseDate"].ToString());
-                        lvitem.SubItems.Add(DtTable.Rows[row]["Provider"].ToString());
-                        lvitem.SubItems.Add(DtTable.Rows[row]["AddTime"].ToString());
-                        lvitem.SubItems.Add(DtTable.Rows[row]["DocType"].ToString());
+                        lvitem = listDoc.Items.Add(cAccess.DtTable.Rows[row]["ID"].ToString());
+                        lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                        lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["ReleaseDate"].ToString());
+                        lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["Provider"].ToString());
+                        lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["AddTime"].ToString());
+                        lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocType"].ToString());
                     }
                 }
             }
@@ -229,36 +196,39 @@ namespace DMS
 
         private void listDoc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (listDoc.SelectedItems.Count > 0)
-            //{
-            //    //for (int row = 0; row < DtTable.Rows.Count; row++)
-            //    //{
-            //    //    if (listDoc.SelectedItems[0].SubItems[0].Text == DtTable.Rows[row]["ID"].ToString())
-            //    //    {
-            //    //        txtTitle.Text = DtTable.Rows[row]["DocTitle"].ToString();
-            //    //        labRTime.Text = DtTable.Rows[row]["ReleaseDate"].ToString();
-            //    //        labP.Text = DtTable.Rows[row]["Provider"].ToString();
-            //    //        comboBoxDocType.Text = PathCurrent = DtTable.Rows[row]["DocType"].ToString();
-            //    //        labUrl.Text = DtTable.Rows[row]["Source"].ToString();
-            //    //        txtNotes.Text = DtTable.Rows[row]["Notes"].ToString();
-            //    //        LabATime.Text = DtTable.Rows[row]["AddTime"].ToString();
-            //    //    }
-            //    //}
-            //    tslMove.Enabled = true;
-            //    tscbMove.Enabled = true;
-            //}
-            //else
-            //{
-            //    tslMove.Enabled = false;
-            //    tscbMove.Enabled = false;
-            //}
-            this.tipListDoc.SetToolTip(listDoc, "备注：123");
+            string notes="";
+            if (listDoc.SelectedItems.Count > 0)
+            {
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                {
+                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
+                    {
+                        //txtTitle.Text = cAccess.DtTable.Rows[row]["DocTitle"].ToString();
+                        //labRTime.Text = cAccess.DtTable.Rows[row]["ReleaseDate"].ToString();
+                        //labP.Text = cAccess.DtTable.Rows[row]["Provider"].ToString();
+                        //comboBoxDocType.Text = PathCurrent = cAccess.DtTable.Rows[row]["DocType"].ToString();
+                        //labUrl.Text = cAccess.DtTable.Rows[row]["Source"].ToString();
+                        //txtNotes.Text = cAccess.DtTable.Rows[row]["Notes"].ToString();
+                        //LabATime.Text = cAccess.DtTable.Rows[row]["AddTime"].ToString();
+                        notes = cAccess.DtTable.Rows[row]["Notes"].ToString();
+                    }
+                }
+                //tslMove.Enabled = true;
+                //tscbMove.Enabled = true;
+            }
+            else
+            {
+                //tslMove.Enabled = false;
+                //tscbMove.Enabled = false;
+            }
+          
+            this.tipListDoc.SetToolTip(listDoc,  notes);
         }
 
 
         private void listDoc_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (listDoc.CheckedItems.Count>0)
+            if (listDoc.CheckedItems.Count > 0)
             {
                 tsbPrint.Enabled = true;
                 tslMove.Enabled = true;
@@ -307,13 +277,13 @@ namespace DMS
         //    {
         //        if (comboBoxDocType.SelectedIndex >= 0)
         //        {
-        //            for (int row = 0; row < DtTable.Rows.Count; row++)
+        //            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
         //            {
-        //                if (listDoc.SelectedItems[0].SubItems[0].Text == DtTable.Rows[row]["ID"].ToString())
+        //                if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
         //                {
-        //                    DtTable.Rows[row]["DocType"] = comboBoxDocType.SelectedItem;
-        //                    DtAdapter.Update(DtTable);
-        //                    //System.Diagnostics.Debug.WriteLine(DtTable.Rows[row]["DocType"]);
+        //                    cAccess.DtTable.Rows[row]["DocType"] = comboBoxDocType.SelectedItem;
+        //                    DtAdapter.Update(cAccess.DtTable);
+        //                    //System.Diagnostics.Debug.WriteLine(cAccess.DtTable.Rows[row]["DocType"]);
         //                }
         //            }
 
@@ -335,18 +305,18 @@ namespace DMS
         //{
         //    listDoc.Items.Clear();
         //    int div = LabATime.Text.IndexOf(' ');
-        //    for (int i = 0; i < DtTable.Rows.Count; i++)
+        //    for (int i = 0; i < cAccess.DtTable.Rows.Count; i++)
         //    {
 
-        //        if (LabATime.Text.Substring(0, div) == DtTable.Rows[i]["AddTime"].ToString().Substring(0, div))
+        //        if (LabATime.Text.Substring(0, div) == cAccess.DtTable.Rows[i]["AddTime"].ToString().Substring(0, div))
         //        {
         //            ListViewItem lvi = new ListViewItem();
-        //            lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+        //            lvi = listDoc.Items.Add(cAccess.DtTable.Rows[i]["ID"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["DocTitle"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["ReleaseDate"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Provider"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["AddTime"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Doctype"].ToString());
         //        }
         //    }
         //}
@@ -357,17 +327,17 @@ namespace DMS
         //{
         //    listDoc.Items.Clear();
         //    int div = labRTime.Text.IndexOf(' ');
-        //    for (int i = 0; i < DtTable.Rows.Count; i++)
+        //    for (int i = 0; i < cAccess.DtTable.Rows.Count; i++)
         //    {
-        //        if (labRTime.Text.Substring(0, div) == DtTable.Rows[i]["ReleaseDate"].ToString().Substring(0, div))
+        //        if (labRTime.Text.Substring(0, div) == cAccess.DtTable.Rows[i]["ReleaseDate"].ToString().Substring(0, div))
         //        {
         //            ListViewItem lvi = new ListViewItem();
-        //            lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+        //            lvi = listDoc.Items.Add(cAccess.DtTable.Rows[i]["ID"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["DocTitle"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["ReleaseDate"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Provider"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["AddTime"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Doctype"].ToString());
         //        }
         //    }
         //}
@@ -377,17 +347,17 @@ namespace DMS
         //private void labP_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         //{
         //    listDoc.Items.Clear();
-        //    for (int i = 0; i < DtTable.Rows.Count; i++)
+        //    for (int i = 0; i < cAccess.DtTable.Rows.Count; i++)
         //    {
-        //        if (labP.Text == DtTable.Rows[i]["Provider"].ToString())
+        //        if (labP.Text == cAccess.DtTable.Rows[i]["Provider"].ToString())
         //        {
         //            ListViewItem lvi = new ListViewItem();
-        //            lvi = listDoc.Items.Add(DtTable.Rows[i]["ID"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["DocTitle"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["ReleaseDate"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Provider"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["AddTime"].ToString());
-        //            lvi.SubItems.Add(DtTable.Rows[i]["Doctype"].ToString());
+        //            lvi = listDoc.Items.Add(cAccess.DtTable.Rows[i]["ID"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["DocTitle"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["ReleaseDate"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Provider"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["AddTime"].ToString());
+        //            lvi.SubItems.Add(cAccess.DtTable.Rows[i]["Doctype"].ToString());
         //        }
         //    }
         //}
@@ -443,16 +413,16 @@ namespace DMS
                 for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                 {
                     //if (listDoc.CheckedItems[i].Checked == true)
-                    for (int row = 0; row < DtTable.Rows.Count; row++)
+                    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
                     {
-                        if (listDoc.CheckedItems[i].SubItems[0].Text == DtTable.Rows[row]["ID"].ToString())
+                        if (listDoc.CheckedItems[i].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
                         {
-                            files += DtTable.Rows[row]["LocalPath"].ToString() + "|";
+                            files += cAccess.DtTable.Rows[row]["LocalPath"].ToString() + "|";
                         }
                     }
                 }
-                PrintFiles.paths = files;
-                Thread th = new Thread(new ThreadStart(PrintFiles.printFiles));
+                cPrintFiles.paths = files;
+                Thread th = new Thread(new ThreadStart(cPrintFiles.printFiles));
             }
 
         }
@@ -468,10 +438,11 @@ namespace DMS
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void tsbAbout_Click(object sender, EventArgs e)
         {
 
         }
+
 
 
 

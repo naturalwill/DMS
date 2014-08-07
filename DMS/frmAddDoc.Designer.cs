@@ -95,7 +95,6 @@
             this.comboBoxDocType.Name = "comboBoxDocType";
             this.comboBoxDocType.Size = new System.Drawing.Size(135, 20);
             this.comboBoxDocType.TabIndex = 45;
-            this.comboBoxDocType.Text = "（留空则为未分类）";
             // 
             // labDocType
             // 
@@ -141,6 +140,7 @@
             this.btnOK.TabIndex = 48;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
@@ -150,6 +150,7 @@
             this.btnCancel.TabIndex = 49;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label2
             // 
@@ -186,6 +187,7 @@
             this.Controls.Add(this.txtURL);
             this.Name = "frmAddDoc";
             this.Text = "添加公文";
+            this.Load += new System.EventHandler(this.frmAddDoc_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);

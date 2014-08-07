@@ -47,6 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDoc\frmAddMoreDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDoc\frmAddMoreDoc.Designer.cs">
+      <DependentUpon>frmAddMoreDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDoc\frmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDoc\frmSetting.Designer.cs">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cAccess.cs" />
     <Compile Include="cConfig.cs" />
     <Compile Include="cDms.cs" />
     <Compile Include="cFTP.cs" />

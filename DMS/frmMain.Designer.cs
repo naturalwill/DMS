@@ -29,17 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "关于学生缴交2014～2015学年学杂费的通知",
-            "关于学生缴交2014～2015学年学杂费的通知",
-            "2014/7/26/星期一 18:00",
-            "学生处",
-            "2014/7/26/星期一 18:05:22",
-            "通知"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.listDocType = new System.Windows.Forms.ListBox();
             this.labPageAll = new System.Windows.Forms.Label();
-            this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnPageDown = new System.Windows.Forms.Button();
             this.btnPageUp = new System.Windows.Forms.Button();
             this.textBoxNow = new System.Windows.Forms.TextBox();
@@ -67,12 +59,15 @@
             this.tsmiAddMore = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbScan = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tslMove = new System.Windows.Forms.ToolStripLabel();
             this.tscbMove = new System.Windows.Forms.ToolStripComboBox();
             this.tsbPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbSetting = new System.Windows.Forms.ToolStripButton();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
+            this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tipListDoc = new System.Windows.Forms.ToolTip(this.components);
             this.cmsListDoc.SuspendLayout();
@@ -81,14 +76,12 @@
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
             this.listDocType.BackColor = System.Drawing.SystemColors.Menu;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDocType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listDocType.FormattingEnabled = true;
             this.listDocType.ItemHeight = 17;
-            this.listDocType.Location = new System.Drawing.Point(12, 79);
+            this.listDocType.Location = new System.Drawing.Point(12, 44);
             this.listDocType.Name = "listDocType";
             this.listDocType.Size = new System.Drawing.Size(107, 410);
             this.listDocType.TabIndex = 43;
@@ -96,33 +89,18 @@
             // 
             // labPageAll
             // 
-            this.labPageAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(489, 493);
+            this.labPageAll.Location = new System.Drawing.Point(489, 460);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(41, 21);
             this.labPageAll.TabIndex = 51;
             this.labPageAll.Text = "1";
             this.labPageAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtSearch
-            // 
-            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(676, 52);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(250, 21);
-            this.txtSearch.TabIndex = 48;
-            this.txtSearch.Text = "请输入关键字查找公文";
-            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
-            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
-            this.txtSearch.Leave += new System.EventHandler(this.txtSearch_Leave);
-            // 
             // btnPageDown
             // 
-            this.btnPageDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPageDown.Location = new System.Drawing.Point(562, 493);
+            this.btnPageDown.Location = new System.Drawing.Point(562, 460);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
             this.btnPageDown.TabIndex = 47;
@@ -131,8 +109,7 @@
             // 
             // btnPageUp
             // 
-            this.btnPageUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPageUp.Location = new System.Drawing.Point(284, 493);
+            this.btnPageUp.Location = new System.Drawing.Point(284, 460);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
             this.btnPageUp.TabIndex = 46;
@@ -141,8 +118,7 @@
             // 
             // textBoxNow
             // 
-            this.textBoxNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxNow.Location = new System.Drawing.Point(397, 493);
+            this.textBoxNow.Location = new System.Drawing.Point(397, 460);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBoxNow.Size = new System.Drawing.Size(40, 21);
@@ -153,10 +129,9 @@
             // 
             // labPage
             // 
-            this.labPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(344, 493);
+            this.labPage.Location = new System.Drawing.Point(344, 460);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 45;
@@ -165,9 +140,6 @@
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.BackColor = System.Drawing.SystemColors.Menu;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -179,11 +151,7 @@
             this.columnHeaderDocType});
             this.listDoc.ContextMenuStrip = this.cmsListDoc;
             this.listDoc.FullRowSelect = true;
-            listViewItem1.StateImageIndex = 0;
-            listViewItem1.ToolTipText = "备注：123";
-            this.listDoc.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listDoc.Location = new System.Drawing.Point(125, 79);
+            this.listDoc.Location = new System.Drawing.Point(125, 46);
             this.listDoc.Name = "listDoc";
             this.listDoc.Size = new System.Drawing.Size(801, 408);
             this.listDoc.TabIndex = 42;
@@ -205,7 +173,7 @@
             // columnHeaderTime
             // 
             this.columnHeaderTime.Text = "发布时间";
-            this.columnHeaderTime.Width = 163;
+            this.columnHeaderTime.Width = 132;
             // 
             // columnHeaderProvider
             // 
@@ -277,8 +245,7 @@
             // 
             // btnContrary
             // 
-            this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnContrary.Location = new System.Drawing.Point(182, 493);
+            this.btnContrary.Location = new System.Drawing.Point(182, 460);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(51, 21);
             this.btnContrary.TabIndex = 54;
@@ -288,8 +255,7 @@
             // 
             // btnAll
             // 
-            this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAll.Location = new System.Drawing.Point(125, 493);
+            this.btnAll.Location = new System.Drawing.Point(125, 460);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(51, 21);
             this.btnAll.TabIndex = 53;
@@ -299,20 +265,24 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssbAdd,
             this.tsbScan,
             this.toolStripSeparator1,
+            this.txtSearch,
+            this.toolStripSeparator5,
             this.tslMove,
             this.tscbMove,
             this.tsbPrint,
             this.toolStripSeparator2,
             this.tsbSetting,
-            this.tsbClose});
+            this.tsbClose,
+            this.tsbAbout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(934, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(934, 41);
             this.toolStrip1.TabIndex = 56;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -324,21 +294,21 @@
             this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
             this.tssbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tssbAdd.Name = "tssbAdd";
-            this.tssbAdd.Size = new System.Drawing.Size(104, 36);
+            this.tssbAdd.Size = new System.Drawing.Size(104, 38);
             this.tssbAdd.Text = "添加公文";
             this.tssbAdd.ButtonClick += new System.EventHandler(this.tssbAdd_ButtonClick);
             // 
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAdd.Size = new System.Drawing.Size(152, 22);
             this.tsmiAdd.Text = "添加公文";
             this.tsmiAdd.Click += new System.EventHandler(this.tssbAdd_ButtonClick);
             // 
             // tsmiAddMore
             // 
             this.tsmiAddMore.Name = "tsmiAddMore";
-            this.tsmiAddMore.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAddMore.Size = new System.Drawing.Size(152, 22);
             this.tsmiAddMore.Text = "批量添加公文";
             this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
             // 
@@ -347,27 +317,43 @@
             this.tsbScan.Image = ((System.Drawing.Image)(resources.GetObject("tsbScan.Image")));
             this.tsbScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbScan.Name = "tsbScan";
-            this.tsbScan.Size = new System.Drawing.Size(92, 36);
+            this.tsbScan.Size = new System.Drawing.Size(92, 38);
             this.tsbScan.Text = "扫描文档";
             this.tsbScan.Click += new System.EventHandler(this.tsbScan_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 8, 1, 8);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(150, 25);
+            this.txtSearch.Text = "搜索公文";
+            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
+            this.txtSearch.Leave += new System.EventHandler(this.txtSearch_Leave);
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 41);
             // 
             // tslMove
             // 
             this.tslMove.Enabled = false;
             this.tslMove.Name = "tslMove";
-            this.tslMove.Size = new System.Drawing.Size(56, 36);
+            this.tslMove.Size = new System.Drawing.Size(56, 38);
             this.tslMove.Text = "移动至：";
             // 
             // tscbMove
             // 
             this.tscbMove.Enabled = false;
+            this.tscbMove.Margin = new System.Windows.Forms.Padding(1, 8, 1, 8);
             this.tscbMove.Name = "tscbMove";
-            this.tscbMove.Size = new System.Drawing.Size(121, 39);
+            this.tscbMove.Size = new System.Drawing.Size(121, 25);
             // 
             // tsbPrint
             // 
@@ -376,14 +362,14 @@
             this.tsbPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
             this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPrint.Name = "tsbPrint";
-            this.tsbPrint.Size = new System.Drawing.Size(116, 36);
+            this.tsbPrint.Size = new System.Drawing.Size(116, 38);
             this.tsbPrint.Text = "打印选中公文";
             this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
             // 
             // tsbSetting
             // 
@@ -391,23 +377,34 @@
             this.tsbSetting.Image = ((System.Drawing.Image)(resources.GetObject("tsbSetting.Image")));
             this.tsbSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSetting.Name = "tsbSetting";
-            this.tsbSetting.Size = new System.Drawing.Size(36, 36);
+            this.tsbSetting.Size = new System.Drawing.Size(36, 38);
             this.tsbSetting.Text = "设置";
             this.tsbSetting.Click += new System.EventHandler(this.tsbSetting_Click);
             // 
             // tsbClose
             // 
+            this.tsbClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
             this.tsbClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(36, 36);
+            this.tsbClose.Size = new System.Drawing.Size(36, 38);
             this.tsbClose.Text = "退出";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
+            // tsbAbout
+            // 
+            this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
+            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAbout.Name = "tsbAbout";
+            this.tsbAbout.Size = new System.Drawing.Size(36, 38);
+            this.tsbAbout.Text = "关于";
+            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
+            // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 536);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 486);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(934, 22);
             this.statusStrip1.TabIndex = 57;
@@ -422,13 +419,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(934, 558);
+            this.ClientSize = new System.Drawing.Size(934, 508);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnContrary);
             this.Controls.Add(this.btnAll);
             this.Controls.Add(this.listDocType);
             this.Controls.Add(this.labPageAll);
-            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnPageDown);
             this.Controls.Add(this.btnPageUp);
             this.Controls.Add(this.textBoxNow);
@@ -450,7 +446,6 @@
 
         private System.Windows.Forms.ListBox listDocType;
         private System.Windows.Forms.Label labPageAll;
-        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnPageDown;
         private System.Windows.Forms.Button btnPageUp;
         private System.Windows.Forms.TextBox textBoxNow;
@@ -486,6 +481,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolTip tipListDoc;
+        private System.Windows.Forms.ToolStripTextBox txtSearch;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton tsbAbout;
     }
 }
 

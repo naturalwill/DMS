@@ -13,12 +13,14 @@ namespace DMS
 
         /// <summary>
         /// 是否默认工作目录
+        /// 1为是；
+        /// 0为否；
         /// </summary>
-        public static bool defaultPath = true;
+        public static char defaultPath = '1';
         /// <summary>
         /// 工作目录
         /// </summary>
-        public static string strWorkPath = Environment.SpecialFolder.MyDocuments + "\\DMZ";
+        public static string strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
 
         /// <summary>
         /// FTP设置
@@ -60,13 +62,13 @@ namespace DMS
             {
                 XElement xe = XElement.Load(".\\Config.xml");
 
-                if (defaultPath.ToString() == xe.Element("defaultPath").Value)
+                if (xe.Element("defaultPath").Value != "0")
                 {
-                    strWorkPath = Environment.SpecialFolder.MyDocuments + "\\DMZ";
+                    strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
                 }
                 else
                 {
-                    defaultPath = false;
+                    defaultPath = '0';
                     strWorkPath = xe.Element("WorkPath").Value;
                 }
                 FTP_IP = xe.Element("FTP_IP").Value;

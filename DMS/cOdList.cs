@@ -7,10 +7,10 @@ namespace DMS
 {
     class cOdList
     {
-        public cOdList(int _ID, DateTime _AddTime, string _DocTitle, string _Source, string _DocType = "",  string _ReleaseDate = "", string _Provider = "", string _Notes = "")
+        public cOdList(int _ID, string _DocTitle, string _Source, string _DocType = "",  string _ReleaseDate = "", string _Provider = "", string _Notes = "")
         {
             ID = _ID;
-            AddTime = _AddTime;
+            AddTime = System.DateTime.Now;
             DocTitle = _DocTitle;
             Source = _Source;
             DocTitle = _DocType;          

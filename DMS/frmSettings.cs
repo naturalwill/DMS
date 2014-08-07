@@ -27,12 +27,15 @@ namespace DMS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (!(cConfig.defaultPath))
+            if (cConfig.defaultPath=='1')
+                cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
+            else
                 cConfig.strWorkPath = txtPath.Text;
             cConfig.FTP_IP = txtIP.Text;
             cConfig.FTP_user = txtUser.Text;
             cConfig.FTP_password = txtPassword.Text;
             cConfig.SaveConfig();
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -42,32 +45,32 @@ namespace DMS
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-            
-            if (cConfig.defaultPath)
+
+            if (cConfig.defaultPath=='1')
             {
                 radioButton1.Checked = true;
             }
             else
             {
                 radioButton2.Checked = true;
-              txtPath.Text  = cConfig.strWorkPath ;
+                txtPath.Text = cConfig.strWorkPath;
             }
-            txtIP.Text =cConfig.FTP_IP; 
-            txtUser.Text =cConfig.FTP_user; 
-            txtPassword.Text =cConfig.FTP_password;
+            txtIP.Text = cConfig.FTP_IP;
+            txtUser.Text = cConfig.FTP_user;
+            txtPassword.Text = cConfig.FTP_password;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
             {
-                cConfig.defaultPath = true;
+                cConfig.defaultPath = '1';
                 txtPath.Enabled = false;
                 btnBrowse.Enabled = false;
             }
             else
             {
-                cConfig.defaultPath = false;
+                cConfig.defaultPath = '0';
                 txtPath.Enabled = true;
                 btnBrowse.Enabled = true;
             }
