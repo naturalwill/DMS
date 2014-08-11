@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DMS.Common;
 using System.IO;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace DMS.Operate
+namespace ZCommon
 {
     class cMakeWord
     {
         public string fileName, type, tPath, pPath;
         string URL;
 
+
+        /// <summary>
+        /// 生成word文档
+        /// </summary>
+        /// <param name="_fileName"></param>
+        /// <param name="_type"></param>
+        /// <param name="_URL"></param>
         public cMakeWord(string _fileName, string _type, string _URL)
         {
             fileName = _fileName;

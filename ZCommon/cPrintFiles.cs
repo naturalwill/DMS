@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace DMS.Operate
+namespace ZCommon
 {
-    class cPrintFiles
+    public class cPrintFiles
     {
         public static string paths;
         /// <summary>

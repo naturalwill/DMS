@@ -6,8 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ZCommon;
 
-namespace DMS.Common
+namespace DMS
 {
     public partial class frmSettings : Form
     {
@@ -44,6 +45,7 @@ namespace DMS.Common
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+
             if (cConfig.defaultPath == '1')
                 cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
             else
@@ -60,7 +62,7 @@ namespace DMS.Common
             this.Close();
         }
 
-        
+
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {

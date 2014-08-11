@@ -5,19 +5,23 @@ using System.Text;
 using System.Data;
 using System.Data.OleDb;
 
-namespace DMS.Common
+namespace ZCommon
 {
-    class cAccess
+    public class cAccess
     {
         static string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Environment.CurrentDirectory + @"\DMS.mdb";
 
         static OleDbConnection conn = new OleDbConnection(connString);
         static OleDbCommand cmd;
-        static OleDbDataAdapter DtAdapter;
+        public static OleDbDataAdapter DtAdapter;
         static OleDbCommandBuilder CoBuilder;
 
         public static DataTable DtTable;
 
+
+        /// <summary>
+        /// 加载数据库
+        /// </summary>
         public static void load()
         {
             //                if (!(File.Exists(Environment.CurrentDirectory + @"\DMS.mdb")))
@@ -51,18 +55,40 @@ namespace DMS.Common
             conn.Close();
         }
 
-        public static void add(string _DocTitle, string _Source, string _LocalPath, string _DocType = "", string _ReleaseDate = "", string _Provider = "", string _Notes = "")
+
+        /// <summary>
+        /// 添加记录
+        /// </summary>
+        /// <param name="_DocTitle"></param>
+        /// <param name="_Source"></param>
+        /// <param name="_LocalPath"></param>
+        /// <param name="_DocType"></param>
+        /// <param name="_ReleaseDate"></param>
+        /// <param name="_Provider"></param>
+        /// <param name="_Notes"></param>
+        public static void add(string _DocTitle, string _Source, string _LocalPath, 
+                                string _DocType = "", string _ReleaseDate = "",
+                                string _Provider = "", string _Notes = "")
         {
             DataRow drNewRow = DtTable.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
 
             drNewRow["ID"] = getMaxID();
             drNewRow["AddTime"] = System.DateTime.Now;
+
             drNewRow["DocTitle"] = _DocTitle;
-            //drNewRow["ReleaseDate"] =Convert.ToDateTime( _ReleaseDate);
-            drNewRow["Provider"] = _Provider;
-            drNewRow["DocType"] = _DocType;
+
             drNewRow["Source"] = _Source;
             drNewRow["LocalPath"] = _LocalPath;
+
+            drNewRow["DocType"] = _DocType;
+
+            try
+            {
+                drNewRow["ReleaseDate"] = Convert.ToDateTime(_ReleaseDate);
+            }
+            catch { }
+            drNewRow["Provider"] = _Provider;
+
             drNewRow["Notes"] = _Notes;
 
             DtTable.Rows.Add(drNewRow);//增加到 DtTable变量，临时保存
@@ -73,6 +99,10 @@ namespace DMS.Common
             conn.Close();
         }
 
+        /// <summary>
+        /// 获取最大ID
+        /// </summary>
+        /// <returns></returns>
         static int getMaxID()
         {
             int max = 0;

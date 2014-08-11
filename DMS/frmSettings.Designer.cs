@@ -1,4 +1,4 @@
-﻿namespace DMS.Common
+﻿namespace DMS
 {
     partial class frmSettings
     {

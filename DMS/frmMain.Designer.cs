@@ -85,15 +85,15 @@
             // tsmiAddMore
             // 
             this.tsmiAddMore.Name = "tsmiAddMore";
-            this.tsmiAddMore.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAddMore.Size = new System.Drawing.Size(152, 22);
             this.tsmiAddMore.Text = "批量添加公文";
             this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.BackColor = System.Drawing.SystemColors.Menu;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -214,7 +214,7 @@
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(148, 22);
+            this.tsmiAdd.Size = new System.Drawing.Size(152, 22);
             this.tsmiAdd.Text = "添加公文";
             this.tsmiAdd.Click += new System.EventHandler(this.tsmiAdd_Click);
             // 
@@ -382,8 +382,8 @@
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.listDocType.BackColor = System.Drawing.SystemColors.Menu;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDocType.ContextMenuStrip = this.cmsType;

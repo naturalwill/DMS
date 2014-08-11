@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{95F29424-F76E-46F2-9D8A-1F28168B6105}</ProjectGuid>
+    <ProjectGuid>{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS</RootNamespace>
-    <AssemblyName>DMS</AssemblyName>
+    <RootNamespace>crawler</RootNamespace>
+    <AssemblyName>crawler</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,49 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmSettings.cs">
+    <Compile Include="cCrawler.cs" />
+    <Compile Include="cList.cs" />
+    <Compile Include="cMakeWord.cs" />
+    <Compile Include="frmCrawler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSettings.Designer.cs">
-      <DependentUpon>frmSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="frmCrawler.Designer.cs">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store\frmAddDoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Store\frmAddDoc.Designer.cs">
-      <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Type\frmNewType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Type\frmNewType.Designer.cs">
-      <DependentUpon>frmNewType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\frmAboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\frmAboutBox.Designer.cs">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\frmProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\frmProperty.Designer.cs">
-      <DependentUpon>frmProperty.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="frmSettings.resx">
-      <DependentUpon>frmSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="frmCrawler.resx">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,18 +70,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Store\frmAddDoc.resx">
-      <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Type\frmNewType.resx">
-      <DependentUpon>frmNewType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\frmAboutBox.resx">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\frmProperty.resx">
-      <DependentUpon>frmProperty.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -123,14 +81,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Camera\Camera.csproj">
-      <Project>{ACD2DB8E-6369-4350-81B9-3A72046207FA}</Project>
-      <Name>Camera</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\crawler\crawler.csproj">
-      <Project>{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}</Project>
-      <Name>crawler</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZCommon\ZCommon.csproj">
       <Project>{6157CF82-FD80-4D6E-AE89-938DBABAF412}</Project>
       <Name>ZCommon</Name>

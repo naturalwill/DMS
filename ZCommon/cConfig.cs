@@ -5,9 +5,9 @@ using System.Text;
 using System.Xml.Linq;
 using System.IO;
 
-namespace DMS.Common
+namespace ZCommon
 {
-    class cConfig
+    public class cConfig
     {
         #region 字段
 

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace DMS.Operate
+namespace ZCommon
 {
     public class FTPHelper
     {
@@ -270,7 +269,9 @@ namespace DMS.Operate
                 response.Close();
             }
             catch (Exception ex)
-            { MessageBox.Show(ex.Message); }
+            {
+                //MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>  
@@ -293,7 +294,7 @@ namespace DMS.Operate
                 response.Close();
             }
             catch (Exception ex)
-            {}
+            { }
             return fileSize;
         }
 
