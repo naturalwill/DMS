@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading;
+using ZCommon;
 
 namespace crawler
 {
@@ -194,7 +195,7 @@ namespace crawler
                     {
                         if (listDoc.CheckedItems[i].SubItems[0].Text == cCrawler.lcl[j].ID.ToString())
                         {
-                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, "", cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2]));
+                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, "", cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2],"批量添加的公文"));
                             break;
                         }
                     }

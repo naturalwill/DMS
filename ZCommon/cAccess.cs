@@ -66,29 +66,18 @@ namespace ZCommon
         /// <param name="_ReleaseDate"></param>
         /// <param name="_Provider"></param>
         /// <param name="_Notes"></param>
-        public static void add(string _DocTitle, string _Source, string _LocalPath, 
-                                string _DocType = "", string _ReleaseDate = "",
-                                string _Provider = "", string _Notes = "")
+        public static void add(string _DocTitle, string _Source, string _LocalPath, string _DocType = "", string _ReleaseDate = "", string _Provider = "", string _Notes = "")
         {
             DataRow drNewRow = DtTable.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
 
             drNewRow["ID"] = getMaxID();
             drNewRow["AddTime"] = System.DateTime.Now;
-
             drNewRow["DocTitle"] = _DocTitle;
-
+            //drNewRow["ReleaseDate"] =Convert.ToDateTime( _ReleaseDate);
+            drNewRow["Provider"] = _Provider;
+            drNewRow["DocType"] = _DocType;
             drNewRow["Source"] = _Source;
             drNewRow["LocalPath"] = _LocalPath;
-
-            drNewRow["DocType"] = _DocType;
-
-            try
-            {
-                drNewRow["ReleaseDate"] = Convert.ToDateTime(_ReleaseDate);
-            }
-            catch { }
-            drNewRow["Provider"] = _Provider;
-
             drNewRow["Notes"] = _Notes;
 
             DtTable.Rows.Add(drNewRow);//增加到 DtTable变量，临时保存
@@ -112,6 +101,17 @@ namespace ZCommon
                     max = Convert.ToInt32(DtTable.Rows[i]["ID"]);
             }
             return max + 1;
+        }
+        public static void delect(string id)
+        {
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            {
+                if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+                {
+                    DtTable.Rows[row].Delete();
+                    DtAdapter.Update(DtTable);
+                }
+            }
         }
     }
 }

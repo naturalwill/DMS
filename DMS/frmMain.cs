@@ -9,6 +9,7 @@ using DMS.Store;
 using DMS.View;
 using DMS.Type;
 using ZCommon;
+using System.Diagnostics;
 
 namespace DMS
 {
@@ -94,6 +95,7 @@ namespace DMS
                 txtSearch.Text = SearchTips;
             else
             {//执行搜索命令
+
             }
         }
 
@@ -217,7 +219,7 @@ namespace DMS
 
         #region 类型列表方法
 
-        List<string> DocTypeList;
+        public static List<string> DocTypeList;
 
         /// <summary>
         /// 储存公文类型列表
@@ -290,7 +292,7 @@ namespace DMS
         #endregion
 
         #region cmsType
-        
+
         private void tsmiAddType_Click(object sender, EventArgs e)
         {
             frmNewType frmNewtype = new frmNewType();
@@ -320,7 +322,6 @@ namespace DMS
                 frmNewType frmNewtype = new frmNewType();
                 frmNewtype.labNewType.Text = "修改类型";
                 frmNewtype.Text = "修改类型";
-                frmNewtype.txtNewType.Text =  listDocType.SelectedItem.ToString();
                 frmNewtype.ShowDialog();
             }
         }
@@ -484,10 +485,30 @@ namespace DMS
 
 
         #region cmsDocList
+        //查看公文
         private void tsmiLook_Click(object sender, EventArgs e)
         {
+            if (listDoc.SelectedItems.Count == 1)
             if (listDoc.SelectedItems.Count > 0)
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                {
+                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
+                    {
+                       
+                        System.Diagnostics.Process.Start(cAccess.DtTable.Rows[row]["LocalPath"].ToString());
+                    }
+                }
+            }
+            
+        }
+        //查看公文位置
+        private void tsmiLocation_Click(object sender, EventArgs e)
+        {
+            string loacaldirect;
+            int localint;
+            if (listDoc.SelectedItems.Count == 1)
             {
+
                 for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
                 {
                     if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
@@ -499,34 +520,71 @@ namespace DMS
                         //labUrl.Text = cAccess.DtTable.Rows[row]["Source"].ToString();
                         //txtNotes.Text = cAccess.DtTable.Rows[row]["Notes"].ToString();
                         //LabATime.Text = cAccess.DtTable.Rows[row]["AddTime"].ToString();
-                     
-                        System.Diagnostics.Process.Start( cAccess.DtTable.Rows[row]["LocalPath"].ToString());
+                       localint=cAccess.DtTable.Rows[row]["LocalPath"].ToString().LastIndexOf(@"\");
+                       loacaldirect = cAccess.DtTable.Rows[row]["LocalPath"].ToString().Substring(0, localint);
+                        Process.Start(loacaldirect);
                     }
                 }
                 //tslMove.Enabled = true;
                 //tscbMove.Enabled = true;
             }
-            
+            else
+            {
+                //tslMove.Enabled = false;
+                //tscbMove.Enabled = false;
+            }
         }
-
-        private void tsmiLocation_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //打开公文的网站
         private void tsmiFindSource_Click(object sender, EventArgs e)
         {
+            if (listDoc.SelectedItems.Count == 1)
+            {
 
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                {
+                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
+                    {
+                        //txtTitle.Text = cAccess.DtTable.Rows[row]["DocTitle"].ToString();
+                        //labRTime.Text = cAccess.DtTable.Rows[row]["ReleaseDate"].ToString();
+                        //labP.Text = cAccess.DtTable.Rows[row]["Provider"].ToString();
+                        //comboBoxDocType.Text = PathCurrent = cAccess.DtTable.Rows[row]["DocType"].ToString();
+                        //labUrl.Text = cAccess.DtTable.Rows[row]["Source"].ToString();
+                        //txtNotes.Text = cAccess.DtTable.Rows[row]["Notes"].ToString();
+                        //LabATime.Text = cAccess.DtTable.Rows[row]["AddTime"].ToString();
+                        Process.Start(cAccess.DtTable.Rows[row]["Source"].ToString());
+                    }
+                }
+                //tslMove.Enabled = true;
+                //tscbMove.Enabled = true;
+            }
+            else
+            {
+                //tslMove.Enabled = false;
+                //tscbMove.Enabled = false;
+            }
         }
-
+        //删除并刷新列表
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
+            cAccess.delect(listDoc.SelectedItems[0].SubItems[0].Text);
+            listDoc.Items.Clear();
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)//显示所有类型的公文
+            {
+                ListViewItem lvitem = new ListViewItem();
 
+                lvitem = listDoc.Items.Add(cAccess.DtTable.Rows[row]["ID"].ToString());
+                lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["ReleaseDate"].ToString());
+                lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["Provider"].ToString());
+                lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["AddTime"].ToString());
+                lvitem.SubItems.Add(cAccess.DtTable.Rows[row]["DocType"].ToString());
+            }
         }
-
+        //查看配置
         private void tsmiInfo_Click(object sender, EventArgs e)
         {
-
+            frmProperty property = new frmProperty();
+            property.Show();
         }
         #endregion
 
@@ -627,6 +685,6 @@ namespace DMS
 
         #endregion
 
-      
+
     }
 }

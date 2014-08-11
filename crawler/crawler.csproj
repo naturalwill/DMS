@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="cCrawler.cs" />
     <Compile Include="cList.cs" />
-    <Compile Include="cMakeWord.cs" />
     <Compile Include="frmCrawler.cs">
       <SubType>Form</SubType>
     </Compile>

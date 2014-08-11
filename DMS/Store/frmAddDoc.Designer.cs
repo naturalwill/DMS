@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnOnLine = new System.Windows.Forms.Button();
             this.txtRemindMessage = new System.Windows.Forms.TextBox();
             this.btnLocal = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -38,24 +37,16 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtURL = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtProvider = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
             this.labName = new System.Windows.Forms.Label();
             this.labDocType = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.comboBoxDocType = new System.Windows.Forms.ComboBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnOnLine
-            // 
-            this.btnOnLine.Location = new System.Drawing.Point(445, 31);
-            this.btnOnLine.Name = "btnOnLine";
-            this.btnOnLine.Size = new System.Drawing.Size(75, 23);
-            this.btnOnLine.TabIndex = 57;
-            this.btnOnLine.Text = "从网页加载";
-            this.btnOnLine.UseVisualStyleBackColor = true;
             // 
             // txtRemindMessage
             // 
@@ -67,11 +58,10 @@
             this.txtRemindMessage.Name = "txtRemindMessage";
             this.txtRemindMessage.Size = new System.Drawing.Size(495, 129);
             this.txtRemindMessage.TabIndex = 0;
-            this.txtRemindMessage.TextChanged += new System.EventHandler(this.textShowAll_TextChanged);
             // 
             // btnLocal
             // 
-            this.btnLocal.Location = new System.Drawing.Point(364, 31);
+            this.btnLocal.Location = new System.Drawing.Point(364, 29);
             this.btnLocal.Name = "btnLocal";
             this.btnLocal.Size = new System.Drawing.Size(75, 23);
             this.btnLocal.TabIndex = 56;
@@ -94,7 +84,7 @@
             this.txtDate.Location = new System.Drawing.Point(82, 108);
             this.txtDate.Multiline = true;
             this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(276, 19);
+            this.txtDate.Size = new System.Drawing.Size(135, 19);
             this.txtDate.TabIndex = 11;
             // 
             // btnOK
@@ -138,7 +128,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnOnLine);
+            this.groupBox1.Controls.Add(this.txtProvider);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnLocal);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.txtDate);
@@ -156,6 +147,24 @@
             this.groupBox1.TabIndex = 57;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "公文信息";
+            // 
+            // txtProvider
+            // 
+            this.txtProvider.Location = new System.Drawing.Point(341, 111);
+            this.txtProvider.Multiline = true;
+            this.txtProvider.Name = "txtProvider";
+            this.txtProvider.Size = new System.Drawing.Size(135, 19);
+            this.txtProvider.TabIndex = 59;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(270, 114);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 60;
+            this.label1.Text = "发布单位：";
             // 
             // labelDate
             // 
@@ -194,7 +203,6 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(276, 21);
             this.txtTitle.TabIndex = 43;
-            this.txtTitle.Text = "（留空则为文件名或网页标题）";
             // 
             // comboBoxDocType
             // 
@@ -204,11 +212,7 @@
             this.comboBoxDocType.Name = "comboBoxDocType";
             this.comboBoxDocType.Size = new System.Drawing.Size(135, 20);
             this.comboBoxDocType.TabIndex = 45;
-            this.comboBoxDocType.Text = "（留空则为未分类）";
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.comboBoxDocType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocType_SelectedIndexChanged);
             // 
             // frmAddDoc
             // 
@@ -232,7 +236,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnOnLine;
         private System.Windows.Forms.TextBox txtRemindMessage;
         private System.Windows.Forms.Button btnLocal;
         private System.Windows.Forms.Button btnCancel;
@@ -247,7 +250,8 @@
         private System.Windows.Forms.Label labDocType;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.ComboBox comboBoxDocType;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox txtProvider;
+        private System.Windows.Forms.Label label1;
 
 
     }

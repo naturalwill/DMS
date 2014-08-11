@@ -23,6 +23,7 @@ namespace Camera
                 comboBox1.Items.Add(info);
             }
             camera.NewFrameEvent += new NewFrameEventHandler(camera_NewFrameEvent);
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         void camera_NewFrameEvent(object sender, EventArgs e)

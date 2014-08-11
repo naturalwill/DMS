@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ZCommon;
+using System.Threading;
+using System.IO;
 
 namespace DMS.Store
 {
@@ -21,50 +24,62 @@ namespace DMS.Store
         {
             if (txtURL.Text.IndexOf('/') > 0)
             {//网址
-                
+                List<cWord> lw = new List<cWord>();
+                lw.Add(new cWord(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text));
+                cMakeWord mw = new cMakeWord(lw);
+                Thread th = new Thread(new System.Threading.ThreadStart(mw.makeWord));
+                th.Start();
             }
             else
             {//本地文件
+                string HouZui = txtURL.Text.Substring(txtURL.Text.LastIndexOf('.'));
+                string pFilePath;
+                if (comboBoxDocType.Text != "")
+                    pFilePath = cConfig.strWorkPath + "\\" + comboBoxDocType.Text;
+                else
+                    pFilePath = cConfig.strWorkPath;
+                if (!(Directory.Exists(pFilePath)))
+                    Directory.CreateDirectory(pFilePath);
+                pFilePath += "\\" + txtTitle.Text + HouZui;
+                if (File.Exists(pFilePath))
+                {
+                    MessageBox.Show("公文库中已有同名公文，请修改公文标题或类型！");
+                    return;
+                }
+                File.Copy(txtURL.Text, pFilePath);
             }
             this.Close();
         }
 
         private void frmAddDoc_Load(object sender, EventArgs e)
         {
-
+            foreach (string str in frmMain.DocTypeList)
+            {
+                comboBoxDocType.Items.Add(str);
+            }
+            comboBoxDocType.Items.Add("(新类型)");
         }
 
         private void btnLocal_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                txtURL.Text = openFileDialog1.FileName;
-                txtTitle.Text = openFileDialog1.FileName.Substring(openFileDialog1.FileName.LastIndexOf("\\") + 1);
-                if (txtDate.Text != null)
-                {
-                    string DateOfTime = txtDate.Text; 
-                }
-                if (comboBoxDocType.SelectedIndex >= 0)
-                {
- 
-                }
-                if (txtRemindMessage.Text != null)
-                {
-                    string RemindMessage = txtRemindMessage.Text;
-                }
+                txtURL.Text = ofd.FileName;
+                int start = txtURL.Text.LastIndexOf('\\');
+                int end = txtURL.Text.LastIndexOf('.');
+                txtTitle.Text = txtURL.Text.Substring(start + 1, end - start - 2);
             }
-        }
-
-        private void textShowAll_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-
+        private void comboBoxDocType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxDocType.Text == "(新类型)") comboBoxDocType.Text = "";
+        }
     }
 }

@@ -36,7 +36,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(62, 180);
+            this.btnOK.Location = new System.Drawing.Point(153, 94);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(52, 23);
             this.btnOK.TabIndex = 8;
@@ -46,15 +46,15 @@
             // 
             // txtNewType
             // 
-            this.txtNewType.Location = new System.Drawing.Point(62, 117);
+            this.txtNewType.Location = new System.Drawing.Point(62, 51);
             this.txtNewType.Name = "txtNewType";
-            this.txtNewType.Size = new System.Drawing.Size(125, 21);
+            this.txtNewType.Size = new System.Drawing.Size(143, 21);
             this.txtNewType.TabIndex = 7;
             // 
             // labNewType
             // 
             this.labNewType.AutoSize = true;
-            this.labNewType.Location = new System.Drawing.Point(37, 89);
+            this.labNewType.Location = new System.Drawing.Point(37, 23);
             this.labNewType.Name = "labNewType";
             this.labNewType.Size = new System.Drawing.Size(65, 12);
             this.labNewType.TabIndex = 6;
@@ -62,7 +62,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(147, 180);
+            this.btnCancel.Location = new System.Drawing.Point(211, 94);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(52, 23);
             this.btnCancel.TabIndex = 9;
@@ -74,14 +74,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 137);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtNewType);
             this.Controls.Add(this.labNewType);
             this.Name = "frmNewType";
             this.Text = "frmNewType";
-            //this.Load += new System.EventHandler(this.frmNewType_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
