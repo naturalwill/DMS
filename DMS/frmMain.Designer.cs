@@ -85,15 +85,15 @@
             // tsmiAddMore
             // 
             this.tsmiAddMore.Name = "tsmiAddMore";
-            this.tsmiAddMore.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAddMore.Size = new System.Drawing.Size(148, 22);
             this.tsmiAddMore.Text = "批量添加公文";
             this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.BackColor = System.Drawing.SystemColors.Menu;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -214,7 +214,7 @@
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAdd.Size = new System.Drawing.Size(148, 22);
             this.tsmiAdd.Text = "添加公文";
             this.tsmiAdd.Click += new System.EventHandler(this.tsmiAdd_Click);
             // 
@@ -294,6 +294,7 @@
             // tsbDelete
             // 
             this.tsbDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbDelete.Enabled = false;
             this.tsbDelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbDelete.Image")));
             this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDelete.Name = "tsbDelete";
@@ -320,6 +321,7 @@
             this.tscbMove.Name = "tscbMove";
             this.tscbMove.Size = new System.Drawing.Size(121, 25);
             this.tscbMove.SelectedIndexChanged += new System.EventHandler(this.tscbMove_SelectedIndexChanged);
+            //this.tscbMove.Click += new System.EventHandler(this.tscbMove_Click);
             // 
             // tsbPrint
             // 
@@ -382,8 +384,8 @@
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listDocType.BackColor = System.Drawing.SystemColors.Menu;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDocType.ContextMenuStrip = this.cmsType;
@@ -509,7 +511,7 @@
             this.comboBoxpaginal.Name = "comboBoxpaginal";
             this.comboBoxpaginal.Size = new System.Drawing.Size(60, 20);
             this.comboBoxpaginal.TabIndex = 70;
-            this.comboBoxpaginal.Text = "10";
+            this.comboBoxpaginal.Text = "20";
             this.comboBoxpaginal.SelectedIndexChanged += new System.EventHandler(this.comboBoxpaginal_SelectedIndexChanged);
             this.comboBoxpaginal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxpaginal_KeyPress);
             this.comboBoxpaginal.Leave += new System.EventHandler(this.comboBoxpaginal_Leave);

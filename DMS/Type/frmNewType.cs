@@ -34,6 +34,11 @@ namespace DMS.Type
             this.Close();
         }
 
+        private void frmNewType_Load(object sender, EventArgs e)
+        {
+
+        }
+
        
     }
 }

@@ -81,6 +81,7 @@
             this.Controls.Add(this.labNewType);
             this.Name = "frmNewType";
             this.Text = "frmNewType";
+            this.Load += new System.EventHandler(this.frmNewType_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

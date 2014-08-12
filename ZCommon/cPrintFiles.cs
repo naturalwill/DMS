@@ -8,18 +8,24 @@ namespace ZCommon
 {
     public class cPrintFiles
     {
-        public static string paths;
+        List<string> listWord;
+        /// <summary>
+        /// 初始化批量打印
+        /// </summary>
+        /// <param name="lpf">要打印的文件列表</param>
+        public cPrintFiles(List<string> lpf)
+        {
+            listWord = lpf;
+        }
         /// <summary>
         /// 批量打印
         /// </summary>
-        /// <param name="paths">要打印的文件的路径，以“|”分隔</param>
-        public static void printFiles()
+        public void printFiles()
         {
             var wordFiles = new List<object>();
             var docs = new List<Word.Document>();
-
-            string[] p = paths.Split('|');
-            foreach (string s in p)
+            
+            foreach (string s in listWord)
             {
                 if (s != "")
                     wordFiles.Add(s);
@@ -67,7 +73,7 @@ namespace ZCommon
                         //             ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                         //             ref oMissing, ref oMissing);
                     }
-                    System.Threading.Thread.Sleep(1000 * p.Length);
+                    System.Threading.Thread.Sleep(1000 * listWord.Count);
                 }
             }
             catch (Exception)

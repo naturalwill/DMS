@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +30,7 @@ namespace ZCommon
         /// <summary>
         /// 每页的条目数量
         /// </summary>
-        public static int paginalItems = 10;
+        public static int paginalItems = 20;
 
         #endregion
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace ZCommon
 {
@@ -13,6 +14,8 @@ namespace ZCommon
 
         static OleDbConnection conn = new OleDbConnection(connString);
         static OleDbCommand cmd;
+        static OleDbDataReader DtReader;
+
         public static OleDbDataAdapter DtAdapter;
         static OleDbCommandBuilder CoBuilder;
 
@@ -66,18 +69,29 @@ namespace ZCommon
         /// <param name="_ReleaseDate"></param>
         /// <param name="_Provider"></param>
         /// <param name="_Notes"></param>
-        public static void add(string _DocTitle, string _Source, string _LocalPath, string _DocType = "", string _ReleaseDate = "", string _Provider = "", string _Notes = "")
+        public static void add(string _DocTitle, string _Source, string _LocalPath,
+                                string _DocType = "", string _ReleaseDate = "",
+                                string _Provider = "", string _Notes = "")
         {
             DataRow drNewRow = DtTable.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
 
             drNewRow["ID"] = getMaxID();
             drNewRow["AddTime"] = System.DateTime.Now;
+
             drNewRow["DocTitle"] = _DocTitle;
-            //drNewRow["ReleaseDate"] =Convert.ToDateTime( _ReleaseDate);
-            drNewRow["Provider"] = _Provider;
-            drNewRow["DocType"] = _DocType;
+
             drNewRow["Source"] = _Source;
             drNewRow["LocalPath"] = _LocalPath;
+
+            drNewRow["DocType"] = _DocType;
+
+            try
+            {
+                drNewRow["ReleaseDate"] = Convert.ToDateTime(_ReleaseDate);
+            }
+            catch { }
+            drNewRow["Provider"] = _Provider;
+
             drNewRow["Notes"] = _Notes;
 
             DtTable.Rows.Add(drNewRow);//增加到 DtTable变量，临时保存
@@ -109,9 +123,106 @@ namespace ZCommon
                 if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
                 {
                     DtTable.Rows[row].Delete();
-                    DtAdapter.Update(DtTable);
+
                 }
             }
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            conn.Close();
+        }
+
+        public static void searchDoc()
+        {
+            string cmdText = "";
+            cmd = new OleDbCommand(cmdText, conn);
+
+            conn.Open();
+            DtReader = cmd.ExecuteReader();
+        }
+
+        /// <summary>
+        /// 修改公文属性
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="_DocTitle"></param>
+        /// <param name="_Source"></param>
+        /// <param name="_LocalPath"></param>
+        /// <param name="_DocType"></param>
+        /// <param name="_ReleaseDate"></param>
+        /// <param name="_Provider"></param>
+        /// <param name="_Notes"></param>
+        public static void Modify(string id, string _DocTitle, string _Source,
+                                string _LocalPath, string _DocType = "",
+                                string _ReleaseDate = "", string _Provider = "",
+                                string _Notes = "")
+        {
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            {
+                if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+                {
+                    cAccess.DtTable.Rows[row]["DocTitle"] = _DocTitle;
+
+                    try
+                    {
+                        cAccess.DtTable.Rows[row]["ReleaseDate"] = Convert.ToInt32(_ReleaseDate);
+                    }
+                    catch { }
+
+                    cAccess.DtTable.Rows[row]["Provider"] = _Provider;
+
+                    cAccess.DtTable.Rows[row]["DocType"] = _DocType;
+                    cAccess.DtTable.Rows[row]["Source"] = _Source;
+                    cAccess.DtTable.Rows[row]["Note"] = _Notes;
+                    cAccess.DtTable.Rows[row]["LocalPath"] = _LocalPath;
+                }
+            }
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            conn.Close();
+        }
+
+        /// <summary>
+        /// 更改同一类型公文的类型
+        /// </summary>
+        /// <param name="currentType"></param>
+        /// <param name="newType"></param>
+        public static void ModifyType(string currentType,string newType)
+        {
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            {
+                if (currentType == cAccess.DtTable.Rows[row]["DocType"].ToString())
+                {
+                    DtTable.Rows[row]["LocalPath"] = Regex.Replace(DtTable.Rows[row]["LocalPath"].ToString(), currentType, newType, RegexOptions.IgnoreCase);
+                    DtTable.Rows[row]["DocType"] = newType;
+                }
+            }
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            conn.Close();
+        }
+
+        /// <summary>
+        /// 更改指定ID的类型
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newType"></param>
+        public static void ModifyTheType(string id, string newType)
+        {
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            {
+                if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+                {
+                    DtTable.Rows[row]["LocalPath"] = Regex.Replace(DtTable.Rows[row]["LocalPath"].ToString(),DtTable.Rows[row]["DocType"].ToString() , newType, RegexOptions.IgnoreCase);
+                    DtTable.Rows[row]["DocType"] = newType;
+                }
+            }
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            conn.Close();
         }
     }
 }

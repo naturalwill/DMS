@@ -89,6 +89,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.Enabled = false;
             this.btnOK.Location = new System.Drawing.Point(373, 324);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
@@ -125,6 +126,7 @@
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(276, 21);
             this.txtURL.TabIndex = 5;
+            this.txtURL.TextChanged += new System.EventHandler(this.txtURL_TextChanged);
             // 
             // groupBox1
             // 
@@ -203,6 +205,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(276, 21);
             this.txtTitle.TabIndex = 43;
+            this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
             // comboBoxDocType
             // 

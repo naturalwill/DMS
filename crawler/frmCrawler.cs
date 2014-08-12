@@ -117,32 +117,42 @@ namespace crawler
 
         private void txtPageNow_Leave(object sender, EventArgs e)
         {
-            if (pageNow == 1 || pageNow >= pagesAll)
-            {
-                MessageBox.Show("输入的页码超出范围！");
-                return;
-            }
-            else
+            try
             {
                 pageNow = Convert.ToInt32(txtPageNow.Text);
-                list();
-            }
-
-        }
-
-        private void txtPageNow_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-                if (pageNow == 1 || pageNow >= pagesAll)
+                if (pageNow < 1 || pageNow > pagesAll)
                 {
                     MessageBox.Show("输入的页码超出范围！");
                     return;
                 }
                 else
                 {
-                    pageNow = Convert.ToInt32(txtPageNow.Text);
+
                     list();
-                };//执行“跳转”
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+        }
+
+        private void txtPageNow_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                try
+                {//执行“跳转”
+                    pageNow = Convert.ToInt32(txtPageNow.Text);
+                    if (pageNow < 1 || pageNow > pagesAll)
+                    {
+                        MessageBox.Show("输入的页码超出范围！");
+                        return;
+                    }
+                    else
+                    {
+
+                        list();
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             if (e.KeyChar != '\b')//这是允许输入退格键
             {
                 if ((e.KeyChar < '0') || (e.KeyChar > '9'))//这是允许输入0-9数字
