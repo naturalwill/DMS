@@ -5,15 +5,24 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using ZCommon;
+using System.Drawing.Imaging;
 
 
 namespace Camera
 {
     public partial class frmCamera : Form
     {
+        #region
         WebCamera camera;
         DeviceCapabilityInfo _DeviceCapabilityInfo;
         DeviceInfo _DeviceInfo;
+        int inta;
+        string photopath;
+        string ftpUploadpath = cConfig.strWorkPath + "\\"+cConfig.strScanType;
+        string ftpsource;
+        #endregion
         public frmCamera()
         {          
             InitializeComponent();
@@ -49,12 +58,14 @@ namespace Camera
             _DeviceCapabilityInfo = (DeviceCapabilityInfo)comboBox2.SelectedItem;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnreunion_Click(object sender, EventArgs e)
         {
             if (_DeviceInfo != null && _DeviceCapabilityInfo != null)
             {
                 if (camera.StartVideo(_DeviceInfo, _DeviceCapabilityInfo))
-                    button2.Enabled = true;
+                {
+                    btnphotograph.Enabled = true;
+                }
             }
         }
 
@@ -63,13 +74,26 @@ namespace Camera
             if (camera.DeviceExist)
             {
                 if (camera.CloseVideo())
-                    button2.Enabled = false;
+                    btnphotograph.Enabled = false;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnphotograph_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = camera.NewFrame;
+            if (inta==0)
+            {
+                pictureBox2.Image = camera.NewFrame;
+                pictureBox2.Visible = true;
+                btnphotograph.Text = "重拍";
+                inta = 1;
+            }
+            else if(inta==1)
+            {
+                pictureBox2.Image = null;
+                btnphotograph.Text = "拍照";
+                pictureBox2.Visible= false;
+                inta = 0;
+            }
         }
 
         private void Camera_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,7 +102,58 @@ namespace Camera
                 camera.CloseVideo();
             this.Dispose();
         }
-       
+
+        private void frmCamera_Load(object sender, EventArgs e)
+        {
+            pictureBox2.Visible = false;
+            inta = 0;
+        }
+        //使用两个进程，进程一是本地缓存，进程二是储存在ftp服务器上。
+        bool singal = false;
+        void thead_1()
+        {
+            /*储存到本地磁盘。*/
+            Directory.CreateDirectory(ftpUploadpath);
+            if (Directory.Exists(ftpUploadpath))
+            {
+                if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    pictureBox1.Image.Save(ftpUploadpath+"\\"+txtTitle.Text+".jpg",ImageFormat.Jpeg);
+                    photopath = ftpUploadpath+"\\"+txtTitle.Text + ".jpg";
+                }
+            }
+            else Directory.CreateDirectory(ftpUploadpath);
+            singal = true;
+        }
+        void thead_2()
+        {
+            //备份到ftp服务器
+            while (singal)
+            {
+                if (cConfig.FTP_IP != "")
+                {
+                    FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
+                    FTP.MakeDir("DMS");
+                    FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, "DMS/", cConfig.FTP_user, cConfig.FTP_password);
+                    FTP1.MakeDir(cConfig.strScanType);
+                    FTP1.Upload(photopath);
+                    ftpsource = FTPHelper.ftpsavePath;
+                    break;
+                }
+                else
+                {
+                    MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
+                    break;
+                }
+            }
+        }
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            thead_1();
+            thead_2();
+            cAccess.add(txtTitle.Text, ftpsource, photopath, cConfig.strScanType,DateTime.Now.ToString(), "拍照", txtnote.Text);
+
+        }
        
     }
 

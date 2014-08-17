@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZCommon;
 using DMS;
+using System.IO;
 
 namespace DMS.View
 {
@@ -26,7 +27,7 @@ namespace DMS.View
             {
                 cobType.Items.Add(str);
             }
-            cobType.Items.Add(frmMain.strNewType);
+            cobType.Items.Add(cConfig. strNewType);
 
             for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
             {
@@ -38,7 +39,7 @@ namespace DMS.View
                     labcollecttime.Text = cAccess.DtTable.Rows[row]["AddTime"].ToString();
                     cobType.Text = cAccess.DtTable.Rows[row]["DocType"].ToString();
                     libsource.Text = cAccess.DtTable.Rows[row]["Source"].ToString();
-                    txtnote.Text = cAccess.DtTable.Rows[row]["Note"].ToString();
+                    txtnote.Text = cAccess.DtTable.Rows[row]["Notes"].ToString();
                     liblocalpath.Text = cAccess.DtTable.Rows[row]["LocalPath"].ToString();
                     break;
                 }
@@ -47,11 +48,29 @@ namespace DMS.View
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("提示", "确定要修改" + txtTitle.Text + "的属性", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            if (MessageBox.Show("确定要修改“" + txtTitle.Text + "”的属性?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                
+                try
+                {
+                    string OldPath;
+                    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                    {
+                        if (strID == cAccess.DtTable.Rows[row]["ID"].ToString())
+                        {
+                            OldPath = cAccess.DtTable.Rows[row]["LocalPath"].ToString();
+                            cAccess.ChangePermissions(txtTitle.Text, txtreleasetime.Text, cobType.Text, txtunit.Text, txtnote.Text, row);
+                            File.Move(OldPath, cAccess.DtTable.Rows[row]["LocalPath"].ToString());//移动相应的word文档到所需类型的目录
+                            string b = cAccess.DtTable.Rows[row]["LocalPath"].ToString();
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-        }
+            }
 
         private void btncancel_Click(object sender, EventArgs e)
         {
@@ -60,7 +79,7 @@ namespace DMS.View
 
         private void cobType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cobType.Text == frmMain.strNewType || cobType.Text == frmMain.strNoType)
+            if (cobType.Text == cConfig.strNewType || cobType.Text == cConfig.strNoType)
                 cobType.Text = "";
         }
 

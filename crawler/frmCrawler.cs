@@ -21,8 +21,8 @@ namespace crawler
         /// <summary>
         /// 目录页
         /// </summary>
-        string strParentURL = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid=704&pageno=";
-
+        const string strParentURL = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid=704&pageno=";
+        const string strType = "办公网";
         /// <summary>
         /// 声明2个变量，存放总页码和当前页码
         /// </summary>
@@ -191,7 +191,7 @@ namespace crawler
             }
         }
 
-      
+
 
         private void makeWord_Click(object sender, EventArgs e)
         {
@@ -205,7 +205,7 @@ namespace crawler
                     {
                         if (listDoc.CheckedItems[i].SubItems[0].Text == cCrawler.lcl[j].ID.ToString())
                         {
-                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, "", cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2],"批量添加的公文"));
+                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, strType, cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2],"批量添加的公文"));
                             break;
                         }
                     }

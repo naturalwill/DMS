@@ -77,8 +77,11 @@
             this.labPage = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxpaginal = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.cmsListDoc.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.cmsType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,7 +110,7 @@
             this.listDoc.FullRowSelect = true;
             this.listDoc.Location = new System.Drawing.Point(125, 46);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(801, 408);
+            this.listDoc.Size = new System.Drawing.Size(782, 359);
             this.listDoc.TabIndex = 58;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
@@ -226,7 +229,7 @@
             // btnContrary
             // 
             this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnContrary.Location = new System.Drawing.Point(182, 460);
+            this.btnContrary.Location = new System.Drawing.Point(182, 411);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(51, 21);
             this.btnContrary.TabIndex = 66;
@@ -249,7 +252,7 @@
             // btnAll
             // 
             this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAll.Location = new System.Drawing.Point(125, 460);
+            this.btnAll.Location = new System.Drawing.Point(125, 411);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(51, 21);
             this.btnAll.TabIndex = 65;
@@ -287,7 +290,7 @@
             this.tsbAbout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(934, 41);
+            this.toolStrip1.Size = new System.Drawing.Size(915, 41);
             this.toolStrip1.TabIndex = 67;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -321,7 +324,6 @@
             this.tscbMove.Name = "tscbMove";
             this.tscbMove.Size = new System.Drawing.Size(121, 25);
             this.tscbMove.SelectedIndexChanged += new System.EventHandler(this.tscbMove_SelectedIndexChanged);
-            //this.tscbMove.Click += new System.EventHandler(this.tscbMove_Click);
             // 
             // tsbPrint
             // 
@@ -372,9 +374,11 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 486);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 437);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(934, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(915, 22);
             this.statusStrip1.TabIndex = 68;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -394,7 +398,7 @@
             this.listDocType.ItemHeight = 17;
             this.listDocType.Location = new System.Drawing.Point(12, 46);
             this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(107, 410);
+            this.listDocType.Size = new System.Drawing.Size(107, 359);
             this.listDocType.TabIndex = 59;
             this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
@@ -433,7 +437,7 @@
             this.labPageAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(547, 460);
+            this.labPageAll.Location = new System.Drawing.Point(528, 411);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(41, 21);
             this.labPageAll.TabIndex = 64;
@@ -443,7 +447,7 @@
             // btnPageDown
             // 
             this.btnPageDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPageDown.Location = new System.Drawing.Point(620, 460);
+            this.btnPageDown.Location = new System.Drawing.Point(601, 411);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
             this.btnPageDown.TabIndex = 63;
@@ -454,7 +458,7 @@
             // btnPageUp
             // 
             this.btnPageUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPageUp.Location = new System.Drawing.Point(342, 460);
+            this.btnPageUp.Location = new System.Drawing.Point(323, 411);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
             this.btnPageUp.TabIndex = 62;
@@ -465,7 +469,7 @@
             // textBoxNow
             // 
             this.textBoxNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNow.Location = new System.Drawing.Point(455, 460);
+            this.textBoxNow.Location = new System.Drawing.Point(436, 411);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBoxNow.Size = new System.Drawing.Size(40, 21);
@@ -479,7 +483,7 @@
             this.labPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(402, 460);
+            this.labPage.Location = new System.Drawing.Point(383, 411);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 61;
@@ -490,7 +494,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(711, 464);
+            this.label1.Location = new System.Drawing.Point(692, 415);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 69;
@@ -500,27 +504,30 @@
             // 
             this.comboBoxpaginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxpaginal.FormattingEnabled = true;
-            this.comboBoxpaginal.Items.AddRange(new object[] {
-            "10",
-            "15",
-            "20",
-            "30",
-            "50",
-            "无限制"});
-            this.comboBoxpaginal.Location = new System.Drawing.Point(818, 460);
+            this.comboBoxpaginal.Location = new System.Drawing.Point(799, 411);
             this.comboBoxpaginal.Name = "comboBoxpaginal";
             this.comboBoxpaginal.Size = new System.Drawing.Size(60, 20);
             this.comboBoxpaginal.TabIndex = 70;
-            this.comboBoxpaginal.Text = "20";
             this.comboBoxpaginal.SelectedIndexChanged += new System.EventHandler(this.comboBoxpaginal_SelectedIndexChanged);
             this.comboBoxpaginal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxpaginal_KeyPress);
             this.comboBoxpaginal.Leave += new System.EventHandler(this.comboBoxpaginal_Leave);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(62, 17);
+            this.tsslStatus.Text = "tsslStatus";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 508);
+            this.ClientSize = new System.Drawing.Size(915, 459);
             this.Controls.Add(this.comboBoxpaginal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listDoc);
@@ -534,12 +541,15 @@
             this.Controls.Add(this.btnPageUp);
             this.Controls.Add(this.textBoxNow);
             this.Controls.Add(this.labPage);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "公文管理系统";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.cmsListDoc.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.cmsType.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -595,6 +605,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxpaginal;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
     }
 }
 

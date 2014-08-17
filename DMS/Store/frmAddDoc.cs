@@ -37,10 +37,10 @@ namespace DMS.Store
                     string HouZui = txtURL.Text.Substring(txtURL.Text.LastIndexOf('.'));
 
                     string pFilePath;
-                    if (comboBoxDocType.Text != "")
-                        pFilePath = cConfig.strWorkPath + "\\" + comboBoxDocType.Text;
-                    else
-                        pFilePath = cConfig.strWorkPath;
+                    if (comboBoxDocType.Text == "")
+                        comboBoxDocType.Text = cConfig.strNoType;
+                    pFilePath = cConfig.strWorkPath + "\\" + comboBoxDocType.Text;
+
                     if (!(Directory.Exists(pFilePath)))
                         Directory.CreateDirectory(pFilePath);
 
@@ -53,7 +53,7 @@ namespace DMS.Store
                     }
                     File.Copy(txtURL.Text, pFilePath);
                     cAccess.add(txtTitle.Text, txtURL.Text, pFilePath, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text);
-
+                   cConfig.needFlash = true;
                 }
                 this.Close();
             }
@@ -66,7 +66,7 @@ namespace DMS.Store
             {
                 comboBoxDocType.Items.Add(str);
             }
-            comboBoxDocType.Items.Add(frmMain.strNewType);
+            comboBoxDocType.Items.Add(cConfig.strNewType);
         }
 
         private void btnLocal_Click(object sender, EventArgs e)
@@ -88,7 +88,7 @@ namespace DMS.Store
 
         private void comboBoxDocType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxDocType.Text == frmMain.strNewType || comboBoxDocType.Text == frmMain.strNoType)
+            if (comboBoxDocType.Text == cConfig.strNewType || comboBoxDocType.Text == cConfig.strNoType)
                 comboBoxDocType.Text = "";
         }
 

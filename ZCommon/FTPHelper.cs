@@ -15,6 +15,8 @@ namespace ZCommon
         string ftpServerIP;
         string ftpPassword;
         string ftpRemotePath;
+        public static string ftpsavePath;
+        private string struppath;//上传文件位置
         #endregion
 
         /// <summary>  
@@ -39,8 +41,9 @@ namespace ZCommon
         public void Upload(string filename)
         {
             FileInfo fileInf = new FileInfo(filename);
+            ftpsavePath = ftpURI + fileInf.Name;
             FtpWebRequest reqFTP;
-            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileInf.Name));
+            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(struppath + fileInf.Name));
             reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
             reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
             reqFTP.KeepAlive = false;
@@ -259,14 +262,19 @@ namespace ZCommon
             FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + dirName));
-                reqFTP.Method = WebRequestMethods.Ftp.MakeDirectory;
-                reqFTP.UseBinary = true;
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
-                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
-                Stream ftpStream = response.GetResponseStream();
-                ftpStream.Close();
-                response.Close();
+                Uri uri = new Uri(ftpURI + dirName);
+                struppath = ftpURI + dirName + "/";
+                if (!Directory.Exists(uri.ToString()))
+                {
+                    reqFTP = (FtpWebRequest)FtpWebRequest.Create(uri);
+                    reqFTP.Method = WebRequestMethods.Ftp.MakeDirectory;
+                    reqFTP.UseBinary = true;
+                    reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                    FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                    Stream ftpStream = response.GetResponseStream();
+                    ftpStream.Close();
+                    response.Close();
+                }
             }
             catch (Exception ex)
             {

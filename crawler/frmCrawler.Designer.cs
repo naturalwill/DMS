@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCrawler));
             this.btnContrary = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
             this.makeWord = new System.Windows.Forms.Button();
@@ -89,14 +90,14 @@
             // txtURL
             // 
             this.txtURL.AllowDrop = true;
-            this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtURL.Location = new System.Drawing.Point(27, 33);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(661, 21);
             this.txtURL.TabIndex = 29;
             this.txtURL.Text = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid" +
-    "=704&pageno=1";
+                "=704&pageno=1";
             // 
             // label2
             // 
@@ -109,9 +110,9 @@
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.CheckBoxes = true;
             this.listDoc.FullRowSelect = true;
             this.listDoc.Location = new System.Drawing.Point(27, 60);
@@ -196,6 +197,7 @@
             this.Controls.Add(this.txtURL);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listDoc);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmCrawler";
             this.Text = "批量下载器";
             this.Load += new System.EventHandler(this.frmMain_Load);

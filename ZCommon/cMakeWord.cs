@@ -9,8 +9,8 @@ namespace ZCommon
 {
     public class cWord
     {
-        public string DocTitle, URL, tFilePath, pFilePath, type, rlDate, rlUnit,Note;
-        public cWord(string fileName, string _URL, string _type = "", string _rlDate = "", string _rlUnit = "",string note="")
+        public string DocTitle, URL, tFilePath, pFilePath, type, rlDate, rlUnit, Note;
+        public cWord(string fileName, string _URL, string _type = "", string _rlDate = "", string _rlUnit = "", string note = "")
         {
             DocTitle = fileName;
             URL = _URL;
@@ -19,12 +19,12 @@ namespace ZCommon
             rlUnit = _rlUnit;
             Note = note;
 
-            tFilePath = cConfig.strWorkPath + "\\.temp\\" + fileName + ".html";
+            tFilePath = cConfig.strWorkPath + "\\" + cConfig.strTemp + "\\" + fileName + ".html";
 
-            if (type != "")
-                pFilePath = cConfig.strWorkPath + "\\" + type;
-            else
-                pFilePath = cConfig.strWorkPath;
+            if (type == "")
+                type = cConfig.strNoType;
+            pFilePath = cConfig.strWorkPath + "\\" + type;
+
             if (!(Directory.Exists(pFilePath)))
                 Directory.CreateDirectory(pFilePath);
             pFilePath += "\\" + fileName + ".doc";
@@ -33,7 +33,7 @@ namespace ZCommon
 
     public class cMakeWord
     {
-        static string tPath = cConfig.strWorkPath + "\\.temp";
+        static string tPath = cConfig.strWorkPath + "\\" + cConfig.strTemp;
 
         List<cWord> listWord;
 
@@ -59,6 +59,8 @@ namespace ZCommon
         /// <returns>返回网页源码</returns>
         public void makeWord()
         {
+            cConfig.working = true;
+
             object missing = System.Reflection.Missing.Value;
             object readOnly = false;
             object isVisible = true;
@@ -95,6 +97,7 @@ namespace ZCommon
 
             oWordApp.Application.Quit(ref missing, ref missing, ref missing);
             oWordApp = null;
+            cConfig.needFlash = true;
         }
 
 

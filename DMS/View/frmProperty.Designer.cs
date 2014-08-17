@@ -55,9 +55,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.liblocalpath);
             this.groupBox1.Controls.Add(this.cobType);
             this.groupBox1.Controls.Add(this.btnsave);
@@ -82,7 +82,6 @@
             this.groupBox1.Size = new System.Drawing.Size(450, 370);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // liblocalpath
             // 
@@ -126,6 +125,8 @@
             // 
             // txtnote
             // 
+            this.txtnote.AcceptsReturn = true;
+            this.txtnote.AcceptsTab = true;
             this.txtnote.Location = new System.Drawing.Point(79, 278);
             this.txtnote.Multiline = true;
             this.txtnote.Name = "txtnote";
@@ -270,6 +271,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 394);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmProperty";
             this.Text = "公文属性";
             this.Load += new System.EventHandler(this.frmProperty_Load);

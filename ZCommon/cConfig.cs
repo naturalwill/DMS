@@ -10,6 +10,24 @@ namespace ZCommon
     public class cConfig
     {
         #region 字段
+    
+        public const string strSearchTips = "搜索公文";
+        public const string strAllType = "全部类型";
+        public const string strNoType = "(未分类)";
+        public const string strNewType = "(新类型)";
+        public const string strScanType = "扫描文件";
+        public const string strTemp = ".temp";
+        public const string strNoLimit = "无限制";
+
+
+        /// <summary>
+        /// 一个变量，指示是否需要刷新列表
+        /// </summary>
+        public static bool needFlash = false;
+        /// <summary>
+        /// 指示是否正在工作
+        /// </summary>
+        public static bool working = false;
 
         /// <summary>
         /// 是否默认工作目录
@@ -21,7 +39,10 @@ namespace ZCommon
         /// 工作目录
         /// </summary>
         public static string strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
-
+        /// <summary>
+        /// 数据库路径
+        /// </summary>
+        public static string strDatabasePath = Environment.CurrentDirectory + @"\DMS.mdb";
         /// <summary>
         /// FTP设置
         /// </summary>
