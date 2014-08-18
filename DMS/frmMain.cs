@@ -39,7 +39,7 @@ namespace DMS
 
                 cConfig.ReadConfig();
 
-                string[] pi = { "10", "15", "20", "30", "50", "无限制" };
+                string[] pi = { "10", "15", "20", "30", "50", cConfig.strNoLimit };
                 foreach (string p in pi)
                 {
                     comboBoxpaginal.Items.Add(p);
@@ -177,7 +177,7 @@ namespace DMS
             for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
             {
                 string str = cAccess.DtTable.Rows[row]["DocType"].ToString();
-                if (str == "") str = cConfig.strNoType;
+                if (string.IsNullOrEmpty(str)) str = cConfig.strNoType;
                 bool different = true;
                 for (int i = 0; i < TypeList.Count; i++)
                 {
@@ -235,42 +235,58 @@ namespace DMS
 
         private void tssbAdd_ButtonClick(object sender, EventArgs e)
         {
-            frmAddDoc frmAd = new frmAddDoc();
-            timer1.Enabled = true;
-            frmAd.ShowDialog();
+            using (frmAddDoc frmAd = new frmAddDoc())
+            {
+                cConfig.working = true;
+                timer1.Enabled = true;
+                frmAd.ShowDialog();
+            }
         }
 
         private void tsmiAdd_Click(object sender, EventArgs e)
         {
-            frmAddDoc frmAd = new frmAddDoc();
-            timer1.Enabled = true;
-            frmAd.ShowDialog();
+            using (frmAddDoc frmAd = new frmAddDoc())
+            {
+                cConfig.working = true;
+                timer1.Enabled = true;
+                frmAd.ShowDialog();
+            }
         }
 
         private void tsmiAddMore_Click(object sender, EventArgs e)
         {
-            crawler.frmCrawler cr = new crawler.frmCrawler();
-            timer1.Enabled = true;
-            cr.ShowDialog();
+            using (crawler.frmCrawler cr = new crawler.frmCrawler())
+            {
+                cConfig.working = true;
+                timer1.Enabled = true;
+                cr.ShowDialog();
+            }
         }
 
         private void tsbScan_Click(object sender, EventArgs e)
         {
-            Camera.frmCamera frmScan = new Camera.frmCamera();
-            timer1.Enabled = true;
-            frmScan.ShowDialog();
+            using (Camera.frmCamera frmScan = new Camera.frmCamera())
+            {
+                cConfig.working = true;
+                timer1.Enabled = true;
+                frmScan.ShowDialog();
+            }
         }
 
         private void tsbSetting_Click(object sender, EventArgs e)
         {
-            frmSettings frmS = new frmSettings();
-            frmS.ShowDialog();
+            using (frmSettings frmS = new frmSettings())
+            {
+                frmS.ShowDialog();
+            }
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            frmAboutBox frmAb = new frmAboutBox();
-            frmAb.ShowDialog();
+            using (frmAboutBox frmAb = new frmAboutBox())
+            {
+                frmAb.ShowDialog();
+            }
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -334,6 +350,17 @@ namespace DMS
         {
             if (tscbMove.SelectedIndex >= 0)
             {
+
+                if (tscbMove.SelectedItem.ToString() == cConfig.strNewType)
+                {
+                    using (frmNewType frmNewtype = new frmNewType())
+                    {
+                        frmNewtype.labNewType.Text = "添加类型";
+                        frmNewtype.Text = "添加类型";
+                        frmNewtype.ShowDialog();
+                    }
+                    return;
+                }
                 for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                 {
                     string OldPath;
@@ -353,6 +380,42 @@ namespace DMS
                 tscbMove.Text = "";
                 flashTypeList();
 
+            }
+        }
+
+        public void AddNewType(string strNewType)
+        {
+            listDocType.Items.Add(strNewType);
+            if (!Directory.Exists(cConfig.strWorkPath + "\\" + strNewType))//添加所添加类型的目录
+            {
+                Directory.CreateDirectory(cConfig.strWorkPath + "\\" + strNewType);
+            }
+
+            tscbMove.Items.Clear();
+            foreach (string str in listDocType.Items)
+            {
+                if (str != cConfig.strAllType)
+                {
+                    tscbMove.Items.Add(str);
+                }
+            }
+            tscbMove.Items.Add(cConfig.strNewType);
+
+            for (int i = 0; i < listDoc.CheckedItems.Count; i++)
+            {
+                string OldPath;
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                {
+                    if (listDoc.CheckedItems[i].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
+                    {
+                        OldPath = cAccess.DtTable.Rows[row]["LocalPath"].ToString();
+
+                        cAccess.ModifyTheType(listDoc.CheckedItems[i].Text, strNewType);
+
+                        File.Move(OldPath, cAccess.DtTable.Rows[row]["LocalPath"].ToString());//移动相应的word文档到所需类型的目录
+                        string a = cAccess.DtTable.Rows[row]["LocalPath"].ToString();
+                    }
+                }
             }
         }
 
@@ -481,10 +544,12 @@ namespace DMS
 
         private void tsmiAddType_Click(object sender, EventArgs e)
         {
-            frmNewType frmNewtype = new frmNewType();
-            frmNewtype.labNewType.Text = "新增类型";
-            frmNewtype.Text = "新增类型";
-            frmNewtype.ShowDialog();
+            using (frmNewType frmNewtype = new frmNewType())
+            {
+                frmNewtype.labNewType.Text = "新增类型";
+                frmNewtype.Text = "新增类型";
+                frmNewtype.ShowDialog();
+            }
         }
 
         /// <summary>
@@ -506,10 +571,12 @@ namespace DMS
         {
             if (listDocType.SelectedIndex > 0)
             {
-                frmNewType frmNewtype = new frmNewType();
-                frmNewtype.labNewType.Text = "修改类型";
-                frmNewtype.Text = "修改类型";
-                frmNewtype.ShowDialog();
+                using (frmNewType frmNewtype = new frmNewType())
+                {
+                    frmNewtype.labNewType.Text = "修改类型";
+                    frmNewtype.Text = "修改类型";
+                    frmNewtype.ShowDialog();
+                }
             }
         }
 
@@ -545,7 +612,7 @@ namespace DMS
         {
             if (listDocType.SelectedIndex > 0)
             {
-                if (listDocType.SelectedItem == cConfig.strNoType || listDocType.SelectedItem == cConfig.strAllType)
+                if (listDocType.SelectedItem.ToString() == cConfig.strNoType || listDocType.SelectedItem.ToString() == cConfig.strAllType)
                     MessageBox.Show("禁止删除" + listDocType.SelectedItem);
                 else if (MessageBox.Show("确定删除该类型？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
@@ -558,7 +625,7 @@ namespace DMS
                             {
                                 if (fi.ToString() == cAccess.DtTable.Rows[row]["DocTitle"].ToString() + ".doc")
                                 {
-                                    cAccess.DtTable.Rows[row]["DocType"] = "";
+                                    cAccess.DtTable.Rows[row]["DocType"] = cConfig.strNoType;
                                     cAccess.DtAdapter.Update(cAccess.DtTable);
                                 }
                             }
@@ -566,6 +633,7 @@ namespace DMS
                             string path1, path2;//移动删除类型的目录下的所有word文档
                             path1 = cConfig.strWorkPath + "\\" + listDocType.SelectedItem.ToString() + "\\" + fi.ToString();
                             path2 = cConfig.strWorkPath + "\\" + cConfig.strNoType + "\\" + fi.ToString();
+                            if (File.Exists(path2)) { MessageBox.Show("无法删除该类型，因为未分类中存在与该类型相同名字的文件"); return; }
                             File.Move(path1, path2);
                             //File.Copy(path1, path2);
                             //File.Delete(cConfig.strWorkPath + "\\" + listDocType.SelectedItem.ToString() + "\\" + fi.ToString());
@@ -684,8 +752,21 @@ namespace DMS
         /// <param name="e"></param>
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
-            cAccess.delect(listDoc.SelectedItems[0].SubItems[0].Text);
-            getIDList();
+            if (listDoc.SelectedItems.Count > 0)
+            {
+                for (int i = 0; i < listDoc.SelectedItems.Count; i++)
+                {
+                    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                    {
+                        if (listDoc.SelectedItems[i].Text == cAccess.DtTable.Rows[row]["ID"].ToString())
+                        {
+                            cAccess.delect(listDoc.SelectedItems[i].Text);
+                            //System.Diagnostics.Debug.WriteLine(listDoc.CheckedItems[i].Text);
+                        }
+                    }
+                }
+                getIDList();
+            }
         }
         /// <summary>
         /// 查看配置
@@ -694,8 +775,10 @@ namespace DMS
         /// <param name="e"></param>
         private void tsmiInfo_Click(object sender, EventArgs e)
         {
-            frmProperty property = new frmProperty(listDoc.SelectedItems[0].SubItems[0].Text);
-            property.Show();
+            using (frmProperty property = new frmProperty(listDoc.SelectedItems[0].SubItems[0].Text))
+            {
+                property.ShowDialog();
+            }
         }
         #endregion
 
@@ -860,8 +943,14 @@ namespace DMS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (cConfig.working) tsslStatus.Text = "正在工作中...";
-            if (cConfig.needFlash) { flashTypeList(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
+            if (cConfig.working)
+            {
+                tsslStatus.Text = "正在工作中...";
+            }
+            else
+            {
+                if (cConfig.needFlash) { flashTypeList(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
+            }
         }
 
     }

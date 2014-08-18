@@ -53,7 +53,8 @@ namespace DMS.Store
                     }
                     File.Copy(txtURL.Text, pFilePath);
                     cAccess.add(txtTitle.Text, txtURL.Text, pFilePath, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text);
-                   cConfig.needFlash = true;
+                    cConfig.working = false;
+                    cConfig.needFlash = true;
                 }
                 this.Close();
             }
@@ -64,20 +65,23 @@ namespace DMS.Store
         {
             foreach (string str in frmMain.TypeList)
             {
-                comboBoxDocType.Items.Add(str);
+                if (str != cConfig.strNoType)
+                    comboBoxDocType.Items.Add(str);
             }
-            comboBoxDocType.Items.Add(cConfig.strNewType);
+            //comboBoxDocType.Items.Add(cConfig.strNewType);
         }
 
         private void btnLocal_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                txtURL.Text = ofd.FileName;
-                int start = txtURL.Text.LastIndexOf('\\');
-                int end = txtURL.Text.LastIndexOf('.');
-                txtTitle.Text = txtURL.Text.Substring(start + 1, end - start - 2);
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    txtURL.Text = ofd.FileName;
+                    int start = txtURL.Text.LastIndexOf('\\');
+                    int end = txtURL.Text.LastIndexOf('.');
+                    txtTitle.Text = txtURL.Text.Substring(start + 1, end - start - 1);
+                }
             }
         }
 
@@ -86,11 +90,11 @@ namespace DMS.Store
             this.Close();
         }
 
-        private void comboBoxDocType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxDocType.Text == cConfig.strNewType || comboBoxDocType.Text == cConfig.strNoType)
-                comboBoxDocType.Text = "";
-        }
+        //private void comboBoxDocType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (comboBoxDocType.Text == cConfig.strNewType)
+        //        comboBoxDocType.Text = "";
+        //}
 
         private void txtTitle_TextChanged(object sender, EventArgs e)
         {
@@ -105,5 +109,6 @@ namespace DMS.Store
                 btnOK.Enabled = false;
             else btnOK.Enabled = true;
         }
+
     }
 }

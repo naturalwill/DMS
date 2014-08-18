@@ -34,11 +34,13 @@ namespace crawler
         /// <param name="URL">URL</param>
         public static void getInformation(string URL)
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Byte[] pageData = wc.DownloadData(URL);
-            string s = System.Text.Encoding.Default.GetString(pageData);
-            //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
-
+            string s;
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                Byte[] pageData = wc.DownloadData(URL);
+                s = System.Text.Encoding.Default.GetString(pageData);
+                //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            }
             lcl = new List<cList>();
 
             string seq, classcode, strName, strTime;
@@ -47,7 +49,7 @@ namespace crawler
             Regex rp = new Regex(regPages);
             Match mp = rp.Match(s);
             pages = Convert.ToInt32(Regex.Replace(mp.Value, "[共|页]*", string.Empty, RegexOptions.IgnoreCase));
-            
+
             string strRegex = "onclick=\"this.href=SendComplexUrl\\('[0-9]+','[0-9]+'\\);\">\\s*\\S+\\s*</td>\\s*<.*>\\s*.*\\s*</.*>\\s*<.*>\\s*.*";
             //string strRegex = @"httpk://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?";
             Regex r = new Regex(strRegex, RegexOptions.IgnoreCase);
@@ -78,10 +80,13 @@ namespace crawler
         /// <returns>返回网页源码</returns>
         public static string getWebCode(string URL)
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Byte[] pageData = wc.DownloadData(URL);
-            string s = System.Text.Encoding.Default.GetString(pageData);
-            //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            string s;
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                Byte[] pageData = wc.DownloadData(URL);
+                s = System.Text.Encoding.Default.GetString(pageData);
+                //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            }
             return s;
         }
 
@@ -92,11 +97,13 @@ namespace crawler
         /// <param name="path"></param>
         public static void downWeb(string URL, string path)
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Byte[] pageData = wc.DownloadData(URL);
-            string s = System.Text.Encoding.Default.GetString(pageData);
-            //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
-
+            string s;
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                Byte[] pageData = wc.DownloadData(URL);
+                s = System.Text.Encoding.Default.GetString(pageData);
+                //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            }
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Unicode))
             {
                 sw.Write(s);
@@ -121,10 +128,13 @@ namespace crawler
         /// <returns></returns>
         public static string downloadWeb(string URL, bool table)
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Byte[] pageData = wc.DownloadData(URL);
-            string s = System.Text.Encoding.Default.GetString(pageData);
-            //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            string s;
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                Byte[] pageData = wc.DownloadData(URL);
+                s = System.Text.Encoding.Default.GetString(pageData);
+                //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+            }
             s = System.Text.RegularExpressions.Regex.Replace(s, @"<table.*>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             s = System.Text.RegularExpressions.Regex.Replace(s, @"</table>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             s = System.Text.RegularExpressions.Regex.Replace(s, @"<[IMGimg]{3}.*>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);

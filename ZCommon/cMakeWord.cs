@@ -59,24 +59,26 @@ namespace ZCommon
         /// <returns>返回网页源码</returns>
         public void makeWord()
         {
-            cConfig.working = true;
-
             object missing = System.Reflection.Missing.Value;
             object readOnly = false;
             object isVisible = true;
 
             object format = Word.WdSaveFormat.wdFormatDocument;
 
-            Word.ApplicationClass oWordApp = new Word.ApplicationClass();
+            Word._Application oWordApp = new Word.ApplicationClass();
             oWordApp.Visible = false;
 
             for (int i = 0; i < listWord.Count; i++)
             {
-                System.Net.WebClient wc = new System.Net.WebClient();
-                Byte[] pageData = wc.DownloadData(listWord[i].URL);
-                string s = System.Text.Encoding.Default.GetString(pageData);
-                //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+                string s;
+                using (System.Net.WebClient wc = new System.Net.WebClient())
+                {
+                    Byte[] pageData = wc.DownloadData(listWord[i].URL);
 
+                    s = System.Text.Encoding.Default.GetString(pageData);
+
+                    //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
+                }
                 using (StreamWriter sw = new StreamWriter(listWord[i].tFilePath, false, Encoding.Unicode))
                 {
                     sw.Write(s);
@@ -85,18 +87,20 @@ namespace ZCommon
                 object file1 = listWord[i].tFilePath;
                 object file2 = listWord[i].pFilePath;
 
-                Word.Document oWordDoc = oWordApp.Documents.Open(ref file1, ref format, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible, ref missing, ref missing, ref missing, ref missing);
+                Word._Document oWordDoc = oWordApp.Documents.Open(ref file1, ref format, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible, ref missing, ref missing, ref missing, ref missing);
                 oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
 
                 oWordDoc.Close(ref missing, ref missing, ref missing);
                 oWordDoc = null;
 
                 cAccess.add(listWord[i].DocTitle, listWord[i].URL, listWord[i].pFilePath, listWord[i].type, listWord[i].rlDate, listWord[i].rlUnit, listWord[i].Note);
+
             }
             cAccess.DtAdapter.Update(cAccess.DtTable);
 
-            oWordApp.Application.Quit(ref missing, ref missing, ref missing);
+            oWordApp.Quit(ref missing, ref missing, ref missing);
             oWordApp = null;
+            cConfig.working = false;
             cConfig.needFlash = true;
         }
 

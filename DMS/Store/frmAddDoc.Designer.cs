@@ -51,9 +51,9 @@
             // 
             // txtRemindMessage
             // 
-            this.txtRemindMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRemindMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRemindMessage.Location = new System.Drawing.Point(6, 20);
             this.txtRemindMessage.Multiline = true;
             this.txtRemindMessage.Name = "txtRemindMessage";
@@ -216,7 +216,8 @@
             this.comboBoxDocType.Name = "comboBoxDocType";
             this.comboBoxDocType.Size = new System.Drawing.Size(135, 20);
             this.comboBoxDocType.TabIndex = 45;
-            this.comboBoxDocType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocType_SelectedIndexChanged);
+            //this.comboBoxDocType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocType_SelectedIndexChanged);
+            //this.comboBoxDocType.TextChanged += new System.EventHandler(this.comboBoxDocType_TextChanged);
             // 
             // frmAddDoc
             // 

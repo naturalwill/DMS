@@ -125,7 +125,7 @@ namespace ZCommon
                 StreamReader sr = new StreamReader(datastream);
                 result = sr.ReadToEnd();
                 sr.Close();
-                datastream.Close();
+                //datastream.Close();
                 response.Close();
             }
             catch (Exception ex)
@@ -193,9 +193,9 @@ namespace ZCommon
                     }
                 }
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                throw (ex);
+                //throw (ex);
             }
             return list.ToArray();
         }
@@ -230,9 +230,9 @@ namespace ZCommon
                 reader.Close();
                 response.Close();
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                throw (ex);
+                // throw (ex);
             }
             return result.ToString().Split('\n');
         }
@@ -276,7 +276,7 @@ namespace ZCommon
                     response.Close();
                 }
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //MessageBox.Show(ex.Message);
             }
@@ -301,7 +301,7 @@ namespace ZCommon
                 ftpStream.Close();
                 response.Close();
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             { }
             return fileSize;
         }
@@ -324,7 +324,7 @@ namespace ZCommon
                 ftpStream.Close();
                 response.Close();
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             { }
         }
 

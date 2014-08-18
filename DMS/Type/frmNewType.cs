@@ -31,6 +31,10 @@ namespace DMS.Type
             {
                 frmMain.fm.changeType(txtNewType.Text);
             }
+            else if (this.Text == "添加类型")
+            {
+                frmMain.fm.AddNewType(txtNewType.Text);
+            }
             this.Close();
         }
 

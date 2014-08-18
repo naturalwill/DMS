@@ -35,6 +35,8 @@ namespace ZCommon
                 {
                     Byte[] b = ZCommon.Properties.Resources.DMS;
                     fs.Write(b, 0, b.Length);
+                    if (fs != null)
+                        fs.Close();
                 }
                 catch
                 {
@@ -42,11 +44,7 @@ namespace ZCommon
                         fs.Close();
                     return false;
                 }
-                finally
-                {
-                    if (fs != null)
-                        fs.Close();
-                }
+
 
                 //ADOX.CatalogClass cat = new ADOX.CatalogClass();
                 //cat.Create(connString);

@@ -36,10 +36,12 @@ namespace DMS
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                txtPath.Text = fbd.SelectedPath;
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    txtPath.Text = fbd.SelectedPath;
+                }
             }
         }
 

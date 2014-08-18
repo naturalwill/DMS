@@ -23,7 +23,7 @@ namespace ZCommon
         public void printFiles()
         {
             var wordFiles = new List<object>();
-            var docs = new List<Word.Document>();
+            var docs = new List<Word._Document>();
             
             foreach (string s in listWord)
             {
@@ -33,7 +33,7 @@ namespace ZCommon
                 //wordFiles.Add(@"E:\testPrint3.doc");                
             }
             object oMissing = System.Reflection.Missing.Value;
-            var app = new Word.Application();
+            Word._Application app = new Word.ApplicationClass();
             try
             {
                 //Document doc = app.Documents.Add(ref wordFile, ref oMissing, ref oMissing, ref oMissing);
@@ -41,7 +41,7 @@ namespace ZCommon
                 foreach (var wordFile in wordFiles)
                 {
                     object file = wordFile;
-                    Word.Document doc = app.Documents.Open(ref file, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    Word._Document doc = app.Documents.Open(ref file, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                       ref oMissing, ref oMissing, ref oMissing,
                                                       ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                       ref oMissing,
