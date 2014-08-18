@@ -4,9 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using DMS.Store;
-using DMS.Type;
-using DMS.View;
+using DMS.Forms;
 using ZCommon;
 
 namespace DMS
@@ -14,7 +12,7 @@ namespace DMS
     public partial class frmMain : Form
     {
         /// <summary>
-        /// 本窗口，引用方法：
+        /// 主窗口，引用方法：
         /// DMS.frmMain.fm
         /// </summary>
         public static frmMain fm;
@@ -253,7 +251,7 @@ namespace DMS
 
         private void tsmiAddMore_Click(object sender, EventArgs e)
         {
-            using (crawler.frmCrawler cr = new crawler.frmCrawler())
+            using (Crawler.frmCrawler cr = new Crawler.frmCrawler())
             {
                 cConfig.working = true;
                 timer1.Enabled = true;

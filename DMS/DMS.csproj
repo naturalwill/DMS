@@ -5,29 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{95F29424-F76E-46F2-9D8A-1F28168B6105}</ProjectGuid>
+    <ProjectGuid>{256AAF03-D6E5-4F14-B074-34039C0CEFD8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DMS</RootNamespace>
     <AssemblyName>DMS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,10 +34,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.4.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Camera\Aforge\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.4.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Camera\Aforge\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.4.1, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Camera\Aforge\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -60,45 +61,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmSettings.cs">
+    <Compile Include="Camera\frmCamera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSettings.Designer.cs">
+    <Compile Include="Camera\frmCamera.designer.cs">
+      <DependentUpon>frmCamera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Camera\WebCamera.cs" />
+    <Compile Include="ZCommon\cAccess.cs" />
+    <Compile Include="ZCommon\cConfig.cs" />
+    <Compile Include="ZCommon\cMakeWord.cs" />
+    <Compile Include="ZCommon\cPrintFiles.cs" />
+    <Compile Include="ZCommon\cRegex.cs" />
+    <Compile Include="ZCommon\FTPHelper.cs" />
+    <Compile Include="Crawler\cCrawler.cs" />
+    <Compile Include="Crawler\cList.cs" />
+    <Compile Include="Crawler\frmCrawler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crawler\frmCrawler.designer.cs">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAboutBox.Designer.cs">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddDoc.designer.cs">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNewType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNewType.designer.cs">
+      <DependentUpon>frmNewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmProperty.designer.cs">
+      <DependentUpon>frmProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSettings.designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="frmMain.designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store\frmAddDoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Store\frmAddDoc.Designer.cs">
-      <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Type\frmNewType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Type\frmNewType.Designer.cs">
-      <DependentUpon>frmNewType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\frmAboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\frmAboutBox.Designer.cs">
+    <EmbeddedResource Include="Camera\frmCamera.resx">
+      <DependentUpon>frmCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crawler\frmCrawler.resx">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\frmProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\frmProperty.Designer.cs">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddDoc.resx">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNewType.resx">
+      <DependentUpon>frmNewType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmProperty.resx">
       <DependentUpon>frmProperty.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="frmSettings.resx">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
@@ -114,19 +154,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Store\frmAddDoc.resx">
-      <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Type\frmNewType.resx">
-      <DependentUpon>frmNewType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\frmAboutBox.resx">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\frmProperty.resx">
-      <DependentUpon>frmProperty.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -138,35 +165,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Camera\Camera.csproj">
-      <Project>{ACD2DB8E-6369-4350-81B9-3A72046207FA}</Project>
-      <Name>Camera</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\crawler\crawler.csproj">
-      <Project>{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}</Project>
-      <Name>crawler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZCommon\ZCommon.csproj">
-      <Project>{6157CF82-FD80-4D6E-AE89-938DBABAF412}</Project>
-      <Name>ZCommon</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Content Include="Camera\Aforge\AForge.dll" />
+    <Content Include="Camera\Aforge\AForge.Video.DirectShow.dll" />
+    <Content Include="Camera\Aforge\AForge.Video.dll" />
+    <None Include="Resources\DMS.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

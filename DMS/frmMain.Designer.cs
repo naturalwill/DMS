@@ -64,6 +64,7 @@
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tipListDoc = new System.Windows.Forms.ToolTip(this.components);
             this.listDocType = new System.Windows.Forms.ListBox();
             this.cmsType = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -78,7 +79,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxpaginal = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.cmsListDoc.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -382,6 +382,12 @@
             this.statusStrip1.TabIndex = 68;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(62, 17);
+            this.tsslStatus.Text = "tsslStatus";
+            // 
             // tipListDoc
             // 
             this.tipListDoc.ToolTipTitle = "备注：";
@@ -517,12 +523,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tsslStatus
-            // 
-            this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(62, 17);
-            this.tsslStatus.Text = "tsslStatus";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -541,7 +541,6 @@
             this.Controls.Add(this.btnPageUp);
             this.Controls.Add(this.textBoxNow);
             this.Controls.Add(this.labPage);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "公文管理系统";
             this.Load += new System.EventHandler(this.frmMain_Load);
