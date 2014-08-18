@@ -33,7 +33,7 @@ namespace ZCommon
                 //wordFiles.Add(@"E:\testPrint3.doc");                
             }
             object oMissing = System.Reflection.Missing.Value;
-            Word._Application app = new Word.ApplicationClass();
+            Word._Application app = new Word.Application();
             try
             {
                 //Document doc = app.Documents.Add(ref wordFile, ref oMissing, ref oMissing, ref oMissing);

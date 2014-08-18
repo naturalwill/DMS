@@ -5,13 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS", "DMS\DMS.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crawler", "crawler\crawler.csproj", "{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "公文存储系统", "..\公文管理系统\公文存储系统.csproj", "{CBDC7922-01FB-48A3-B041-6848684024A7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera", "Camera\Camera.csproj", "{ACD2DB8E-6369-4350-81B9-3A72046207FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZCommon", "ZCommon\ZCommon.csproj", "{6157CF82-FD80-4D6E-AE89-938DBABAF412}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "校园网公文存储系统", "..\校园网公文存储系统_140511\校园网公文存储系统\校园网公文存储系统.csproj", "{85B80DF9-9B80-4B0E-808D-9EE71B750729}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +39,6 @@ Global
 		{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}.Release|Mixed Platforms.Build.0 = Release|x86
 		{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}.Release|x86.ActiveCfg = Release|x86
 		{EAA87B4E-7DEB-4EBC-B57A-07BD822DC203}.Release|x86.Build.0 = Release|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Debug|x86.ActiveCfg = Debug|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Debug|x86.Build.0 = Debug|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Release|Any CPU.ActiveCfg = Release|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Release|Mixed Platforms.Build.0 = Release|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Release|x86.ActiveCfg = Release|x86
-		{CBDC7922-01FB-48A3-B041-6848684024A7}.Release|x86.Build.0 = Release|x86
 		{ACD2DB8E-6369-4350-81B9-3A72046207FA}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{ACD2DB8E-6369-4350-81B9-3A72046207FA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{ACD2DB8E-6369-4350-81B9-3A72046207FA}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -73,16 +59,6 @@ Global
 		{6157CF82-FD80-4D6E-AE89-938DBABAF412}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6157CF82-FD80-4D6E-AE89-938DBABAF412}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6157CF82-FD80-4D6E-AE89-938DBABAF412}.Release|x86.ActiveCfg = Release|Any CPU
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Debug|x86.ActiveCfg = Debug|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Debug|x86.Build.0 = Debug|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Release|Any CPU.ActiveCfg = Release|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Release|Mixed Platforms.Build.0 = Release|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Release|x86.ActiveCfg = Release|x86
-		{85B80DF9-9B80-4B0E-808D-9EE71B750729}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

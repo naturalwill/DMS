@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 using DMS.Store;
-using DMS.View;
 using DMS.Type;
+using DMS.View;
 using ZCommon;
-using System.Diagnostics;
 
 namespace DMS
 {

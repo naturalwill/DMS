@@ -65,7 +65,7 @@ namespace ZCommon
 
             object format = Word.WdSaveFormat.wdFormatDocument;
 
-            Word._Application oWordApp = new Word.ApplicationClass();
+            Word._Application oWordApp = new Word.Application();
             oWordApp.Visible = false;
 
             for (int i = 0; i < listWord.Count; i++)
