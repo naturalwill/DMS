@@ -19,6 +19,7 @@ namespace ZCommon
         public const string strTemp = ".temp";
         public const string strNoLimit = "无限制";
 
+        public static string strOaURL = "http://oa.gdmc.edu.cn";
 
         /// <summary>
         /// 一个变量，指示是否需要刷新列表

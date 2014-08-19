@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Word = Microsoft.Office.Interop.Word;
-
+using System.Windows.Forms;
 
 namespace ZCommon
 {
@@ -67,23 +67,14 @@ namespace ZCommon
 
             Word._Application oWordApp = new Word.Application();
             oWordApp.Visible = false;
+            int intExist = 0, intSuccess = 0;
 
             for (int i = 0; i < listWord.Count; i++)
             {
-                string s;
-                using (System.Net.WebClient wc = new System.Net.WebClient())
-                {
-                    Byte[] pageData = wc.DownloadData(listWord[i].URL);
+                if (File.Exists(listWord[i].pFilePath)) { intExist++; continue; }
 
-                    s = System.Text.Encoding.Default.GetString(pageData);
-
-                    //s = System.Text.Encoding.UTF8.GetString(pageData);去除中文乱码
-                }
-                using (StreamWriter sw = new StreamWriter(listWord[i].tFilePath, false, Encoding.Unicode))
-                {
-                    sw.Write(s);
-                }
-
+                ZCommon.SaveWebPage.SaveOaWebPageToMHTFile(listWord[i].URL, listWord[i].tFilePath);
+               
                 object file1 = listWord[i].tFilePath;
                 object file2 = listWord[i].pFilePath;
 
@@ -94,12 +85,14 @@ namespace ZCommon
                 oWordDoc = null;
 
                 cAccess.add(listWord[i].DocTitle, listWord[i].URL, listWord[i].pFilePath, listWord[i].type, listWord[i].rlDate, listWord[i].rlUnit, listWord[i].Note);
-
+                intSuccess++;
             }
             cAccess.DtAdapter.Update(cAccess.DtTable);
 
             oWordApp.Quit(ref missing, ref missing, ref missing);
             oWordApp = null;
+
+            MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档已存在，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
             cConfig.working = false;
             cConfig.needFlash = true;
         }

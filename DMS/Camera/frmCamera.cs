@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using ZCommon;
@@ -142,7 +137,7 @@ namespace Camera
                 }
                 else
                 {
-                    MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
+                    //MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
                     break;
                 }
             }

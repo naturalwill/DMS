@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 using System.Data.OleDb;
-using System.Text.RegularExpressions;
 using System.IO;
 
 namespace ZCommon
@@ -294,18 +291,69 @@ namespace ZCommon
         {
             if (string.IsNullOrEmpty(key)) return null;
 
+            List<DateTime> ld = new List<DateTime>();
+            List<string> ls = new List<string>();
+            List<string> lsl = new List<string>();
+
+            foreach (string s in key.Split(' '))
+            {
+                if (string.IsNullOrWhiteSpace(s)) continue;
+                try
+                {
+                    foreach (string date in s.Split('~'))
+                    {
+                        if (!string.IsNullOrWhiteSpace(date))
+                            ld.Add(Convert.ToDateTime(date));
+                    }
+                    if (!string.IsNullOrWhiteSpace(s))
+                        lsl.Add(s);
+                }
+                catch
+                {
+                    if (!string.IsNullOrWhiteSpace(s))
+                        ls.Add(s);
+                }
+            }
+
             string filterExpression = "";
-            filterExpression += "DocTitle LIKE '%" + key + "%'" + " or ";
-            //filterExpression += "AddTime LIKE '%" + key + "%'" + " or ";
-            //filterExpression += "ReleaseDate LIKE '%" + key + "%'" + " or ";
-            filterExpression += "Provider LIKE '%" + key + "%'" + " or ";
-            filterExpression += "Notes LIKE '%" + key + "%'" + " or ";
-            if (filterExpression.EndsWith(" or "))
+
+            for (int i = 0; i < lsl.Count; i++)
+            {
+                filterExpression += "( DocTitle LIKE '%" + lsl[i] + "%' or ";
+                filterExpression += "Provider LIKE '%" + lsl[i] + "%' or ";
+                filterExpression += "Notes LIKE '%" + lsl[i] + "%' ) or ";
+            }
+
+            for (int i = 0; i < ls.Count; i++)
+            {
+                filterExpression += "( DocTitle LIKE '%" + ls[i] + "%' or ";
+                filterExpression += "Provider LIKE '%" + ls[i] + "%' or ";
+                filterExpression += "Notes LIKE '%" + ls[i] + "%' ) and ";
+            }
+
+            if (ld.Count == 1)
+            {
+                filterExpression += "( AddTime > '" + ld[0] + "' or ";
+                filterExpression += "ReleaseDate > '" + ld[0] + "' )";
+            }
+            else if (ld.Count == 2)
+            {
+                filterExpression += "(( AddTime > '" + ld[0] + "' and AddTime < '" + ld[1] + "') or ";
+                filterExpression += "( ReleaseDate > '" + ld[0] + "' and ReleaseDate < '" + ld[1] + "' ))";
+            }
+
+
+            if (filterExpression.EndsWith(" and "))
+            {
+                int indexOfAnd = filterExpression.LastIndexOf(" and ");
+                filterExpression = filterExpression.Substring(0, indexOfAnd);
+            }
+            else if (filterExpression.EndsWith(" or "))
             {
                 int indexOfAnd = filterExpression.LastIndexOf(" or ");
                 filterExpression = filterExpression.Substring(0, indexOfAnd);
             }
-            List<string> ls = new List<string>();
+
             foreach (DataRow drs in DtTable.Select(filterExpression))
             {
                 ls.Add(drs["ID"].ToString());

@@ -61,8 +61,8 @@
             this.tsbPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbSetting = new System.Windows.Forms.ToolStripButton();
-            this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+            this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tipListDoc = new System.Windows.Forms.ToolTip(this.components);
@@ -108,6 +108,7 @@
             this.columnHeaderDocType});
             this.listDoc.ContextMenuStrip = this.cmsListDoc;
             this.listDoc.FullRowSelect = true;
+            this.listDoc.HoverSelection = true;
             this.listDoc.Location = new System.Drawing.Point(125, 46);
             this.listDoc.Name = "listDoc";
             this.listDoc.Size = new System.Drawing.Size(782, 359);
@@ -115,7 +116,7 @@
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
             this.listDoc.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listDoc_ItemChecked);
-            this.listDoc.SelectedIndexChanged += new System.EventHandler(this.listDoc_SelectedIndexChanged);
+            this.listDoc.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listDoc_ItemMouseHover);
             // 
             // columnHeaderID
             // 
@@ -264,7 +265,7 @@
             // 
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 8, 1, 8);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(150, 25);
+            this.txtSearch.Size = new System.Drawing.Size(180, 25);
             this.txtSearch.Text = "搜索公文";
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             this.txtSearch.Leave += new System.EventHandler(this.txtSearch_Leave);
@@ -286,8 +287,8 @@
             this.tsbPrint,
             this.toolStripSeparator2,
             this.tsbSetting,
-            this.tsbClose,
-            this.tsbAbout});
+            this.tsbAbout,
+            this.tsbClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(915, 41);
@@ -351,6 +352,16 @@
             this.tsbSetting.Text = "设置";
             this.tsbSetting.Click += new System.EventHandler(this.tsbSetting_Click);
             // 
+            // tsbAbout
+            // 
+            this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
+            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAbout.Name = "tsbAbout";
+            this.tsbAbout.Size = new System.Drawing.Size(36, 38);
+            this.tsbAbout.Text = "关于";
+            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
+            // 
             // tsbClose
             // 
             this.tsbClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -361,16 +372,6 @@
             this.tsbClose.Size = new System.Drawing.Size(36, 38);
             this.tsbClose.Text = "退出";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
-            // 
-            // tsbAbout
-            // 
-            this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
-            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(36, 38);
-            this.tsbAbout.Text = "关于";
-            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
             // statusStrip1
             // 
@@ -541,6 +542,7 @@
             this.Controls.Add(this.btnPageUp);
             this.Controls.Add(this.textBoxNow);
             this.Controls.Add(this.labPage);
+            this.MinimumSize = new System.Drawing.Size(750, 498);
             this.Name = "frmMain";
             this.Text = "公文管理系统";
             this.Load += new System.EventHandler(this.frmMain_Load);

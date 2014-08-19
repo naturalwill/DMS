@@ -17,7 +17,6 @@ namespace DMS
         /// </summary>
         public static frmMain fm;
 
-
         public frmMain()
         {
             InitializeComponent();
@@ -25,8 +24,17 @@ namespace DMS
         }
 
 
-        #region 窗体加载
 
+
+        //-----------------------下有三个函数未做完---------------
+
+        #region 启动时运行
+
+        /// <summary>
+        /// 窗体加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmMain_Load(object sender, EventArgs e)
         {
             try
@@ -45,6 +53,7 @@ namespace DMS
                 else
                     comboBoxpaginal.Text = cConfig.paginalItems.ToString();
 
+                AddRecord();
                 flashTypeList();
                 tsslStatus.Text = "启动完成！欢迎使用公文管理系统~";
             }
@@ -53,8 +62,134 @@ namespace DMS
                 MessageBox.Show(ex.Message);
             }
         }
+
+
+        List<string> filePath = new List<string>();
+        /// <summary>
+        /// 遍历文件夹，搜索符合条件的文件，添加进filePath列表中
+        /// </summary>
+        /// <param name="path"></param>
+        private void searchFile(string path)
+        {
+            DirectoryInfo dir = new DirectoryInfo(path);
+            foreach (FileInfo f in dir.GetFiles("*.*"))
+            {
+                filePath.Add(f.FullName);
+            }
+            foreach (DirectoryInfo f in dir.GetDirectories())
+            {
+                if (f.Name != cConfig.strTemp)
+                {
+                    searchFile(f.FullName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 检测工作目录下的文件，
+        /// 如发现数据库中没记录，添加进数据库
+        /// </summary>
+        private void AddRecord()
+        {
+            filePath.Clear();
+            searchFile(cConfig.strWorkPath);
+            foreach (string url in filePath)
+            {
+                int titleStart = url.LastIndexOf('\\');
+                int typeStart = url.Substring(0, titleStart).LastIndexOf('\\');
+                int end = url.LastIndexOf('.');
+                string title = url.Substring(titleStart + 1, end - titleStart - 1);
+                string type = url.Substring(typeStart + 1, titleStart - typeStart - 1);
+                if (type == "DMS") continue;
+                bool no = true;
+                for (int i = 0; i < cAccess.DtTable.Rows.Count; i++)
+                {
+                    if (url == cAccess.DtTable.Rows[i]["LocalPath"].ToString())
+                    {
+                        no = false;
+                        break;
+                    }
+                }
+                if (no)
+                    cAccess.add(title, url, url, type, "", "", "自工作目录中检测出的文档");
+            }
+        }
+
+        /// <summary>
+        /// 检测数据库中的LocalPath，
+        /// 如发现文件不存在，
+        /// 先从FTP下载，
+        /// 若无FTP，则从来源下载
+        /// </summary>
+        private void GetFile()
+        {
+            FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
+            FTP.MakeDir("DMS");
+            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            {
+                FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, "DMS", cConfig.FTP_user, cConfig.FTP_password);
+                FTP1.MakeDir(cAccess.DtTable.Rows[row]["DocType"].ToString());
+                FTP1.MakeDir(cConfig.strNoType);
+                if (!File.Exists(cAccess.DtTable.Rows[row]["LocalPath"].ToString()))
+                {
+
+                }
+            }
+        }
+
         #endregion
 
+        #region 定期运行
+
+        /// <summary>
+        /// 检测FTP，如发现本地文件未备份，则备份文件
+        /// 若ip为空时不进行备份
+        /// </summary>
+        private void StoreFile()
+        {
+            List<string> list = new List<string>();
+            if (cConfig.FTP_IP != "")
+            {
+                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                {
+                    DirectoryInfo TheFolder = new DirectoryInfo(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString());
+                    foreach (FileInfo fi in TheFolder.GetFiles())
+                    {
+                        list.Add(fi.Name);
+                    }
+
+                    FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString(), cConfig.FTP_user, cConfig.FTP_password);
+                    FTP.GetFileList("222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+
+
+                    foreach (string str in list)
+                    {
+                        if (!FTP.GetFileList("222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString()).Equals(str))
+                        {
+                            FTP.Upload(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "\\" + cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //根据工作状态，判断是否需要刷新
+            if (cConfig.working)
+            {
+                tsslStatus.Text = "正在工作中...";
+            }
+            else
+            {
+                if (cConfig.needFlash) { flashTypeList(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
+            }
+        }
+
+        #endregion
+
+        //---------------------------上有三个函数没完成----------------------------
 
         #region 列出公文
         List<string> listID = new List<string>();
@@ -226,6 +361,81 @@ namespace DMS
 
         #endregion
 
+        #region 读取或储存类型列表（暂不使用）
+
+        //public static List<string> DocTypeList;
+
+        ///// <summary>
+        ///// 储存公文类型列表
+        ///// </summary>
+        //private void saveDocTypeList()
+        //{
+        //    if (DocTypeList == null) return;
+        //    XElement xe = new XElement("DocTypeList");
+        //    for (int i = 0; i < DocTypeList.Count; i++)
+        //    {
+        //        XElement NoteList = new XElement("DocType", DocTypeList[i]);
+        //        xe.Add(NoteList);
+        //    }
+        //    xe.Save(".\\DocTypeList.xml");
+        //    xe.RemoveAll();
+        //}
+
+        ///// <summary>
+        ///// 读取公文类型列表
+        ///// </summary>
+        //private void readDocTypeList()
+        //{
+        //    if (DocTypeList == null)
+        //        DocTypeList = new List<string>();
+
+        //    if (File.Exists(".\\DocTypeList.xml"))
+        //    {
+        //        XElement xe = XElement.Load(".\\DocTypeList.xml");
+        //        IEnumerable<XElement> elements = from PInfo in xe.Elements("DocTypeList") select PInfo;
+        //        foreach (XElement element in elements)
+        //        {
+        //            DocTypeList.Add(element.Element("DocType").Value);
+        //        }
+        //        xe.RemoveAll();
+        //    }
+
+        //    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+        //    {
+        //        string str = cAccess.DtTable.Rows[row]["DocType"].ToString();
+
+        //        //if (DocTypeList.Count == 0)
+        //        //{
+        //        //    DocTypeList.Add(str);
+        //        //    continue;
+        //        //}
+
+        //        bool different = true;
+        //        for (int i = 0; i < DocTypeList.Count; i++)
+        //        {
+        //            if (DocTypeList[i] == str)
+        //            {
+        //                different = false;
+        //                break;
+        //            }
+        //        }
+        //        if (different)
+        //            DocTypeList.Add(str);
+        //    }
+
+        //    listDocType.Items.Add("全部类型");
+        //    foreach (string str in DocTypeList)
+        //    {
+        //        tscbMove.Items.Add(str);
+        //        listDocType.Items.Add(str);
+        //    }
+        //    tscbMove.Items.Add("(新类型)");
+        //    listDocType.SelectedIndex = 0;
+        //}
+
+        #endregion
+
+        //-------------------------------------------------------------
 
         #region 工具栏窗体事件
 
@@ -321,12 +531,6 @@ namespace DMS
             if (txtSearch.Text == "" || txtSearch.Text == cConfig.strSearchTips)
             {
                 txtSearch.Text = cConfig.strSearchTips;
-
-            }
-            else
-            {//执行搜索命令
-                listID = cAccess.search(txtSearch.Text);
-                list();
             }
         }
 
@@ -334,8 +538,15 @@ namespace DMS
         {
             if (e.KeyChar == '\r')
             {
-                //执行搜索命令
                 listID = cAccess.search(txtSearch.Text);
+                if (cConfig.paginalItems > 0)
+                {
+                    pagesAll = listID.Count / cConfig.paginalItems;
+                    if (listID.Count != pagesAll * cConfig.paginalItems) pagesAll++;
+                }
+                else
+                    pagesAll = 1;
+                labPageAll.Text = pagesAll.ToString();
                 list();
             }
         }
@@ -438,80 +649,7 @@ namespace DMS
 
         #endregion
 
-
-        #region 读取或储存类型列表（暂不使用）
-
-        //public static List<string> DocTypeList;
-
-        ///// <summary>
-        ///// 储存公文类型列表
-        ///// </summary>
-        //private void saveDocTypeList()
-        //{
-        //    if (DocTypeList == null) return;
-        //    XElement xe = new XElement("DocTypeList");
-        //    for (int i = 0; i < DocTypeList.Count; i++)
-        //    {
-        //        XElement NoteList = new XElement("DocType", DocTypeList[i]);
-        //        xe.Add(NoteList);
-        //    }
-        //    xe.Save(".\\DocTypeList.xml");
-        //    xe.RemoveAll();
-        //}
-
-        ///// <summary>
-        ///// 读取公文类型列表
-        ///// </summary>
-        //private void readDocTypeList()
-        //{
-        //    if (DocTypeList == null)
-        //        DocTypeList = new List<string>();
-
-        //    if (File.Exists(".\\DocTypeList.xml"))
-        //    {
-        //        XElement xe = XElement.Load(".\\DocTypeList.xml");
-        //        IEnumerable<XElement> elements = from PInfo in xe.Elements("DocTypeList") select PInfo;
-        //        foreach (XElement element in elements)
-        //        {
-        //            DocTypeList.Add(element.Element("DocType").Value);
-        //        }
-        //        xe.RemoveAll();
-        //    }
-
-        //    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
-        //    {
-        //        string str = cAccess.DtTable.Rows[row]["DocType"].ToString();
-
-        //        //if (DocTypeList.Count == 0)
-        //        //{
-        //        //    DocTypeList.Add(str);
-        //        //    continue;
-        //        //}
-
-        //        bool different = true;
-        //        for (int i = 0; i < DocTypeList.Count; i++)
-        //        {
-        //            if (DocTypeList[i] == str)
-        //            {
-        //                different = false;
-        //                break;
-        //            }
-        //        }
-        //        if (different)
-        //            DocTypeList.Add(str);
-        //    }
-
-        //    listDocType.Items.Add("全部类型");
-        //    foreach (string str in DocTypeList)
-        //    {
-        //        tscbMove.Items.Add(str);
-        //        listDocType.Items.Add(str);
-        //    }
-        //    tscbMove.Items.Add("(新类型)");
-        //    listDocType.SelectedIndex = 0;
-        //}
-
-        #endregion
+        //-------------------------------------------------------------
 
         #region 类型列表事件 listDocType
 
@@ -643,11 +781,13 @@ namespace DMS
 
         #endregion
 
+        //-------------------------------------------------------------
 
         #region 公文列表事件 listDoc
 
-        private void listDoc_SelectedIndexChanged(object sender, EventArgs e)
+        private void listDoc_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
+            tipListDoc.ShowAlways = false;
             string notes = "";
             if (listDoc.SelectedItems.Count > 0)
             {
@@ -659,8 +799,10 @@ namespace DMS
                     }
                 }
             }
-
-            this.tipListDoc.SetToolTip(listDoc, notes);
+            //显示备注
+            tipListDoc.SetToolTip(this.listDoc, notes);
+            //tipListDoc.Show(notes, this.listDoc);
+            tipListDoc.ShowAlways = true;
         }
 
         private void listDoc_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -778,6 +920,7 @@ namespace DMS
         }
         #endregion
 
+        //---------------------------------------------------------------
 
         #region 批量选择
 
@@ -810,7 +953,6 @@ namespace DMS
             }
         }
         #endregion
-
 
         #region 分页
         int pagesAll = 1, pageNow = 1;
@@ -894,7 +1036,6 @@ namespace DMS
         }
         #endregion
 
-
         #region 每页显示数目
 
         private void comboBoxpaginal_SelectedIndexChanged(object sender, EventArgs e)
@@ -937,17 +1078,9 @@ namespace DMS
 
         #endregion
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (cConfig.working)
-            {
-                tsslStatus.Text = "正在工作中...";
-            }
-            else
-            {
-                if (cConfig.needFlash) { flashTypeList(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
-            }
-        }
+
+
+        //---------------------------------------------------------------
 
     }
 }
