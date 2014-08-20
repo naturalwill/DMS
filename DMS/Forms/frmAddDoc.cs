@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using ZCommon;
+using DMS;
 
 namespace DMS.Forms
 {
@@ -19,42 +19,13 @@ namespace DMS.Forms
         {
             try
             {
-                if (txtURL.Text.IndexOf('/') > 0)
-                {//网址
-                    List<cWord> lw = new List<cWord>();
-                    lw.Add(new cWord(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text));
-                    cMakeWord mw = new cMakeWord(lw);
-                    Thread th = new Thread(new System.Threading.ThreadStart(mw.makeWord));
-                    th.Start();
-                }
-                else if (txtURL.Text.IndexOf('\\') >= 0)
-                {//本地文件
-                    string HouZui = txtURL.Text.Substring(txtURL.Text.LastIndexOf('.'));
-
-                    string pFilePath;
-                    if (comboBoxDocType.Text == "")
-                        comboBoxDocType.Text = cConfig.strNoType;
-                    pFilePath = cConfig.strWorkPath + "\\" + comboBoxDocType.Text;
-
-                    if (!(Directory.Exists(pFilePath)))
-                        Directory.CreateDirectory(pFilePath);
-
-                    pFilePath += "\\" + txtTitle.Text + HouZui;
-
-                    if (File.Exists(pFilePath))
-                    {
-                        MessageBox.Show("公文库中已有同名公文，请修改公文标题或类型！");
-                        return;
-                    }
-                    File.Copy(txtURL.Text, pFilePath);
-                    cAccess.add(txtTitle.Text, txtURL.Text, pFilePath, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text);
-                    cConfig.working = false;
-                    cConfig.needFlash = true;
-                }
+                cSync.GetDoc(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text);
                 this.Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+
+
 
         private void frmAddDoc_Load(object sender, EventArgs e)
         {

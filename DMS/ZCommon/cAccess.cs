@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 
-namespace ZCommon
+namespace DMS
 {
     public class cAccess
     {

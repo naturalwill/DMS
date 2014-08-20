@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
-using ZCommon;
+using DMS;
 using System.Drawing.Imaging;
 
 
@@ -16,7 +16,7 @@ namespace Camera
         int inta;
         string photopath;
         string ftpUploadpath = cConfig.strWorkPath + "\\"+cConfig.strScanType;
-        string ftpsource;
+        //string ftpsource;
         #endregion
         public frmCamera()
         {          
@@ -103,50 +103,53 @@ namespace Camera
             pictureBox2.Visible = false;
             inta = 0;
         }
-        //使用两个进程，进程一是本地缓存，进程二是储存在ftp服务器上。
-        bool singal = false;
-        void thead_1()
-        {
-            /*储存到本地磁盘。*/
-            Directory.CreateDirectory(ftpUploadpath);
-            if (Directory.Exists(ftpUploadpath))
-            {
-                if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    pictureBox1.Image.Save(ftpUploadpath+"\\"+txtTitle.Text+".jpg",ImageFormat.Jpeg);
-                    photopath = ftpUploadpath+"\\"+txtTitle.Text + ".jpg";
-                }
-            }
-            else Directory.CreateDirectory(ftpUploadpath);
-            singal = true;
-        }
-        void thead_2()
-        {
-            //备份到ftp服务器
-            while (singal)
-            {
-                if (cConfig.FTP_IP != "")
-                {
-                    FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
-                    FTP.MakeDir("DMS");
-                    FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, "DMS/", cConfig.FTP_user, cConfig.FTP_password);
-                    FTP1.MakeDir(cConfig.strScanType);
-                    FTP1.Upload(photopath);
-                    ftpsource = FTPHelper.ftpsavePath;
-                    break;
-                }
-                else
-                {
-                    //MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-                    break;
-                }
-            }
-        }
+        ////使用两个进程，进程一是本地缓存，进程二是储存在ftp服务器上。
+        //bool singal = false;
+        //void thead_1()
+        //{
+        //    /*储存到本地磁盘。*/
+        //    Directory.CreateDirectory(ftpUploadpath);
+        //    if (Directory.Exists(ftpUploadpath))
+        //    {
+        //        if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+        //        {
+        //            pictureBox1.Image.Save(ftpUploadpath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
+        //            photopath = ftpUploadpath + "\\" + txtTitle.Text + ".jpg";
+        //        }
+        //    }
+        //    else Directory.CreateDirectory(ftpUploadpath);
+        //    singal = true;
+        //}
+        //void thead_2()
+        //{
+        //    //备份到ftp服务器
+        //    while (singal)
+        //    {
+        //        if (cConfig.FTP_IP != "")
+        //        {
+        //            FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
+        //            FTP.MakeDir(cConfig.strWorkFolder);
+        //            FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, cConfig.strWorkFolder+"/", cConfig.FTP_user, cConfig.FTP_password);
+        //            FTP1.MakeDir(cConfig.strScanType);
+        //            FTP1.Upload(photopath);
+        //            ftpsource = FTPHelper.ftpsavePath;
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            //MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+        //            break;
+        //        }
+        //    }
+        //}
         private void btnsave_Click(object sender, EventArgs e)
         {
-            thead_1();
-            thead_2();
-            cAccess.add(txtTitle.Text, ftpsource, photopath, cConfig.strScanType,DateTime.Now.ToString(), "拍照", txtnote.Text);
+            if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                pictureBox1.Image.Save(ftpUploadpath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
+                photopath = ftpUploadpath + "\\" + txtTitle.Text + ".jpg";
+            }
+            cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType,DateTime.Now.ToString(), "拍照", txtnote.Text);
 
         }
        

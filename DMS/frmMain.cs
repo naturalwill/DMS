@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using DMS.Forms;
-using ZCommon;
+using DMS;
 
 namespace DMS
 {
@@ -21,12 +21,10 @@ namespace DMS
         {
             InitializeComponent();
             fm = this;
+
         }
 
-
-
-
-        //-----------------------下有三个函数未做完---------------
+        //-----------------------下有2个函数未做完---------------
 
         #region 启动时运行
 
@@ -39,6 +37,8 @@ namespace DMS
         {
             try
             {
+                txtSearch.Text = cConfig.strSearchTips;
+
                 if (cAccess.load() == false) MessageBox.Show("加载数据库失败");
 
                 cConfig.ReadConfig();
@@ -53,7 +53,7 @@ namespace DMS
                 else
                     comboBoxpaginal.Text = cConfig.paginalItems.ToString();
 
-                AddRecord();
+                cSync.AddRecord();
                 flashTypeList();
                 tsslStatus.Text = "启动完成！欢迎使用公文管理系统~";
             }
@@ -64,56 +64,7 @@ namespace DMS
         }
 
 
-        List<string> filePath = new List<string>();
-        /// <summary>
-        /// 遍历文件夹，搜索符合条件的文件，添加进filePath列表中
-        /// </summary>
-        /// <param name="path"></param>
-        private void searchFile(string path)
-        {
-            DirectoryInfo dir = new DirectoryInfo(path);
-            foreach (FileInfo f in dir.GetFiles("*.*"))
-            {
-                filePath.Add(f.FullName);
-            }
-            foreach (DirectoryInfo f in dir.GetDirectories())
-            {
-                if (f.Name != cConfig.strTemp)
-                {
-                    searchFile(f.FullName);
-                }
-            }
-        }
 
-        /// <summary>
-        /// 检测工作目录下的文件，
-        /// 如发现数据库中没记录，添加进数据库
-        /// </summary>
-        private void AddRecord()
-        {
-            filePath.Clear();
-            searchFile(cConfig.strWorkPath);
-            foreach (string url in filePath)
-            {
-                int titleStart = url.LastIndexOf('\\');
-                int typeStart = url.Substring(0, titleStart).LastIndexOf('\\');
-                int end = url.LastIndexOf('.');
-                string title = url.Substring(titleStart + 1, end - titleStart - 1);
-                string type = url.Substring(typeStart + 1, titleStart - typeStart - 1);
-                if (type == "DMS") continue;
-                bool no = true;
-                for (int i = 0; i < cAccess.DtTable.Rows.Count; i++)
-                {
-                    if (url == cAccess.DtTable.Rows[i]["LocalPath"].ToString())
-                    {
-                        no = false;
-                        break;
-                    }
-                }
-                if (no)
-                    cAccess.add(title, url, url, type, "", "", "自工作目录中检测出的文档");
-            }
-        }
 
         /// <summary>
         /// 检测数据库中的LocalPath，
@@ -124,15 +75,30 @@ namespace DMS
         private void GetFile()
         {
             FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
-            FTP.MakeDir("DMS");
+            FTP.MakeDir(cConfig.strWorkFolder);
             for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
             {
-                FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, "DMS", cConfig.FTP_user, cConfig.FTP_password);
+                FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, cConfig.strWorkFolder, cConfig.FTP_user, cConfig.FTP_password);
                 FTP1.MakeDir(cAccess.DtTable.Rows[row]["DocType"].ToString());
                 FTP1.MakeDir(cConfig.strNoType);
-                if (!File.Exists(cAccess.DtTable.Rows[row]["LocalPath"].ToString()))
+                if (cConfig.FTP_IP != "")
                 {
-
+                    if (!File.Exists(cAccess.DtTable.Rows[row]["LocalPath"].ToString()))
+                    {
+                        FTPHelper FTP2 = new FTPHelper(cConfig.FTP_IP, "DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/", cConfig.FTP_user, cConfig.FTP_password);
+                        FTP2.Download(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString(), cAccess.DtTable.Rows[row]["DocTitle"].ToString() + ".doc");
+                    }
+                }
+                else
+                {
+                    if (!File.Exists(cAccess.DtTable.Rows[row]["LocalPath"].ToString()))
+                    {
+                        List<cWord> lw = new List<cWord>();
+                        lw.Add(new cWord(cAccess.DtTable.Rows[row]["DocTitle"].ToString(), cAccess.DtTable.Rows[row]["Source"].ToString(), cAccess.DtTable.Rows[row]["DocType"].ToString(), cAccess.DtTable.Rows[row]["ReleaseDate"].ToString(), cAccess.DtTable.Rows[row]["Provider"].ToString(), cAccess.DtTable.Rows[row]["Notes"].ToString()));
+                        cMakeWord mw = new cMakeWord(lw);
+                        Thread th = new Thread(new System.Threading.ThreadStart(mw.makeWord));
+                        th.Start();
+                    }
                 }
             }
         }
@@ -150,27 +116,26 @@ namespace DMS
             List<string> list = new List<string>();
             if (cConfig.FTP_IP != "")
             {
-                for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
-                {
-                    DirectoryInfo TheFolder = new DirectoryInfo(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString());
-                    foreach (FileInfo fi in TheFolder.GetFiles())
-                    {
-                        list.Add(fi.Name);
-                    }
+                //for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+                //{
+                //    DirectoryInfo TheFolder = new DirectoryInfo(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString());
+                //    foreach (FileInfo fi in TheFolder.GetFiles())
+                //    {
+                //        list.Add(fi.Name);
+                //    }
 
-                    FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString(), cConfig.FTP_user, cConfig.FTP_password);
-                    FTP.GetFileList("222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                //    FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString(), cConfig.FTP_user, cConfig.FTP_password);
+                //    FTP.GetFileList("ftp://" + "222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString() + ".doc");
 
 
-                    foreach (string str in list)
-                    {
-                        if (!FTP.GetFileList("222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString()).Equals(str))
-                        {
-                            FTP.Upload(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "\\" + cAccess.DtTable.Rows[row]["DocTitle"].ToString());
-                        }
-                    }
-
-                }
+                //    foreach (string str in list)
+                //    {
+                //        if (!FTP.GetFileList("ftp://" + "222.16.97.150/DMS/" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "/" + cAccess.DtTable.Rows[row]["DocTitle"].ToString() + ".doc").Equals(str))
+                //        {
+                //            FTP.Upload(cConfig.strWorkPath + "\\" + cAccess.DtTable.Rows[row]["DocType"].ToString() + "\\" + cAccess.DtTable.Rows[row]["DocTitle"].ToString());
+                //        }
+                //    }
+                //}
             }
         }
 
@@ -189,7 +154,7 @@ namespace DMS
 
         #endregion
 
-        //---------------------------上有三个函数没完成----------------------------
+        //---------------------------上有2个函数没完成----------------------------
 
         #region 列出公文
         List<string> listID = new List<string>();
@@ -291,6 +256,55 @@ namespace DMS
 
 
         #endregion
+
+        #region 搜索
+
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            listID = cAccess.search(txtSearch.Text);
+            if (cConfig.paginalItems > 0)
+            {
+                pagesAll = listID.Count / cConfig.paginalItems;
+                if (listID.Count != pagesAll * cConfig.paginalItems) pagesAll++;
+            }
+            else
+                pagesAll = 1;
+            labPageAll.Text = pagesAll.ToString();
+            list();
+
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                if (e.KeyChar == '\r')
+                {
+                    btnSearch_Click(sender, e);
+                }
+            }
+        }
+
+        private void txtSearch_Enter(object sender, EventArgs e)
+        {
+            if (txtSearch.Text == cConfig.strSearchTips) txtSearch.Text = "";
+
+        }
+
+        private void txtSearch_Leave(object sender, EventArgs e)
+        {
+            if (txtSearch.Text == "" || txtSearch.Text == cConfig.strSearchTips)
+            {
+                txtSearch.Text = cConfig.strSearchTips;
+            }
+        }
+
+
+
+        #endregion
+
+        //-------------------------------------------------------------------------
 
         #region 更新类型列表
         public static List<string> TypeList = new List<string>();
@@ -518,40 +532,7 @@ namespace DMS
             }
         }
 
-        #region 搜索框
 
-        private void txtSearch_Enter(object sender, EventArgs e)
-        {
-            if (txtSearch.Text == cConfig.strSearchTips) txtSearch.Text = "";
-
-        }
-
-        private void txtSearch_Leave(object sender, EventArgs e)
-        {
-            if (txtSearch.Text == "" || txtSearch.Text == cConfig.strSearchTips)
-            {
-                txtSearch.Text = cConfig.strSearchTips;
-            }
-        }
-
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                listID = cAccess.search(txtSearch.Text);
-                if (cConfig.paginalItems > 0)
-                {
-                    pagesAll = listID.Count / cConfig.paginalItems;
-                    if (listID.Count != pagesAll * cConfig.paginalItems) pagesAll++;
-                }
-                else
-                    pagesAll = 1;
-                labPageAll.Text = pagesAll.ToString();
-                list();
-            }
-        }
-
-        #endregion
 
         private void tscbMove_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -5,12 +5,12 @@ using System.Text;
 using System.Xml.Linq;
 using System.IO;
 
-namespace ZCommon
+namespace DMS
 {
     public class cConfig
     {
         #region 字段
-    
+
         public const string strSearchTips = "搜索公文";
         public const string strAllType = "全部类型";
         public const string strNoType = "(未分类)";
@@ -37,9 +37,15 @@ namespace ZCommon
         /// </summary>
         public static char defaultPath = '1';
         /// <summary>
-        /// 工作目录
+        /// 工作目录文件夹名称
         /// </summary>
-        public static string strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
+        public static string strWorkFolder = "DMS",strFtpRoot="DMS";
+
+        /// <summary>
+        /// 工作目录路径
+        /// </summary>
+        public static string strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + strWorkFolder;
+
         /// <summary>
         /// 数据库路径
         /// </summary>
@@ -56,8 +62,18 @@ namespace ZCommon
 
         #endregion
 
+        #region 日志
 
-        #region 方法
+        public void writeLog(string operate, string fullFileName)
+        {
+            using (StreamWriter sw = new StreamWriter(".\\run.log", true, Encoding.Default))
+            {
+                sw.WriteLine(DateTime.Now + "\t" + operate + "\t" + fullFileName);
+                sw.Close();
+            }
+        }
+        #endregion
+        #region 配置
         /// <summary>
         /// 保存配置
         /// </summary>
@@ -86,12 +102,13 @@ namespace ZCommon
 
                 if (xe.Element("defaultPath").Value != "0")
                 {
-                    strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
+                    strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + strWorkFolder;
                 }
                 else
                 {
                     defaultPath = '0';
                     strWorkPath = xe.Element("WorkPath").Value;
+                    strWorkFolder = strWorkPath.Substring(strWorkPath.LastIndexOf("\\") + 1);
                 }
                 FTP_IP = xe.Element("FTP_IP").Value;
                 FTP_user = xe.Element("FTP_user").Value;

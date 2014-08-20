@@ -5,12 +5,13 @@ using System.IO;
 using Word = Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 
-namespace ZCommon
+namespace DMS
 {
     public class cWord
     {
         public string DocTitle, URL, tFilePath, pFilePath, type, rlDate, rlUnit, Note;
-        public cWord(string fileName, string _URL, string _type = "", string _rlDate = "", string _rlUnit = "", string note = "")
+        public bool AddRecord;
+        public cWord(string fileName, string _URL, string _type = "", string _rlDate = "", string _rlUnit = "", string note = "", bool isAddRecord = true)
         {
             DocTitle = fileName;
             URL = _URL;
@@ -18,6 +19,7 @@ namespace ZCommon
             rlDate = _rlDate;
             rlUnit = _rlUnit;
             Note = note;
+            AddRecord = isAddRecord;
 
             tFilePath = cConfig.strWorkPath + "\\" + cConfig.strTemp + "\\" + fileName + ".html";
 
@@ -73,8 +75,8 @@ namespace ZCommon
             {
                 if (File.Exists(listWord[i].pFilePath)) { intExist++; continue; }
 
-                ZCommon.SaveWebPage.SaveOaWebPageToMHTFile(listWord[i].URL, listWord[i].tFilePath);
-               
+                DMS.SaveWebPage.SaveOaWebPageToMHTFile(listWord[i].URL, listWord[i].tFilePath);
+
                 object file1 = listWord[i].tFilePath;
                 object file2 = listWord[i].pFilePath;
 
@@ -83,8 +85,8 @@ namespace ZCommon
 
                 oWordDoc.Close(ref missing, ref missing, ref missing);
                 oWordDoc = null;
-
-                cAccess.add(listWord[i].DocTitle, listWord[i].URL, listWord[i].pFilePath, listWord[i].type, listWord[i].rlDate, listWord[i].rlUnit, listWord[i].Note);
+                if (listWord[i].AddRecord)
+                    cAccess.add(listWord[i].DocTitle, listWord[i].URL, listWord[i].pFilePath, listWord[i].type, listWord[i].rlDate, listWord[i].rlUnit, listWord[i].Note);
                 intSuccess++;
             }
             cAccess.DtAdapter.Update(cAccess.DtTable);

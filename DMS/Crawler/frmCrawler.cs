@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using ZCommon;
+using DMS;
 
 namespace Crawler
 {
@@ -36,7 +36,7 @@ namespace Crawler
         {
             try
             {
-                pageNow = Convert.ToInt32(txtPageNow.Text = ZCommon.cRegex.getString(txtURL.Text, sMatch, sPattern));
+                pageNow = Convert.ToInt32(txtPageNow.Text = DMS.cRegex.getString(txtURL.Text, sMatch, sPattern));
             }
             catch
             {
@@ -143,7 +143,6 @@ namespace Crawler
                     }
                     else
                     {
-
                         list();
                     }
                 }
@@ -195,7 +194,6 @@ namespace Crawler
                 List<cWord> lw=new List<cWord>();
                 for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                 {
-                    //if (listDoc.CheckedItems[i].Checked == true)
                     for (int j = 0; j < cCrawler.lcl.Count; j++)
                     {
                         if (listDoc.CheckedItems[i].SubItems[0].Text == cCrawler.lcl[j].ID.ToString())

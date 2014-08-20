@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using ZCommon;
+using DMS;
 
 namespace DMS.Forms
 {
@@ -43,7 +43,10 @@ namespace DMS.Forms
         {
 
             if (cConfig.defaultPath == '1')
-                cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DMS";
+            {
+                cConfig.strWorkFolder = "DMS";
+                cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\"+cConfig.strWorkFolder;
+            }
             else
                 cConfig.strWorkPath = txtPath.Text;
             cConfig.FTP_IP = txtIP.Text;

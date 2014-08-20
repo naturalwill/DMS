@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using ZCommon;
+using DMS;
 
 namespace DMS.Forms
 {
