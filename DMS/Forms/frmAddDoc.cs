@@ -19,8 +19,9 @@ namespace DMS.Forms
         {
             try
             {
-                cSync.GetDoc(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text);
-                this.Close();
+                if (cSync.GetDoc(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text))
+                    this.Close();
+                else { MessageBox.Show("添加失败！"); }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

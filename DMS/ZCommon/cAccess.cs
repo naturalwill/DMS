@@ -17,8 +17,8 @@ namespace DMS
         public static OleDbDataAdapter DtAdapter;
         static OleDbCommandBuilder CoBuilder;
 
-        public static DataTable DtTable;
-
+        public static DataTable basicDt;
+        public static DataTable newDt;
 
         /// <summary>
         /// 加载数据库
@@ -27,7 +27,7 @@ namespace DMS
         {
             if (!(File.Exists(cConfig.strDatabasePath)))
             {
-                FileStream fs = new FileStream(cConfig.strDatabasePath, FileMode.OpenOrCreate);
+                FileStream fs = new FileStream(cConfig.strDatabasePath, FileMode.OpenOrCreate, FileAccess.Write);
                 try
                 {
                     Byte[] b = DMS.Properties.Resources.DMS;
@@ -67,10 +67,14 @@ namespace DMS
                 conn.Open();
             DtAdapter = new OleDbDataAdapter("Select * From OfficialDocument", conn);
             CoBuilder = new OleDbCommandBuilder(DtAdapter);
-            DtTable = new DataTable();
-            DtAdapter.Fill(DtTable);
+            basicDt = new DataTable();
+            DtAdapter.Fill(basicDt);
+            newDt = new DataTable();
+            newDt = basicDt.Clone();
+            newDt = basicDt;
             conn.Close();
             return true;
+
         }
 
 
@@ -85,10 +89,10 @@ namespace DMS
         /// <param name="_Provider"></param>
         /// <param name="_Notes"></param>
         public static void add(string _DocTitle, string _Source, string _LocalPath,
-                                string _DocType = "", string _ReleaseDate = "",
+                                string _DocType = cConfig.strNoType, string _ReleaseDate = "",
                                 string _Provider = "", string _Notes = "")
         {
-            DataRow drNewRow = DtTable.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
+            DataRow drNewRow = basicDt.NewRow();//声明 DataRow 集合的变量  drNewRow。用于单行的操作
 
             drNewRow["ID"] = getMaxID();
             drNewRow["AddTime"] = System.DateTime.Now;
@@ -108,13 +112,12 @@ namespace DMS
             drNewRow["Provider"] = _Provider;
 
             drNewRow["Notes"] = _Notes;
-
-            DtTable.Rows.Add(drNewRow);//增加到 DtTable变量，临时保存
+            basicDt.Rows.InsertAt(drNewRow, 0);//增加到 DtTable变量，临时保存
 
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 
-            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
 
@@ -125,27 +128,27 @@ namespace DMS
         static int getMaxID()
         {
             int max = 0;
-            for (int i = 0; i < DtTable.Rows.Count; i++)
+            for (int i = 0; i < basicDt.Rows.Count; i++)
             {
-                if (max < Convert.ToInt32(DtTable.Rows[i]["ID"]))
-                    max = Convert.ToInt32(DtTable.Rows[i]["ID"]);
+                if (max < Convert.ToInt32(basicDt.Rows[i]["ID"]))
+                    max = Convert.ToInt32(basicDt.Rows[i]["ID"]);
             }
             return max + 1;
         }
         public static void delect(string id)
         {
-            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
             {
-                if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+                if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
                 {
-                    File.Delete(DtTable.Rows[row]["LocalPath"].ToString());
-                    DtTable.Rows[row].Delete();
+                    File.Delete(basicDt.Rows[row]["LocalPath"].ToString());
+                    basicDt.Rows[row].Delete();
 
                 }
             }
             if (conn.State != ConnectionState.Open)
                 conn.Open();
-            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
 
@@ -167,29 +170,29 @@ namespace DMS
         //                        string _ReleaseDate = "", string _Provider = "",
         //                        string _Notes = "")
         //{
-        //    for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+        //    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
         //    {
-        //        if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+        //        if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
         //        {
-        //            cAccess.DtTable.Rows[row]["DocTitle"] = _DocTitle;
+        //            cAccess.basicDt.Rows[row]["DocTitle"] = _DocTitle;
 
         //            try
         //            {
-        //                cAccess.DtTable.Rows[row]["ReleaseDate"] = Convert.ToInt32(_ReleaseDate);
+        //                cAccess.basicDt.Rows[row]["ReleaseDate"] = Convert.ToInt32(_ReleaseDate);
         //            }
         //            catch { }
 
-        //            cAccess.DtTable.Rows[row]["Provider"] = _Provider;
+        //            cAccess.basicDt.Rows[row]["Provider"] = _Provider;
 
-        //            cAccess.DtTable.Rows[row]["DocType"] = _DocType;
-        //            cAccess.DtTable.Rows[row]["Source"] = _Source;
-        //            cAccess.DtTable.Rows[row]["Note"] = _Notes;
-        //            cAccess.DtTable.Rows[row]["LocalPath"] = _LocalPath;
+        //            cAccess.basicDt.Rows[row]["DocType"] = _DocType;
+        //            cAccess.basicDt.Rows[row]["Source"] = _Source;
+        //            cAccess.basicDt.Rows[row]["Note"] = _Notes;
+        //            cAccess.basicDt.Rows[row]["LocalPath"] = _LocalPath;
         //        }
         //    }
         //    if (conn.State != ConnectionState.Open)
         //        conn.Open();
-        //    DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+        //    DtAdapter.Update(basicDt);//用Update（）方法更新数据库
         //    conn.Close();
         //}
 
@@ -200,17 +203,17 @@ namespace DMS
         /// <param name="newType"></param>
         public static void ModifyType(string currentType, string newType)
         {
-            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
             {
-                if (currentType == cAccess.DtTable.Rows[row]["DocType"].ToString())
+                if (currentType == cAccess.basicDt.Rows[row]["DocType"].ToString())
                 {
-                    DtTable.Rows[row]["LocalPath"] = DtTable.Rows[row]["LocalPath"].ToString().Replace(currentType, newType);
-                    DtTable.Rows[row]["DocType"] = newType;
+                    basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace(currentType, newType);
+                    basicDt.Rows[row]["DocType"] = newType;
                 }
             }
             if (conn.State != ConnectionState.Open)
                 conn.Open();
-            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
 
@@ -221,32 +224,36 @@ namespace DMS
         /// <param name="newType"></param>
         public static void ModifyTheType(string id, string newType)
         {
-            for (int row = 0; row < cAccess.DtTable.Rows.Count; row++)
+            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
             {
-                if (id == cAccess.DtTable.Rows[row]["ID"].ToString())
+                if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
                 {
-                    DtTable.Rows[row]["LocalPath"] = DtTable.Rows[row]["LocalPath"].ToString().Replace('\\' + DtTable.Rows[row]["DocType"].ToString() + '\\', '\\' + newType + '\\');
-                    DtTable.Rows[row]["DocType"] = newType;
+                    basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[row]["DocType"].ToString() + '\\', '\\' + newType + '\\');
+                    basicDt.Rows[row]["DocType"] = newType;
                 }
             }
             if (conn.State != ConnectionState.Open)
                 conn.Open();
-            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
         //修改公文属性
         public static void ChangePermissions(string txtTitle, string txtreleasetime, string cobTypeText, string txtunit, string txtnote, int Row)
         {
-            DtTable.Rows[Row]["ReleaseDate"] = txtreleasetime;
-            DtTable.Rows[Row]["Provider"] = txtunit;
-            DtTable.Rows[Row]["Notes"] = txtnote;
-            DtTable.Rows[Row]["LocalPath"] = DtTable.Rows[Row]["LocalPath"].ToString().Replace('\\' + DtTable.Rows[Row]["DocType"].ToString() + '\\', '\\' + cobTypeText + '\\');
-            DtTable.Rows[Row]["LocalPath"] = DtTable.Rows[Row]["LocalPath"].ToString().Replace('\\' + DtTable.Rows[Row]["DocTitle"].ToString(), '\\' + txtTitle);
-            DtTable.Rows[Row]["DocType"] = cobTypeText;
-            DtTable.Rows[Row]["DocTitle"] = txtTitle;
+            try
+            {
+                basicDt.Rows[Row]["ReleaseDate"] = Convert.ToDateTime(txtreleasetime);
+            }
+            catch { }
+            basicDt.Rows[Row]["Provider"] = txtunit;
+            basicDt.Rows[Row]["Notes"] = txtnote;
+            basicDt.Rows[Row]["LocalPath"] = basicDt.Rows[Row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[Row]["DocType"].ToString() + '\\', '\\' + cobTypeText + '\\');
+            basicDt.Rows[Row]["LocalPath"] = basicDt.Rows[Row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[Row]["DocTitle"].ToString(), '\\' + txtTitle);
+            basicDt.Rows[Row]["DocType"] = cobTypeText;
+            basicDt.Rows[Row]["DocTitle"] = txtTitle;
             if (conn.State != ConnectionState.Open)
                 conn.Open();
-            DtAdapter.Update(DtTable);//用Update（）方法更新数据库
+            DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
 
@@ -282,47 +289,25 @@ namespace DMS
         //    }
         //}
 
+
         /// <summary>
-        /// 搜索数据库，返回ID列表
+        /// 搜索数据库
         /// </summary>
         /// <param name="key">关键词</param>
-        /// <returns>ID列表</returns>
-        public static List<string> search(string key)
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="dateType"></param>
+        public static void search(string key, string startDate, string endDate, int dateType = 0)
         {
-            if (string.IsNullOrEmpty(key)) return null;
-
-            List<DateTime> ld = new List<DateTime>();
             List<string> ls = new List<string>();
-            List<string> lsl = new List<string>();
 
-            foreach (string s in key.Split(' '))
+            foreach (string s in key.Trim().Split(' '))
             {
-                if (string.IsNullOrWhiteSpace(s)) continue;
-                try
-                {
-                    foreach (string date in s.Split('~'))
-                    {
-                        if (!string.IsNullOrWhiteSpace(date))
-                            ld.Add(Convert.ToDateTime(date));
-                    }
-                    if (!string.IsNullOrWhiteSpace(s))
-                        lsl.Add(s);
-                }
-                catch
-                {
-                    if (!string.IsNullOrWhiteSpace(s))
-                        ls.Add(s);
-                }
+                if (!string.IsNullOrWhiteSpace(s))
+                    ls.Add(s);
             }
 
             string filterExpression = "";
-
-            for (int i = 0; i < lsl.Count; i++)
-            {
-                filterExpression += "( DocTitle LIKE '%" + lsl[i] + "%' or ";
-                filterExpression += "Provider LIKE '%" + lsl[i] + "%' or ";
-                filterExpression += "Notes LIKE '%" + lsl[i] + "%' ) or ";
-            }
 
             for (int i = 0; i < ls.Count; i++)
             {
@@ -331,16 +316,13 @@ namespace DMS
                 filterExpression += "Notes LIKE '%" + ls[i] + "%' ) and ";
             }
 
-            if (ld.Count == 1)
-            {
-                filterExpression += "( AddTime > '" + ld[0] + "' or ";
-                filterExpression += "ReleaseDate > '" + ld[0] + "' )";
-            }
-            else if (ld.Count == 2)
-            {
-                filterExpression += "(( AddTime > '" + ld[0] + "' and AddTime < '" + ld[1] + "') or ";
-                filterExpression += "( ReleaseDate > '" + ld[0] + "' and ReleaseDate < '" + ld[1] + "' ))";
-            }
+            if (dateType == 0)
+                filterExpression += "(( AddTime > '" + startDate + "' and AddTime < '" + endDate +
+                                    "') or ( ReleaseDate > '" + startDate + "' and ReleaseDate < '" + endDate + "' ))";
+            else if (dateType == 1)
+                filterExpression += "(( AddTime > '" + startDate + "' and AddTime < '" + endDate + "')";
+            else if (dateType == 2)
+                filterExpression += "( ReleaseDate > '" + startDate + "' and ReleaseDate < '" + endDate + "' ))";
 
 
             if (filterExpression.EndsWith(" and "))
@@ -354,12 +336,34 @@ namespace DMS
                 filterExpression = filterExpression.Substring(0, indexOfAnd);
             }
 
-            foreach (DataRow drs in DtTable.Select(filterExpression))
+            newDt.Clear();
+            foreach (DataRow drs in basicDt.Select(filterExpression))
             {
-                ls.Add(drs["ID"].ToString());
+                newDt.Rows.Add(drs);
+            }
+        }
+
+        public static List<string> selectType(string _type = "")
+        {
+            List<string> ls = new List<string>();
+            if (string.IsNullOrWhiteSpace(_type))
+            {
+                foreach (DataRow drs in newDt.Rows)
+                {
+                    ls.Add(drs["ID"].ToString());
+                }
+            }
+            else
+            {
+                string filterExpression = "DocType = '" + _type + "'";
+                foreach (DataRow drs in newDt.Select(filterExpression))
+                {
+                    ls.Add(drs["ID"].ToString());
+                }
             }
             return ls;
         }
+
 
     }
 }

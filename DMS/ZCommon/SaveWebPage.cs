@@ -39,7 +39,7 @@ namespace DMS
                         s = Regex.Replace(s, "<table width=\\\"98%\\\"(.[^>]*)>", "", RegexOptions.IgnoreCase);
                         byte[] array = Encoding.Default.GetBytes(s);
                         fs.Write(array, 0, array.Length);
-                        fs.Close();
+                        //fs.Close();
                     }
                     stm.Close();
                 }

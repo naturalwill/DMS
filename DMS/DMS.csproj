@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZCommon\ListViewColumnSorter.cs" />
     <Compile Include="ZCommon\SaveWebPage.cs" />
     <EmbeddedResource Include="Camera\frmCamera.resx">
       <DependentUpon>frmCamera.cs</DependentUpon>
@@ -174,6 +175,9 @@
     <Content Include="Camera\Aforge\AForge.dll" />
     <Content Include="Camera\Aforge\AForge.Video.DirectShow.dll" />
     <Content Include="Camera\Aforge\AForge.Video.dll" />
+    <None Include="Resources\help.chm" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\clear.png" />
     <None Include="Resources\DMS.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

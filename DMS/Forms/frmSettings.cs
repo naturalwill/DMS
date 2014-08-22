@@ -14,7 +14,7 @@ namespace DMS.Forms
         private void frmSettings_Load(object sender, EventArgs e)
         {
 
-            if (cConfig.defaultPath == '1')
+            if (cConfig.isDefaultPath )
             {
                 radioButton1.Checked = true;
             }
@@ -42,9 +42,8 @@ namespace DMS.Forms
         private void btnOK_Click(object sender, EventArgs e)
         {
 
-            if (cConfig.defaultPath == '1')
+            if (cConfig.isDefaultPath )
             {
-                cConfig.strWorkFolder = "DMS";
                 cConfig.strWorkPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\"+cConfig.strWorkFolder;
             }
             else
@@ -67,13 +66,13 @@ namespace DMS.Forms
         {
             if (radioButton1.Checked)
             {
-                cConfig.defaultPath = '1';
+                cConfig.isDefaultPath = true;
                 txtPath.Enabled = false;
                 btnBrowse.Enabled = false;
             }
             else
             {
-                cConfig.defaultPath = '0';
+                cConfig.isDefaultPath = false;
                 txtPath.Enabled = true;
                 btnBrowse.Enabled = true;
             }

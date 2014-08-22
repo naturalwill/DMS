@@ -15,11 +15,11 @@ namespace Camera
         DeviceInfo _DeviceInfo;
         int inta;
         string photopath;
-        string ftpUploadpath = cConfig.strWorkPath + "\\"+cConfig.strScanType;
+        string CameraPath = cConfig.strWorkPath + "\\" + cConfig.strScanType;
         //string ftpsource;
         #endregion
         public frmCamera()
-        {          
+        {
             InitializeComponent();
             camera = new WebCamera();
             foreach (DeviceInfo info in camera.GetCameras())
@@ -32,16 +32,16 @@ namespace Camera
 
         void camera_NewFrameEvent(object sender, EventArgs e)
         {
-           pictureBox1.Image = camera.NewFrame;
+            pictureBox1.Image = camera.NewFrame;
         }
 
-       
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox2.Items.Clear();
             _DeviceCapabilityInfo = null;
-            _DeviceInfo=(DeviceInfo)comboBox1.SelectedItem;
+            _DeviceInfo = (DeviceInfo)comboBox1.SelectedItem;
             foreach (DeviceCapabilityInfo info in camera.GetDeviceCapability(_DeviceInfo))
             {
                 comboBox2.Items.Add(info);
@@ -75,18 +75,18 @@ namespace Camera
 
         private void btnphotograph_Click(object sender, EventArgs e)
         {
-            if (inta==0)
+            if (inta == 0)
             {
                 pictureBox2.Image = camera.NewFrame;
                 pictureBox2.Visible = true;
                 btnphotograph.Text = "重拍";
                 inta = 1;
             }
-            else if(inta==1)
+            else if (inta == 1)
             {
                 pictureBox2.Image = null;
                 btnphotograph.Text = "拍照";
-                pictureBox2.Visible= false;
+                pictureBox2.Visible = false;
                 inta = 0;
             }
         }
@@ -108,16 +108,16 @@ namespace Camera
         //void thead_1()
         //{
         //    /*储存到本地磁盘。*/
-        //    Directory.CreateDirectory(ftpUploadpath);
-        //    if (Directory.Exists(ftpUploadpath))
+        //    Directory.CreateDirectory(CameraPath);
+        //    if (Directory.Exists(CameraPath))
         //    {
         //        if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
         //        {
-        //            pictureBox1.Image.Save(ftpUploadpath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
-        //            photopath = ftpUploadpath + "\\" + txtTitle.Text + ".jpg";
+        //            pictureBox1.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
+        //            photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
         //        }
         //    }
-        //    else Directory.CreateDirectory(ftpUploadpath);
+        //    else Directory.CreateDirectory(CameraPath);
         //    singal = true;
         //}
         //void thead_2()
@@ -144,16 +144,18 @@ namespace Camera
         //}
         private void btnsave_Click(object sender, EventArgs e)
         {
+
             if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
-                pictureBox1.Image.Save(ftpUploadpath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
-                photopath = ftpUploadpath + "\\" + txtTitle.Text + ".jpg";
+                if (!Directory.Exists(CameraPath)) Directory.CreateDirectory(CameraPath);
+                pictureBox2.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
+                photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
+                cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType, "", Environment.UserName, txtnote.Text);
             }
-            cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType,DateTime.Now.ToString(), "拍照", txtnote.Text);
 
         }
-       
+
     }
 
-   
+
 }

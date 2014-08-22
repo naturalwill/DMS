@@ -105,6 +105,7 @@
             // 
             // btnsave
             // 
+            this.btnsave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnsave.Location = new System.Drawing.Point(51, 341);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(75, 23);
@@ -267,8 +268,10 @@
             // 
             // frmProperty
             // 
+            this.AcceptButton = this.btncancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnsave;
             this.ClientSize = new System.Drawing.Size(474, 394);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;

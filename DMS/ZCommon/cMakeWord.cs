@@ -62,14 +62,16 @@ namespace DMS
         public void makeWord()
         {
             object missing = System.Reflection.Missing.Value;
-            object readOnly = false;
-            object isVisible = true;
+            object readOnly = true;
+            object isVisible = false;
 
             object format = Word.WdSaveFormat.wdFormatDocument;
 
             Word._Application oWordApp = new Word.Application();
             oWordApp.Visible = false;
+
             int intExist = 0, intSuccess = 0;
+            bool isAccess = false;
 
             for (int i = 0; i < listWord.Count; i++)
             {
@@ -83,18 +85,26 @@ namespace DMS
                 Word._Document oWordDoc = oWordApp.Documents.Open(ref file1, ref format, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible, ref missing, ref missing, ref missing, ref missing);
                 oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
 
+
                 oWordDoc.Close(ref missing, ref missing, ref missing);
                 oWordDoc = null;
                 if (listWord[i].AddRecord)
+                {
                     cAccess.add(listWord[i].DocTitle, listWord[i].URL, listWord[i].pFilePath, listWord[i].type, listWord[i].rlDate, listWord[i].rlUnit, listWord[i].Note);
+                    isAccess = true;
+                }
                 intSuccess++;
             }
-            cAccess.DtAdapter.Update(cAccess.DtTable);
+            if (isAccess)
+                cAccess.DtAdapter.Update(cAccess.basicDt);
 
             oWordApp.Quit(ref missing, ref missing, ref missing);
             oWordApp = null;
 
-            MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档已存在，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
+            if (listWord.Count > 1)
+                MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档已存在，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
+            //else if (listWord.Count == 1)
+            //    MessageBox.Show("添加成功");
             cConfig.working = false;
             cConfig.needFlash = true;
         }

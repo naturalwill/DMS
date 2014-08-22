@@ -61,16 +61,17 @@
             // 
             // btnLocal
             // 
-            this.btnLocal.Location = new System.Drawing.Point(364, 29);
+            this.btnLocal.Location = new System.Drawing.Point(447, 31);
             this.btnLocal.Name = "btnLocal";
-            this.btnLocal.Size = new System.Drawing.Size(75, 23);
+            this.btnLocal.Size = new System.Drawing.Size(56, 23);
             this.btnLocal.TabIndex = 56;
-            this.btnLocal.Text = "从本地加载";
+            this.btnLocal.Text = "浏览";
             this.btnLocal.UseVisualStyleBackColor = true;
             this.btnLocal.Click += new System.EventHandler(this.btnLocal_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(459, 324);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -124,7 +125,7 @@
             this.txtURL.AllowDrop = true;
             this.txtURL.Location = new System.Drawing.Point(82, 31);
             this.txtURL.Name = "txtURL";
-            this.txtURL.Size = new System.Drawing.Size(276, 21);
+            this.txtURL.Size = new System.Drawing.Size(354, 21);
             this.txtURL.TabIndex = 5;
             this.txtURL.TextChanged += new System.EventHandler(this.txtURL_TextChanged);
             // 
@@ -203,7 +204,7 @@
             this.txtTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtTitle.Location = new System.Drawing.Point(82, 56);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(276, 21);
+            this.txtTitle.Size = new System.Drawing.Size(354, 21);
             this.txtTitle.TabIndex = 43;
             this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
@@ -218,9 +219,11 @@
             // 
             // frmAddDoc
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(549, 350);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);

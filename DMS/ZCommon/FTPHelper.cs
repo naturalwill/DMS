@@ -34,9 +34,10 @@ public class FTPHelper
     /// <summary>  
     /// 上传  
     /// </summary>   
-    public void Upload(string filename)
+    public bool Upload(string filename)
     {
         FileInfo fileInf = new FileInfo(filename);
+        if (!fileInf.Exists) return false;
         FtpWebRequest reqFTP;
         reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileInf.Name));
         reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
@@ -59,10 +60,12 @@ public class FTPHelper
             }
             strm.Close();
             fs.Close();
+            return true;
         }
         catch (Exception ex)
         {
             throw new Exception(ex.Message);
+
         }
     }
 
@@ -75,27 +78,29 @@ public class FTPHelper
         {
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
-            FileStream outputStream = new FileStream(filePath + "\\" + fileName, FileMode.Create);
-            FtpWebRequest reqFTP;
-            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
-            reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
-            reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
-            reqFTP.UseBinary = true;
-            FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
-            Stream ftpStream = response.GetResponseStream();
-            long cl = response.ContentLength;
-            int bufferSize = 2048;
-            int readCount;
-            byte[] buffer = new byte[bufferSize];
-            readCount = ftpStream.Read(buffer, 0, bufferSize);
-            while (readCount > 0)
+            using (FileStream outputStream = new FileStream(filePath + "\\" + fileName, FileMode.Create))
             {
-                outputStream.Write(buffer, 0, readCount);
+                FtpWebRequest reqFTP;
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
+                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
+                reqFTP.UseBinary = true;
+                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                Stream ftpStream = response.GetResponseStream();
+                long cl = response.ContentLength;
+                int bufferSize = 2048;
+                int readCount;
+                byte[] buffer = new byte[bufferSize];
                 readCount = ftpStream.Read(buffer, 0, bufferSize);
+                while (readCount > 0)
+                {
+                    outputStream.Write(buffer, 0, readCount);
+                    readCount = ftpStream.Read(buffer, 0, bufferSize);
+                }
+                ftpStream.Close();
+                //outputStream.Close();
+                response.Close();
             }
-            ftpStream.Close();
-            outputStream.Close();
-            response.Close();
         }
         catch (Exception ex)
         {
@@ -118,11 +123,9 @@ public class FTPHelper
             string result = String.Empty;
             FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
             long size = response.ContentLength;
-            Stream datastream = response.GetResponseStream();
-            StreamReader sr = new StreamReader(datastream);
+            StreamReader sr = new StreamReader(response.GetResponseStream());
             result = sr.ReadToEnd();
             sr.Close();
-            datastream.Close();
             response.Close();
         }
         catch (Exception ex)
@@ -190,9 +193,9 @@ public class FTPHelper
                 }
             }
         }
-        catch (Exception ex)
+        catch
         {
-            throw (ex);
+            throw;
         }
         return list.ToArray();
     }
@@ -233,9 +236,9 @@ public class FTPHelper
             reader.Close();
             response.Close();
         }
-        catch (Exception ex)
+        catch //(Exception ex)
         {
-            throw (ex);
+            throw;
         }
         return list.ToArray();
     }
@@ -276,9 +279,9 @@ public class FTPHelper
             reader.Close();
             response.Close();
         }
-        catch (Exception ex)
+        catch //(Exception ex)
         {
-            throw (ex);
+            throw;
         }
         return list.ToArray();
     }
@@ -422,5 +425,7 @@ public class FTPHelper
             ftpRemotePath += DirectoryName + "/";
         }
         ftpURI = "ftp://" + ftpServerIP + "/" + ftpRemotePath + "/";
+        if (!FtpIsExistsFile(""))
+            MakeDir("");
     }
 }
