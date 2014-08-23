@@ -151,6 +151,9 @@ namespace Camera
                 pictureBox2.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
                 photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
                 cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType, "", Environment.UserName, txtnote.Text);
+                cConfig.working = false;
+                cConfig.needFlash = true;
+                this.Close();
             }
 
         }

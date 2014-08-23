@@ -212,6 +212,18 @@ namespace DMS
                                         catch { }
                                         break;
                                     }
+                                    if (noFileOnFtp)
+                                    { //从来源下载
+
+                                        if (GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
+                                              cAccess.basicDt.Rows[row]["DocType"].ToString(), "", "", "", false))
+                                        { }
+                                        else
+                                        {
+                                            ls.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
+                                            lst.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -363,7 +375,13 @@ namespace DMS
                 }
             }
         }
-
+        private static void delectFiles(string[] path)
+        {
+            foreach (string f in path)
+            {
+                File.Delete(f);
+            }
+        }
         /// <summary>
         /// 检测工作目录下的文件，
         /// 如发现数据库中没记录，添加进数据库

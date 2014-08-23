@@ -20,7 +20,7 @@ namespace DMS
         {
             InitializeComponent();
             fm = this;
-
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         //-----------------------下有2个函数未做完---------------
@@ -36,7 +36,6 @@ namespace DMS
         {
             try
             {
-                txtSearch.Text = cConfig.strSearchTips;
 
                 if (cAccess.load() == false) MessageBox.Show("加载数据库失败");
 
@@ -56,25 +55,32 @@ namespace DMS
                 cSync.AddRecord();
 
 
-                flashTypeList();
-
-                //if (cConfig.isAutoSync)
-                //{
-                //    tsmiAutoSync.Checked = true;
-                //    timerAutoSync.Enabled = true;
-                //}
-                //else { tsslSyncStatus.Text = ""; }
-
                 //this.listDoc.ListViewItemSorter = new ListViewColumnSorter();
                 //this.listDoc.ColumnClick += new ColumnClickEventHandler(ListViewHelper.ListView_ColumnClick);
-
-
+                initialize();
                 tsslStatus.Text = "启动完成！欢迎使用公文管理系统~";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        private void initialize()
+        {
+            txtSearch.Text = cConfig.strSearchTips;
+
+            tsslSyncStatus.Text = "";
+            try
+            {
+                if (cAccess.newDt.Rows.Count > 0)
+                    dateStart.Value = DateTime.Parse(cAccess.newDt.Rows[(cAccess.newDt.Rows.Count - 1)]["AddTime"].ToString());
+                dateEnd.Value = DateTime.Now;
+            }
+            catch { throw; }
+            flashTypeList();
         }
 
         #endregion
@@ -94,7 +100,7 @@ namespace DMS
             }
             else
             {
-                if (cConfig.needFlash) { flashTypeList(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
+                if (cConfig.needFlash) { search(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
             }
         }
 
@@ -110,7 +116,7 @@ namespace DMS
             if (listDocType.Items.Count == 1)
                 TypeIndex = 0;
             else if (TypeIndex >= listDocType.Items.Count)
-                TypeIndex = listDoc.Items.Count - 1;
+                TypeIndex = listDocType.Items.Count - 1;
 
             string strSelected = listDocType.Items[TypeIndex].ToString();
             if (strSelected == cConfig.strAllType)
@@ -229,14 +235,14 @@ namespace DMS
 
             getList();
 
-            btnMove();
 
         }
 
         public void btnMove()
         {
-            btnAddType.Top = listDocType.ItemHeight * (listDocType.Items.Count + 1) + listDocType.Top;
-            btnAddType.Left = ((listDocType.Width - btnAddType.Width) / 2) + listDocType.Left;
+            btnAddType.Top = listDocType.ItemHeight * (listDocType.Items.Count + 1) + listDocType.Top + scBody.Top;
+            btnAddType.Left = ((listDocType.Width - btnAddType.Width) / 2) + listDocType.Left + scBody.Left;
+            if (btnAddType.Bottom >= scBody.Bottom) btnAddType.Top = scBody.Bottom + 3;
         }
 
         /// <summary>
@@ -268,11 +274,36 @@ namespace DMS
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            cAccess.search(txtSearch.Text, dateStart.Value.ToString(), dateEnd.Value.ToString(), 0);
+            search();
+        }
+
+        private void search()
+        {
+            string st = txtSearch.Text;
+            if (st == cConfig.strSearchTips) st = "";
+            //cAccess.search(st, dateStart.Value.ToShortDateString(), dateEnd.Value.ToShortDateString(), 0);
+            cAccess.search(st, dateStart.Value.ToString(), dateEnd.Value.ToString(), 0);
             getList();
-
-
+            flashTypeList();
             btnClear.Visible = true;
+        }
+
+        private void dateStart_CloseUp(object sender, EventArgs e)
+        {
+            search();
+        }
+
+        private void dateEnd_CloseUp(object sender, EventArgs e)
+        {
+            search();
+        }
+
+
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            initialize();
+            btnClear.Visible = false;
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
@@ -281,7 +312,7 @@ namespace DMS
             {
                 if (e.KeyChar == '\r')
                 {
-                    btnSearch_Click(sender, e);
+                    search();
                 }
             }
         }
@@ -570,11 +601,12 @@ namespace DMS
             if (listDocType.SelectedIndex >= 0)
             {
                 TypeIndex = listDocType.SelectedIndex;
-                getList();
+                getList();  
+                //当所加类型的名称过长时，完全显示其命名
+            tipListDocType.SetToolTip(this.listDocType, listDocType.SelectedItem.ToString());
             }
 
-            //当所加类型的名称过长时，完全显示其命名
-            tipListDocType.SetToolTip(this.listDocType, listDocType.SelectedItem.ToString());
+          
         }
 
         #endregion
@@ -626,10 +658,9 @@ namespace DMS
         /// <param name="strNewType"></param>
         public void changeType(string strNewType)
         {
-            Directory.Move(cConfig.strWorkPath + "\\" + listDocType.Items[TypeIndex].ToString(),
-                cConfig.strWorkPath + "\\" + strNewType);
+
             cAccess.ModifyType(listDocType.Items[TypeIndex].ToString(), strNewType);
-            flashTypeList();
+            search();
         }
 
         private void tsmiDeleteType_Click(object sender, EventArgs e)
@@ -641,30 +672,16 @@ namespace DMS
                     MessageBox.Show("禁止删除" + listDocType.SelectedItem);
                 else if (MessageBox.Show("确定删除该类型？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    if (Directory.Exists(cConfig.strWorkPath + "\\" + listDocType.SelectedItem.ToString()))
-                    {
-                        DirectoryInfo di = new DirectoryInfo(cConfig.strWorkPath + "\\" + delType);
-                        foreach (FileInfo fi in di.GetFiles("*.*"))//将数据库中的类型变为空白
-                        {
-                            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                            {
-                                string path1, path2;//移动删除类型的目录下的所有word文档
-                                path1 = cConfig.strWorkPath + "\\" + delType + "\\" + fi.ToString();
-                                path2 = cConfig.strWorkPath + "\\" + cConfig.strNoType + "\\" + fi.ToString();
-                                if (File.Exists(path2))
-                                {
-                                    MessageBox.Show("无法删除该类型，因为未分类中存在与该类型相同名字的文件"); return;
-                                }
-                                if (fi.ToString() == cAccess.basicDt.Rows[row]["DocTitle"].ToString() + ".doc")
-                                {
-                                    File.Move(path1, path2);
-                                    cAccess.ModifyTheType(cAccess.basicDt.Rows[row]["ID"].ToString(), cConfig.strNoType);
-                                }
-                                File.Delete(path1);
 
-                            }
-                        }
-                        Directory.Delete(cConfig.strWorkPath + "\\" + listDocType.SelectedItem.ToString());
+                    List<string> ls = new List<string>();
+                    string filterExpression = "DocType = '" + delType + "'";
+                    foreach (System.Data.DataRow drs in cAccess.basicDt.Select(filterExpression))
+                    {
+                        cAccess.delect(drs["ID"].ToString());
+                    }
+                    if (Directory.Exists(cConfig.strWorkPath + "\\" + delType))
+                    {
+                        DeleteRunner.Delete(cConfig.strWorkPath + "\\" + delType);
                     }
                     flashTypeList();
                 }
@@ -796,7 +813,15 @@ namespace DMS
                 {
                     if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
                     {
-                        Process.Start(cAccess.basicDt.Rows[row]["Source"].ToString());
+                        try
+                        {
+                            Process.Start(cAccess.basicDt.Rows[row]["Source"].ToString());
+                        }
+                        catch
+                        {
+                            if (MessageBox.Show("文件丢失，并且通过来源重新获取失败，是否从数据库中排除这些文件？\n", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                                cAccess.delect(cAccess.basicDt.Rows[row]["Source"].ToString());
+                        }
                     }
                 }
             }
@@ -997,20 +1022,30 @@ namespace DMS
             }
         }
 
-        private void dateStart_ValueChanged(object sender, EventArgs e)
-        {
-            btnSearch_Click(sender, e);
-        }
 
-        private void dateEnd_ValueChanged(object sender, EventArgs e)
+        private void btnDelType_Click(object sender, EventArgs e)
         {
-            btnSearch_Click(sender, e);
-        }
+            if (listDocType.SelectedIndex > 0)
+            {
+                string delType = listDocType.SelectedItem.ToString();
+                if (listDocType.SelectedItem.ToString() == cConfig.strNoType || listDocType.SelectedItem.ToString() == cConfig.strAllType)
+                    MessageBox.Show("禁止删除" + listDocType.SelectedItem);
+                else if (MessageBox.Show("确定删除该类型？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            txtSearch.Text = cConfig.strSearchTips;
-            btnClear.Visible = false;
+                    List<string> ls = new List<string>();
+                    string filterExpression = "DocType = '" + delType + "'";
+                    foreach (System.Data.DataRow drs in cAccess.basicDt.Select(filterExpression))
+                    {
+                        cAccess.delect(drs["ID"].ToString());
+                    }
+                    if (Directory.Exists(cConfig.strWorkPath + "\\" + delType))
+                    {
+                        DeleteRunner.Delete(cConfig.strWorkPath + "\\" + delType);
+                    }
+                    flashTypeList();
+                }
+            }
         }
 
         private void tssbSync_ButtonClick(object sender, EventArgs e)
@@ -1027,6 +1062,8 @@ namespace DMS
 
         private void sync()
         {
+            tsslSyncStatus.Text = "正在同步...";
+            tsslSyncStatus.BackColor = System.Drawing.SystemColors.Highlight;
             cSync Sync = new cSync();
             Sync.Contrast();
 
@@ -1047,7 +1084,8 @@ namespace DMS
             }
             Sync.Contrast();
             tsslSyncStatus.Text = "备份完成!";
-            tsslSyncStatus.Text += "还有" + Sync.listNotInFtp.Count + "个文件未备份。";
+            tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。";
+            tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
         }
 
         private void tsbHelp_Click(object sender, EventArgs e)
@@ -1058,7 +1096,8 @@ namespace DMS
                 FileStream fs = new FileStream(".\\help.chm", FileMode.OpenOrCreate, FileAccess.Write);
                 try
                 {
-                    Byte[] b = DMS.Properties.Resources.help;//创建byte数组，装资源 
+                    //创建byte数组，装资源 
+                    Byte[] b = DMS.Properties.Resources.help;
                     fs.Write(b, 0, b.Length);
                     if (fs != null)
                         fs.Close(); System.Diagnostics.Process.Start(".\\help.chm");
@@ -1071,6 +1110,10 @@ namespace DMS
 
             }
         }
+
+
+
+
 
         //private void tsmiAutoSync_Click(object sender, EventArgs e)
         //{

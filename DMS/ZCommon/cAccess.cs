@@ -66,12 +66,17 @@ namespace DMS
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             DtAdapter = new OleDbDataAdapter("Select * From OfficialDocument", conn);
+
             CoBuilder = new OleDbCommandBuilder(DtAdapter);
             basicDt = new DataTable();
             DtAdapter.Fill(basicDt);
             newDt = new DataTable();
             newDt = basicDt.Clone();
-            newDt = basicDt;
+            foreach (DataRow drs in basicDt.Select("", "ID desc"))
+            {
+                newDt.ImportRow(drs);
+            }
+            //newDt = basicDt.Copy();
             conn.Close();
             return true;
 
@@ -141,7 +146,11 @@ namespace DMS
             {
                 if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
                 {
-                    File.Delete(basicDt.Rows[row]["LocalPath"].ToString());
+                    try
+                    {
+                        File.Delete(basicDt.Rows[row]["LocalPath"].ToString());
+                    }
+                    catch { }
                     basicDt.Rows[row].Delete();
 
                 }
@@ -207,12 +216,13 @@ namespace DMS
             {
                 if (currentType == cAccess.basicDt.Rows[row]["DocType"].ToString())
                 {
-                    basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace(currentType, newType);
+                    basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace("\\" + currentType + "\\", "\\" + newType + "\\");
                     basicDt.Rows[row]["DocType"] = newType;
                 }
             }
             if (conn.State != ConnectionState.Open)
                 conn.Open();
+            Directory.Move(cConfig.strWorkPath + "\\" + currentType, cConfig.strWorkPath + "\\" + newType);
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
         }
@@ -337,9 +347,10 @@ namespace DMS
             }
 
             newDt.Clear();
-            foreach (DataRow drs in basicDt.Select(filterExpression))
+
+            foreach (DataRow drs in basicDt.Select(filterExpression, "ID desc"))
             {
-                newDt.Rows.Add(drs);
+                newDt.ImportRow(drs);
             }
         }
 
