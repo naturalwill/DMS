@@ -307,7 +307,6 @@ namespace DMS
                     cMakeWord mw = new cMakeWord(lw);
                     Thread th = new Thread(new System.Threading.ThreadStart(mw.makeWord));
                     th.Start();
-                    return true;
                 }
                 else if (u.Scheme.ToLower() == "ftp")
                 {
@@ -319,7 +318,6 @@ namespace DMS
                     _fh.Download(cConfig.strWorkPath + "\\" + type, file);
                     if (isAddRecord)
                         cAccess.add(Title, u.AbsoluteUri, cConfig.strWorkPath + "\\" + type + "\\" + file, type, rlDate, provider, notes);
-                    return true;
                 }
                 else if (u.Scheme.ToLower() == "file")
                 {//本地文件
@@ -342,10 +340,10 @@ namespace DMS
                     File.Copy(Url, pFilePath);
                     if (isAddRecord)
                         cAccess.add(Title, u.LocalPath, pFilePath, type, rlDate, provider, notes);
-                    return true;
-                } cConfig.working = false;
-                cConfig.needFlash = true;
-                return false;
+                }
+                else { return false; }
+                frmMain.fm.flash();
+                return true;
             }
             catch
             {

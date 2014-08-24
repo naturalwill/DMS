@@ -44,8 +44,7 @@ namespace DMS
                     Word._Document doc = app.Documents.Open(ref file, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                       ref oMissing, ref oMissing, ref oMissing,
                                                       ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                                                      ref oMissing,
-                                                      ref oMissing, ref oMissing, ref oMissing);
+                                                      ref oMissing,ref oMissing, ref oMissing, ref oMissing);
                     docs.Add(doc);
                     //doc.Activate();
                     if (dialog == null)

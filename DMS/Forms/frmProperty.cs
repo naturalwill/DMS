@@ -42,10 +42,11 @@ namespace DMS.Forms
         private void btnsave_Click(object sender, EventArgs e)
         {
             try
-            {
+            {if (!string.IsNullOrWhiteSpace(txtreleasetime.Text))
+                        DateTime.Parse(txtreleasetime.Text);
                 if (MessageBox.Show("确定要修改“" + txtTitle.Text + "”的属性?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-
+                    
                     string OldPath;
                     for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
                     {
@@ -58,12 +59,13 @@ namespace DMS.Forms
                         }
                     }
                 }
-                frmMain.fm.flashTypeList();
+                frmMain.fm.flash();
                 this.Close();
             }
-            catch (Exception ex)
+            catch //(Exception )
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("发布时间输入错误！可能是日期格式错误，日期格式为：yyyy-mm-dd hh:nn:ss或yyyy/mm/dd hh:nn:ss(PS:可以不输入时间)","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                this.txtreleasetime.Focus();
             }
 
         }
@@ -78,6 +80,37 @@ namespace DMS.Forms
             if (cobType.Text == cConfig.strNewType || cobType.Text == cConfig.strNoType)
                 cobType.Text = "";
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        #region 移动窗体
+
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+        #endregion
 
     }
 }

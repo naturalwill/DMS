@@ -105,8 +105,7 @@ namespace DMS
                 MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档已存在，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
             //else if (listWord.Count == 1)
             //    MessageBox.Show("添加成功");
-            cConfig.working = false;
-            cConfig.needFlash = true;
+            frmMain.fm.flash();
         }
 
 

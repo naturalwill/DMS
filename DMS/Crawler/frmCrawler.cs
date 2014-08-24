@@ -203,6 +203,7 @@ namespace Crawler
                         }
                     }
                 }
+                frmMain.fm.flash();
                 //执行下载操作
                 cMakeWord mw = new cMakeWord(lw);
                 Thread th = new Thread(new ThreadStart(mw.makeWord));

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProperty));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.liblocalpath = new System.Windows.Forms.LinkLabel();
             this.cobType = new System.Windows.Forms.ComboBox();
@@ -55,9 +54,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.groupBox1.Controls.Add(this.liblocalpath);
             this.groupBox1.Controls.Add(this.cobType);
             this.groupBox1.Controls.Add(this.btnsave);
@@ -77,19 +74,22 @@
             this.groupBox1.Controls.Add(this.txtTitle);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 370);
+            this.groupBox1.Size = new System.Drawing.Size(450, 383);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "公文属性";
             // 
             // liblocalpath
             // 
-            this.liblocalpath.AutoSize = true;
+            this.liblocalpath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.liblocalpath.LinkColor = System.Drawing.Color.Black;
             this.liblocalpath.Location = new System.Drawing.Point(78, 126);
             this.liblocalpath.Name = "liblocalpath";
-            this.liblocalpath.Size = new System.Drawing.Size(53, 12);
+            this.liblocalpath.Size = new System.Drawing.Size(366, 48);
             this.liblocalpath.TabIndex = 16;
             this.liblocalpath.TabStop = true;
             this.liblocalpath.Text = "本地路径";
@@ -99,53 +99,61 @@
             this.cobType.FormattingEnabled = true;
             this.cobType.Location = new System.Drawing.Point(80, 83);
             this.cobType.Name = "cobType";
-            this.cobType.Size = new System.Drawing.Size(121, 20);
-            this.cobType.TabIndex = 15;
+            this.cobType.Size = new System.Drawing.Size(121, 24);
+            this.cobType.TabIndex = 2;
             this.cobType.SelectedIndexChanged += new System.EventHandler(this.cobType_SelectedIndexChanged);
             // 
             // btnsave
             // 
+            this.btnsave.BackColor = System.Drawing.SystemColors.Window;
             this.btnsave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnsave.Location = new System.Drawing.Point(51, 341);
+            this.btnsave.FlatAppearance.BorderSize = 0;
+            this.btnsave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnsave.Location = new System.Drawing.Point(79, 352);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(75, 23);
-            this.btnsave.TabIndex = 1;
+            this.btnsave.TabIndex = 6;
             this.btnsave.Text = "保存";
-            this.btnsave.UseVisualStyleBackColor = true;
+            this.btnsave.UseVisualStyleBackColor = false;
             this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
             // 
             // btncancel
             // 
-            this.btncancel.Location = new System.Drawing.Point(321, 341);
+            this.btncancel.BackColor = System.Drawing.SystemColors.Window;
+            this.btncancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btncancel.FlatAppearance.BorderSize = 0;
+            this.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btncancel.Location = new System.Drawing.Point(347, 352);
             this.btncancel.Name = "btncancel";
             this.btncancel.Size = new System.Drawing.Size(75, 23);
-            this.btncancel.TabIndex = 2;
+            this.btncancel.TabIndex = 7;
             this.btncancel.Text = "取消";
-            this.btncancel.UseVisualStyleBackColor = true;
+            this.btncancel.UseVisualStyleBackColor = false;
             this.btncancel.Click += new System.EventHandler(this.btncancel_Click);
             // 
             // txtnote
             // 
             this.txtnote.AcceptsReturn = true;
             this.txtnote.AcceptsTab = true;
-            this.txtnote.Location = new System.Drawing.Point(79, 278);
+            this.txtnote.Location = new System.Drawing.Point(79, 289);
             this.txtnote.Multiline = true;
             this.txtnote.Name = "txtnote";
             this.txtnote.Size = new System.Drawing.Size(343, 53);
-            this.txtnote.TabIndex = 13;
+            this.txtnote.TabIndex = 5;
             // 
             // txtunit
             // 
-            this.txtunit.Location = new System.Drawing.Point(80, 185);
+            this.txtunit.Location = new System.Drawing.Point(80, 200);
             this.txtunit.Name = "txtunit";
-            this.txtunit.Size = new System.Drawing.Size(121, 21);
-            this.txtunit.TabIndex = 12;
+            this.txtunit.Size = new System.Drawing.Size(121, 26);
+            this.txtunit.TabIndex = 4;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(6, 190);
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label9.Location = new System.Drawing.Point(6, 205);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 14);
             this.label9.TabIndex = 11;
@@ -155,7 +163,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(35, 278);
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label8.Location = new System.Drawing.Point(35, 289);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(49, 14);
             this.label8.TabIndex = 10;
@@ -164,17 +173,18 @@
             // txtreleasetime
             // 
             this.txtreleasetime.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtreleasetime.Location = new System.Drawing.Point(80, 156);
+            this.txtreleasetime.Location = new System.Drawing.Point(80, 174);
             this.txtreleasetime.Name = "txtreleasetime";
             this.txtreleasetime.Size = new System.Drawing.Size(172, 23);
-            this.txtreleasetime.TabIndex = 7;
+            this.txtreleasetime.TabIndex = 3;
             // 
             // libsource
             // 
+            this.libsource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.libsource.LinkColor = System.Drawing.Color.Black;
-            this.libsource.Location = new System.Drawing.Point(78, 244);
+            this.libsource.Location = new System.Drawing.Point(78, 255);
             this.libsource.Name = "libsource";
-            this.libsource.Size = new System.Drawing.Size(328, 31);
+            this.libsource.Size = new System.Drawing.Size(344, 31);
             this.libsource.TabIndex = 6;
             this.libsource.TabStop = true;
             this.libsource.Text = "网址";
@@ -183,7 +193,8 @@
             // 
             this.labcollecttime.AutoSize = true;
             this.labcollecttime.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labcollecttime.Location = new System.Drawing.Point(77, 216);
+            this.labcollecttime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labcollecttime.Location = new System.Drawing.Point(77, 229);
             this.labcollecttime.Name = "labcollecttime";
             this.labcollecttime.Size = new System.Drawing.Size(49, 14);
             this.labcollecttime.TabIndex = 5;
@@ -193,7 +204,8 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(7, 242);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label6.Location = new System.Drawing.Point(7, 253);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 14);
             this.label6.TabIndex = 4;
@@ -203,6 +215,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label3.Location = new System.Drawing.Point(7, 126);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 14);
@@ -213,7 +226,8 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(7, 163);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label4.Location = new System.Drawing.Point(7, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 14);
             this.label4.TabIndex = 2;
@@ -223,7 +237,8 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(7, 216);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label5.Location = new System.Drawing.Point(7, 227);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 14);
             this.label5.TabIndex = 3;
@@ -233,6 +248,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(7, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 14);
@@ -243,13 +259,14 @@
             // 
             this.txtTitle.Location = new System.Drawing.Point(79, 46);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(365, 21);
-            this.txtTitle.TabIndex = 2;
+            this.txtTitle.Size = new System.Drawing.Size(365, 26);
+            this.txtTitle.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(77, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 16);
@@ -258,24 +275,29 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 20);
+            this.pictureBox1.BackgroundImage = global::DMS.Properties.Resources.doc;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 22);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // frmProperty
             // 
-            this.AcceptButton = this.btncancel;
+            this.AcceptButton = this.btnsave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnsave;
-            this.ClientSize = new System.Drawing.Size(474, 394);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.CancelButton = this.btncancel;
+            this.ClientSize = new System.Drawing.Size(475, 408);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "frmProperty";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Tag = "";
             this.Text = "公文属性";
             this.Load += new System.EventHandler(this.frmProperty_Load);
             this.groupBox1.ResumeLayout(false);

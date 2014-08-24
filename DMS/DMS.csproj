@@ -193,6 +193,11 @@
     <Content Include="Camera\Aforge\AForge.dll" />
     <Content Include="Camera\Aforge\AForge.Video.DirectShow.dll" />
     <Content Include="Camera\Aforge\AForge.Video.dll" />
+    <None Include="Resources\doc.png" />
+    <None Include="Resources\head.png" />
+    <None Include="Resources\min.png" />
+    <None Include="Resources\max.png" />
+    <None Include="Resources\close.png" />
     <None Include="Resources\del.png" />
     <None Include="Resources\add.png" />
     <None Include="Resources\help.chm" />
@@ -243,6 +248,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

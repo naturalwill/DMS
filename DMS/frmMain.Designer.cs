@@ -22,6 +22,7 @@
 
         #region Windows 窗体设计器生成的代码
 
+
         /// <summary>
         /// 设计器支持所需的方法 - 不要
         /// 使用代码编辑器修改此方法的内容。
@@ -30,13 +31,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.listDoc = new System.Windows.Forms.ListView();
-            this.columnHeaderID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderProvider = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderAddTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDocType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmsListDoc = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiLook = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocation = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,30 +39,12 @@
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnContrary = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tssbAdd = new System.Windows.Forms.ToolStripSplitButton();
-            this.tsmiAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAddMore = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsbScan = new System.Windows.Forms.ToolStripButton();
-            this.tsbDelete = new System.Windows.Forms.ToolStripButton();
-            this.tslMove = new System.Windows.Forms.ToolStripLabel();
-            this.tscbMove = new System.Windows.Forms.ToolStripComboBox();
-            this.tsbPrint = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tssbSync = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbSetting = new System.Windows.Forms.ToolStripButton();
-            this.tsbHelp = new System.Windows.Forms.ToolStripButton();
-            this.tsbAbout = new System.Windows.Forms.ToolStripButton();
-            this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslSyncStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tipListDoc = new System.Windows.Forms.ToolTip(this.components);
-            this.listDocType = new System.Windows.Forms.ListBox();
             this.cmsType = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiAddType = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangeType = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,83 +61,53 @@
             this.labto = new System.Windows.Forms.Label();
             this.dateEnd = new System.Windows.Forms.DateTimePicker();
             this.dateStart = new System.Windows.Forms.DateTimePicker();
-            this.scBody = new System.Windows.Forms.SplitContainer();
-            this.btnAddType = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnDelType = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tipListDocType = new System.Windows.Forms.ToolTip(this.components);
+            this.scBody = new System.Windows.Forms.SplitContainer();
+            this.btnAddType = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnDelType = new System.Windows.Forms.Button();
+            this.listDocType = new System.Windows.Forms.ListBox();
+            this.listDoc = new System.Windows.Forms.ListView();
+            this.columnHeaderID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderProvider = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAddTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDocType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tssbAdd = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmiAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAddMore = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbScan = new System.Windows.Forms.ToolStripButton();
+            this.tsbDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tssbMoveType = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsbPrint = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tssbSync = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbSetting = new System.Windows.Forms.ToolStripButton();
+            this.tsbHelp = new System.Windows.Forms.ToolStripButton();
+            this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.cmsListDoc.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.cmsType.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scBody)).BeginInit();
             this.scBody.Panel1.SuspendLayout();
             this.scBody.Panel2.SuspendLayout();
             this.scBody.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listDoc
-            // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listDoc.BackColor = System.Drawing.SystemColors.Menu;
-            this.listDoc.CheckBoxes = true;
-            this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderID,
-            this.columnHeaderName,
-            this.columnHeaderTime,
-            this.columnHeaderProvider,
-            this.columnHeaderAddTime,
-            this.columnHeaderDocType});
-            this.listDoc.ContextMenuStrip = this.cmsListDoc;
-            this.listDoc.FullRowSelect = true;
-            this.listDoc.HoverSelection = true;
-            this.listDoc.Location = new System.Drawing.Point(3, 3);
-            this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(761, 360);
-            this.listDoc.TabIndex = 58;
-            this.listDoc.UseCompatibleStateImageBehavior = false;
-            this.listDoc.View = System.Windows.Forms.View.Details;
-            this.listDoc.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listDoc_ItemChecked);
-            this.listDoc.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listDoc_ItemMouseHover);
-            this.listDoc.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listDoc_MouseDoubleClick);
-            // 
-            // columnHeaderID
-            // 
-            this.columnHeaderID.Text = "";
-            this.columnHeaderID.Width = 20;
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "公文标题";
-            this.columnHeaderName.Width = 242;
-            // 
-            // columnHeaderTime
-            // 
-            this.columnHeaderTime.Text = "发布时间";
-            this.columnHeaderTime.Width = 132;
-            // 
-            // columnHeaderProvider
-            // 
-            this.columnHeaderProvider.Text = "发布单位";
-            this.columnHeaderProvider.Width = 117;
-            // 
-            // columnHeaderAddTime
-            // 
-            this.columnHeaderAddTime.Text = "收录时间";
-            this.columnHeaderAddTime.Width = 132;
-            // 
-            // columnHeaderDocType
-            // 
-            this.columnHeaderDocType.Text = "公文类型";
-            this.columnHeaderDocType.Width = 90;
             // 
             // cmsListDoc
             // 
@@ -221,197 +167,43 @@
             this.tsmiInfo.Text = "属性";
             this.tsmiInfo.Click += new System.EventHandler(this.tsmiInfo_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
-            // 
             // btnContrary
             // 
-            this.btnContrary.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnContrary.Location = new System.Drawing.Point(190, 455);
+            this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnContrary.BackColor = System.Drawing.SystemColors.Window;
+            this.btnContrary.FlatAppearance.BorderSize = 0;
+            this.btnContrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContrary.Location = new System.Drawing.Point(60, 357);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(51, 21);
             this.btnContrary.TabIndex = 66;
             this.btnContrary.Text = "反选";
-            this.btnContrary.UseVisualStyleBackColor = true;
+            this.btnContrary.UseVisualStyleBackColor = false;
             this.btnContrary.Click += new System.EventHandler(this.btnContrary_Click);
             // 
             // btnAll
             // 
-            this.btnAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnAll.Location = new System.Drawing.Point(133, 455);
+            this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAll.BackColor = System.Drawing.SystemColors.Window;
+            this.btnAll.FlatAppearance.BorderSize = 0;
+            this.btnAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAll.Location = new System.Drawing.Point(3, 357);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(51, 21);
             this.btnAll.TabIndex = 65;
             this.btnAll.Text = "全选";
-            this.btnAll.UseVisualStyleBackColor = true;
+            this.btnAll.UseVisualStyleBackColor = false;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssbAdd,
-            this.tsbScan,
-            this.tsbDelete,
-            this.toolStripSeparator1,
-            this.tslMove,
-            this.tscbMove,
-            this.tsbPrint,
-            this.toolStripSeparator2,
-            this.tssbSync,
-            this.toolStripSeparator5,
-            this.tsbSetting,
-            this.tsbHelp,
-            this.tsbAbout,
-            this.tsbClose});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(915, 41);
-            this.toolStrip1.TabIndex = 67;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tssbAdd
-            // 
-            this.tssbAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAdd,
-            this.tsmiAddMore});
-            this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
-            this.tssbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tssbAdd.Name = "tssbAdd";
-            this.tssbAdd.Size = new System.Drawing.Size(104, 38);
-            this.tssbAdd.Text = "添加公文";
-            this.tssbAdd.ButtonClick += new System.EventHandler(this.tssbAdd_ButtonClick);
-            // 
-            // tsmiAdd
-            // 
-            this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(152, 22);
-            this.tsmiAdd.Text = "添加公文";
-            this.tsmiAdd.Click += new System.EventHandler(this.tsmiAdd_Click);
-            // 
-            // tsmiAddMore
-            // 
-            this.tsmiAddMore.Name = "tsmiAddMore";
-            this.tsmiAddMore.Size = new System.Drawing.Size(152, 22);
-            this.tsmiAddMore.Text = "批量添加公文";
-            this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
-            // 
-            // tsbScan
-            // 
-            this.tsbScan.Image = ((System.Drawing.Image)(resources.GetObject("tsbScan.Image")));
-            this.tsbScan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbScan.Name = "tsbScan";
-            this.tsbScan.Size = new System.Drawing.Size(92, 38);
-            this.tsbScan.Text = "扫描文档";
-            this.tsbScan.Click += new System.EventHandler(this.tsbScan_Click);
-            // 
-            // tsbDelete
-            // 
-            this.tsbDelete.Enabled = false;
-            this.tsbDelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbDelete.Image")));
-            this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDelete.Name = "tsbDelete";
-            this.tsbDelete.Size = new System.Drawing.Size(92, 38);
-            this.tsbDelete.Text = "删除公文";
-            this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
-            // 
-            // tslMove
-            // 
-            this.tslMove.Enabled = false;
-            this.tslMove.Name = "tslMove";
-            this.tslMove.Size = new System.Drawing.Size(56, 38);
-            this.tslMove.Text = "移动至：";
-            // 
-            // tscbMove
-            // 
-            this.tscbMove.Enabled = false;
-            this.tscbMove.Margin = new System.Windows.Forms.Padding(1, 8, 1, 8);
-            this.tscbMove.Name = "tscbMove";
-            this.tscbMove.Size = new System.Drawing.Size(121, 25);
-            this.tscbMove.SelectedIndexChanged += new System.EventHandler(this.tscbMove_SelectedIndexChanged);
-            // 
-            // tsbPrint
-            // 
-            this.tsbPrint.BackColor = System.Drawing.SystemColors.Control;
-            this.tsbPrint.Enabled = false;
-            this.tsbPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
-            this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbPrint.Name = "tsbPrint";
-            this.tsbPrint.Size = new System.Drawing.Size(116, 38);
-            this.tsbPrint.Text = "打印选中公文";
-            this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
-            // 
-            // tssbSync
-            // 
-            this.tssbSync.Image = ((System.Drawing.Image)(resources.GetObject("tssbSync.Image")));
-            this.tssbSync.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tssbSync.Name = "tssbSync";
-            this.tssbSync.Size = new System.Drawing.Size(68, 38);
-            this.tssbSync.Text = "同步";
-            this.tssbSync.Click += new System.EventHandler(this.tssbSync_ButtonClick);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 41);
-            // 
-            // tsbSetting
-            // 
-            this.tsbSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSetting.Image = ((System.Drawing.Image)(resources.GetObject("tsbSetting.Image")));
-            this.tsbSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbSetting.Name = "tsbSetting";
-            this.tsbSetting.Size = new System.Drawing.Size(36, 38);
-            this.tsbSetting.Text = "设置";
-            this.tsbSetting.Click += new System.EventHandler(this.tsbSetting_Click);
-            // 
-            // tsbHelp
-            // 
-            this.tsbHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsbHelp.Image")));
-            this.tsbHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbHelp.Name = "tsbHelp";
-            this.tsbHelp.Size = new System.Drawing.Size(36, 38);
-            this.tsbHelp.Text = "帮助";
-            this.tsbHelp.Click += new System.EventHandler(this.tsbHelp_Click);
-            // 
-            // tsbAbout
-            // 
-            this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
-            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(36, 38);
-            this.tsbAbout.Text = "关于";
-            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
-            // 
-            // tsbClose
-            // 
-            this.tsbClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
-            this.tsbClose.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(36, 38);
-            this.tsbClose.Text = "退出";
-            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslStatus,
             this.tsslSyncStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 484);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 538);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(915, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(947, 22);
             this.statusStrip1.TabIndex = 68;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -430,23 +222,6 @@
             // tipListDoc
             // 
             this.tipListDoc.ToolTipTitle = "备注：";
-            // 
-            // listDocType
-            // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listDocType.BackColor = System.Drawing.SystemColors.Menu;
-            this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listDocType.ContextMenuStrip = this.cmsType;
-            this.listDocType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listDocType.FormattingEnabled = true;
-            this.listDocType.ItemHeight = 17;
-            this.listDocType.Location = new System.Drawing.Point(3, 26);
-            this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(115, 306);
-            this.listDocType.TabIndex = 59;
-            this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
             // cmsType
             // 
@@ -483,9 +258,9 @@
             this.labPageAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(505, 455);
+            this.labPageAll.Location = new System.Drawing.Point(384, 357);
             this.labPageAll.Name = "labPageAll";
-            this.labPageAll.Size = new System.Drawing.Size(41, 21);
+            this.labPageAll.Size = new System.Drawing.Size(43, 21);
             this.labPageAll.TabIndex = 64;
             this.labPageAll.Text = "1";
             this.labPageAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -493,32 +268,40 @@
             // btnPageDown
             // 
             this.btnPageDown.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnPageDown.Location = new System.Drawing.Point(578, 455);
+            this.btnPageDown.BackColor = System.Drawing.SystemColors.Window;
+            this.btnPageDown.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPageDown.Location = new System.Drawing.Point(460, 357);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
             this.btnPageDown.TabIndex = 63;
             this.btnPageDown.Text = "下一页";
-            this.btnPageDown.UseVisualStyleBackColor = true;
+            this.btnPageDown.UseVisualStyleBackColor = false;
             this.btnPageDown.Click += new System.EventHandler(this.btnPageDown_Click);
             // 
             // btnPageUp
             // 
             this.btnPageUp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnPageUp.Location = new System.Drawing.Point(300, 455);
+            this.btnPageUp.BackColor = System.Drawing.SystemColors.Window;
+            this.btnPageUp.FlatAppearance.BorderSize = 0;
+            this.btnPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPageUp.Location = new System.Drawing.Point(182, 357);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
             this.btnPageUp.TabIndex = 62;
             this.btnPageUp.Text = "上一页";
-            this.btnPageUp.UseVisualStyleBackColor = true;
+            this.btnPageUp.UseVisualStyleBackColor = false;
             this.btnPageUp.Click += new System.EventHandler(this.btnPageUp_Click);
             // 
             // textBoxNow
             // 
             this.textBoxNow.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.textBoxNow.Location = new System.Drawing.Point(413, 455);
+            this.textBoxNow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxNow.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxNow.Location = new System.Drawing.Point(294, 359);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBoxNow.Size = new System.Drawing.Size(40, 21);
+            this.textBoxNow.Size = new System.Drawing.Size(40, 16);
             this.textBoxNow.TabIndex = 60;
             this.textBoxNow.Text = "1";
             this.textBoxNow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNow_KeyPress);
@@ -529,7 +312,7 @@
             this.labPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(360, 455);
+            this.labPage.Location = new System.Drawing.Point(242, 357);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 61;
@@ -540,20 +323,24 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(736, 460);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(596, 359);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 12);
+            this.label1.Size = new System.Drawing.Size(119, 14);
             this.label1.TabIndex = 69;
             this.label1.Text = "每页显示的数目：";
             // 
             // comboBoxpaginal
             // 
             this.comboBoxpaginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxpaginal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxpaginal.FormattingEnabled = true;
-            this.comboBoxpaginal.Location = new System.Drawing.Point(843, 456);
+            this.comboBoxpaginal.Location = new System.Drawing.Point(718, 357);
             this.comboBoxpaginal.Name = "comboBoxpaginal";
             this.comboBoxpaginal.Size = new System.Drawing.Size(60, 20);
             this.comboBoxpaginal.TabIndex = 70;
+            this.comboBoxpaginal.Text = "20";
             this.comboBoxpaginal.SelectedIndexChanged += new System.EventHandler(this.comboBoxpaginal_SelectedIndexChanged);
             this.comboBoxpaginal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxpaginal_KeyPress);
             this.comboBoxpaginal.Leave += new System.EventHandler(this.comboBoxpaginal_Leave);
@@ -561,16 +348,16 @@
             // timer1
             // 
             this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // txtSearch
             // 
+            this.txtSearch.BackColor = System.Drawing.SystemColors.Window;
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSearch.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtSearch.Location = new System.Drawing.Point(11, 3);
+            this.txtSearch.Location = new System.Drawing.Point(8, 1);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(316, 16);
+            this.txtSearch.Size = new System.Drawing.Size(365, 16);
             this.txtSearch.TabIndex = 50;
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
@@ -578,18 +365,24 @@
             // 
             // labto
             // 
-            this.labto.AutoSize = true;
-            this.labto.Location = new System.Drawing.Point(132, 9);
+            this.labto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.labto.BackColor = System.Drawing.Color.Transparent;
+            this.labto.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labto.Location = new System.Drawing.Point(159, 11);
             this.labto.Name = "labto";
-            this.labto.Size = new System.Drawing.Size(17, 12);
+            this.labto.Size = new System.Drawing.Size(22, 10);
             this.labto.TabIndex = 80;
-            this.labto.Text = "到";
+            this.labto.Text = "~";
+            this.labto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.labto.Click += new System.EventHandler(this.labto_Click);
             // 
             // dateEnd
             // 
-            this.dateEnd.Location = new System.Drawing.Point(155, 3);
+            this.dateEnd.Location = new System.Drawing.Point(191, 3);
             this.dateEnd.Name = "dateEnd";
-            this.dateEnd.Size = new System.Drawing.Size(125, 21);
+            this.dateEnd.Size = new System.Drawing.Size(149, 21);
             this.dateEnd.TabIndex = 79;
             this.dateEnd.CloseUp += new System.EventHandler(this.dateEnd_CloseUp);
             // 
@@ -598,22 +391,73 @@
             this.dateStart.CalendarFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dateStart.Location = new System.Drawing.Point(3, 3);
             this.dateStart.Name = "dateStart";
-            this.dateStart.Size = new System.Drawing.Size(123, 21);
+            this.dateStart.Size = new System.Drawing.Size(147, 21);
             this.dateStart.TabIndex = 78;
             this.dateStart.Value = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateStart.CloseUp += new System.EventHandler(this.dateStart_CloseUp);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dateStart);
+            this.panel1.Controls.Add(this.dateEnd);
+            this.panel1.Controls.Add(this.labto);
+            this.panel1.Location = new System.Drawing.Point(589, 109);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(340, 28);
+            this.panel1.TabIndex = 81;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnClear);
+            this.panel2.Controls.Add(this.btnSearch);
+            this.panel2.Controls.Add(this.txtSearch);
+            this.panel2.Location = new System.Drawing.Point(93, 112);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(427, 21);
+            this.panel2.TabIndex = 82;
+            // 
+            // btnClear
+            // 
+            this.btnClear.BackColor = System.Drawing.Color.Transparent;
+            this.btnClear.BackgroundImage = global::DMS.Properties.Resources.clear;
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Location = new System.Drawing.Point(379, -1);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(0);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(21, 21);
+            this.btnClear.TabIndex = 52;
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Visible = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.BackgroundImage = global::DMS.Properties.Resources.search;
+            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Location = new System.Drawing.Point(404, -1);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(21, 21);
+            this.btnSearch.TabIndex = 51;
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // scBody
             // 
-            this.scBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.scBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scBody.Location = new System.Drawing.Point(12, 82);
+            this.scBody.Location = new System.Drawing.Point(9, 152);
             this.scBody.Name = "scBody";
             // 
             // scBody.Panel1
             // 
+            this.scBody.Panel1.BackColor = System.Drawing.Color.Transparent;
             this.scBody.Panel1.Controls.Add(this.btnAddType);
             this.scBody.Panel1.Controls.Add(this.label2);
             this.scBody.Panel1.Controls.Add(this.btnDelType);
@@ -621,9 +465,19 @@
             // 
             // scBody.Panel2
             // 
+            this.scBody.Panel2.BackColor = System.Drawing.Color.Transparent;
             this.scBody.Panel2.Controls.Add(this.listDoc);
-            this.scBody.Size = new System.Drawing.Size(896, 368);
-            this.scBody.SplitterDistance = 123;
+            this.scBody.Panel2.Controls.Add(this.btnPageUp);
+            this.scBody.Panel2.Controls.Add(this.label1);
+            this.scBody.Panel2.Controls.Add(this.btnContrary);
+            this.scBody.Panel2.Controls.Add(this.comboBoxpaginal);
+            this.scBody.Panel2.Controls.Add(this.btnAll);
+            this.scBody.Panel2.Controls.Add(this.textBoxNow);
+            this.scBody.Panel2.Controls.Add(this.labPageAll);
+            this.scBody.Panel2.Controls.Add(this.labPage);
+            this.scBody.Panel2.Controls.Add(this.btnPageDown);
+            this.scBody.Size = new System.Drawing.Size(926, 383);
+            this.scBody.SplitterDistance = 139;
             this.scBody.TabIndex = 1;
             // 
             // btnAddType
@@ -634,7 +488,7 @@
             this.btnAddType.FlatAppearance.BorderSize = 0;
             this.btnAddType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnAddType.Location = new System.Drawing.Point(12, 338);
+            this.btnAddType.Location = new System.Drawing.Point(13, 353);
             this.btnAddType.Name = "btnAddType";
             this.btnAddType.Size = new System.Drawing.Size(25, 25);
             this.btnAddType.TabIndex = 81;
@@ -643,12 +497,13 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(3, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 20);
+            this.label2.Size = new System.Drawing.Size(131, 20);
             this.label2.TabIndex = 84;
             this.label2.Text = "公文类型";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -661,104 +516,335 @@
             this.btnDelType.FlatAppearance.BorderSize = 0;
             this.btnDelType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnDelType.Location = new System.Drawing.Point(93, 338);
+            this.btnDelType.Location = new System.Drawing.Point(101, 353);
             this.btnDelType.Name = "btnDelType";
             this.btnDelType.Size = new System.Drawing.Size(25, 25);
             this.btnDelType.TabIndex = 83;
             this.btnDelType.UseVisualStyleBackColor = true;
             this.btnDelType.Click += new System.EventHandler(this.btnDelType_Click);
             // 
-            // panel1
+            // listDocType
             // 
-            this.panel1.Controls.Add(this.dateStart);
-            this.panel1.Controls.Add(this.dateEnd);
-            this.panel1.Controls.Add(this.labto);
-            this.panel1.Location = new System.Drawing.Point(624, 48);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(284, 28);
-            this.panel1.TabIndex = 81;
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDocType.BackColor = System.Drawing.SystemColors.Window;
+            this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listDocType.ContextMenuStrip = this.cmsType;
+            this.listDocType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listDocType.FormattingEnabled = true;
+            this.listDocType.ItemHeight = 17;
+            this.listDocType.Location = new System.Drawing.Point(3, 26);
+            this.listDocType.Name = "listDocType";
+            this.listDocType.Size = new System.Drawing.Size(131, 306);
+            this.listDocType.TabIndex = 59;
+            this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
-            // panel2
+            // listDoc
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnClear);
-            this.panel2.Controls.Add(this.btnSearch);
-            this.panel2.Controls.Add(this.txtSearch);
-            this.panel2.Location = new System.Drawing.Point(214, 54);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(370, 21);
-            this.panel2.TabIndex = 82;
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listDoc.CheckBoxes = true;
+            this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderID,
+            this.columnHeaderName,
+            this.columnHeaderTime,
+            this.columnHeaderProvider,
+            this.columnHeaderAddTime,
+            this.columnHeaderDocType});
+            this.listDoc.ContextMenuStrip = this.cmsListDoc;
+            this.listDoc.Font = new System.Drawing.Font("华文中宋", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listDoc.FullRowSelect = true;
+            this.listDoc.Location = new System.Drawing.Point(3, 3);
+            this.listDoc.Name = "listDoc";
+            this.listDoc.Size = new System.Drawing.Size(775, 350);
+            this.listDoc.TabIndex = 58;
+            this.listDoc.UseCompatibleStateImageBehavior = false;
+            this.listDoc.View = System.Windows.Forms.View.Details;
+            this.listDoc.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listDoc_ItemChecked);
+            this.listDoc.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listDoc_ItemMouseHover);
+            this.listDoc.SelectedIndexChanged += new System.EventHandler(this.listDoc_SelectedIndexChanged);
+            this.listDoc.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listDoc_MouseDoubleClick);
             // 
-            // btnClear
+            // columnHeaderID
             // 
-            this.btnClear.BackColor = System.Drawing.SystemColors.Window;
-            this.btnClear.BackgroundImage = global::DMS.Properties.Resources.clear;
-            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnClear.FlatAppearance.BorderSize = 0;
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Location = new System.Drawing.Point(327, -1);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(0);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(21, 21);
-            this.btnClear.TabIndex = 52;
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Visible = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.columnHeaderID.Text = "";
+            this.columnHeaderID.Width = 20;
             // 
-            // btnSearch
+            // columnHeaderName
             // 
-            this.btnSearch.BackColor = System.Drawing.SystemColors.Window;
-            this.btnSearch.BackgroundImage = global::DMS.Properties.Resources.search;
-            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Location = new System.Drawing.Point(348, -1);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(0);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(21, 21);
-            this.btnSearch.TabIndex = 51;
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.columnHeaderName.Text = "公文标题";
+            this.columnHeaderName.Width = 242;
+            // 
+            // columnHeaderTime
+            // 
+            this.columnHeaderTime.Text = "发布时间";
+            this.columnHeaderTime.Width = 132;
+            // 
+            // columnHeaderProvider
+            // 
+            this.columnHeaderProvider.Text = "发布单位";
+            this.columnHeaderProvider.Width = 117;
+            // 
+            // columnHeaderAddTime
+            // 
+            this.columnHeaderAddTime.Text = "收录时间";
+            this.columnHeaderAddTime.Width = 132;
+            // 
+            // columnHeaderDocType
+            // 
+            this.columnHeaderDocType.Text = "公文类型";
+            this.columnHeaderDocType.Width = 90;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssbAdd,
+            this.tsbScan,
+            this.tsbDelete,
+            this.toolStripSeparator1,
+            this.tssbMoveType,
+            this.tsbPrint,
+            this.toolStripSeparator2,
+            this.tssbSync,
+            this.toolStripSeparator5,
+            this.tsbSetting,
+            this.tsbHelp,
+            this.tsbAbout});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 46);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStrip1.Size = new System.Drawing.Size(947, 50);
+            this.toolStrip1.TabIndex = 67;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tssbAdd
+            // 
+            this.tssbAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAdd,
+            this.tsmiAddMore});
+            this.tssbAdd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
+            this.tssbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tssbAdd.Name = "tssbAdd";
+            this.tssbAdd.Size = new System.Drawing.Size(113, 47);
+            this.tssbAdd.Text = "添加公文";
+            this.tssbAdd.ButtonClick += new System.EventHandler(this.tssbAdd_ButtonClick);
+            // 
+            // tsmiAdd
+            // 
+            this.tsmiAdd.Name = "tsmiAdd";
+            this.tsmiAdd.Size = new System.Drawing.Size(162, 24);
+            this.tsmiAdd.Text = "添加公文";
+            this.tsmiAdd.Click += new System.EventHandler(this.tsmiAdd_Click);
+            // 
+            // tsmiAddMore
+            // 
+            this.tsmiAddMore.Name = "tsmiAddMore";
+            this.tsmiAddMore.Size = new System.Drawing.Size(162, 24);
+            this.tsmiAddMore.Text = "批量添加公文";
+            this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
+            // 
+            // tsbScan
+            // 
+            this.tsbScan.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsbScan.Image = ((System.Drawing.Image)(resources.GetObject("tsbScan.Image")));
+            this.tsbScan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbScan.Name = "tsbScan";
+            this.tsbScan.Size = new System.Drawing.Size(101, 47);
+            this.tsbScan.Text = "扫描文档";
+            this.tsbScan.Click += new System.EventHandler(this.tsbScan_Click);
+            // 
+            // tsbDelete
+            // 
+            this.tsbDelete.Enabled = false;
+            this.tsbDelete.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsbDelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbDelete.Image")));
+            this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDelete.Name = "tsbDelete";
+            this.tsbDelete.Size = new System.Drawing.Size(101, 47);
+            this.tsbDelete.Text = "删除公文";
+            this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
+            // 
+            // tssbMoveType
+            // 
+            this.tssbMoveType.Image = ((System.Drawing.Image)(resources.GetObject("tssbMoveType.Image")));
+            this.tssbMoveType.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tssbMoveType.Name = "tssbMoveType";
+            this.tssbMoveType.Size = new System.Drawing.Size(92, 47);
+            this.tssbMoveType.Text = "移动到";
+            this.tssbMoveType.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tssbMoveType_DropDownItemClicked);
+            // 
+            // tsbPrint
+            // 
+            this.tsbPrint.BackColor = System.Drawing.Color.Transparent;
+            this.tsbPrint.Enabled = false;
+            this.tsbPrint.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsbPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
+            this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbPrint.Name = "tsbPrint";
+            this.tsbPrint.Size = new System.Drawing.Size(129, 47);
+            this.tsbPrint.Text = "打印选中公文";
+            this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
+            // 
+            // tssbSync
+            // 
+            this.tssbSync.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tssbSync.Image = ((System.Drawing.Image)(resources.GetObject("tssbSync.Image")));
+            this.tssbSync.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tssbSync.Name = "tssbSync";
+            this.tssbSync.Size = new System.Drawing.Size(73, 47);
+            this.tssbSync.Text = "同步";
+            this.tssbSync.Click += new System.EventHandler(this.tssbSync_ButtonClick);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 50);
+            // 
+            // tsbSetting
+            // 
+            this.tsbSetting.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsbSetting.Image = ((System.Drawing.Image)(resources.GetObject("tsbSetting.Image")));
+            this.tsbSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSetting.Name = "tsbSetting";
+            this.tsbSetting.Size = new System.Drawing.Size(77, 47);
+            this.tsbSetting.Text = "设置 ";
+            this.tsbSetting.Click += new System.EventHandler(this.tsbSetting_Click);
+            // 
+            // tsbHelp
+            // 
+            this.tsbHelp.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsbHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsbHelp.Image")));
+            this.tsbHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbHelp.Name = "tsbHelp";
+            this.tsbHelp.Size = new System.Drawing.Size(73, 47);
+            this.tsbHelp.Text = "帮助";
+            this.tsbHelp.Click += new System.EventHandler(this.tsbHelp_Click);
+            // 
+            // tsbAbout
+            // 
+            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
+            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAbout.Name = "tsbAbout";
+            this.tsbAbout.Size = new System.Drawing.Size(68, 47);
+            this.tsbAbout.Text = "关于";
+            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.BackgroundImage = global::DMS.Properties.Resources.close;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnClose.Location = new System.Drawing.Point(910, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(25, 25);
+            this.btnClose.TabIndex = 86;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnMin
+            // 
+            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMin.BackColor = System.Drawing.Color.Transparent;
+            this.btnMin.BackgroundImage = global::DMS.Properties.Resources.min;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMin.FlatAppearance.BorderSize = 0;
+            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMin.ForeColor = System.Drawing.Color.Black;
+            this.btnMin.Location = new System.Drawing.Point(844, 12);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(25, 25);
+            this.btnMin.TabIndex = 84;
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMax.BackColor = System.Drawing.Color.Transparent;
+            this.btnMax.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMax.BackgroundImage")));
+            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Location = new System.Drawing.Point(875, 12);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(25, 25);
+            this.btnMax.TabIndex = 85;
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("华文行楷", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(353, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(227, 37);
+            this.label3.TabIndex = 87;
+            this.label3.Text = "公文管理系统";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 506);
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(947, 560);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnMax);
+            this.Controls.Add(this.btnMin);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.scBody);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxpaginal);
-            this.Controls.Add(this.btnAll);
-            this.Controls.Add(this.btnContrary);
-            this.Controls.Add(this.textBoxNow);
-            this.Controls.Add(this.btnPageUp);
-            this.Controls.Add(this.btnPageDown);
-            this.Controls.Add(this.labPageAll);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.labPage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimumSize = new System.Drawing.Size(780, 498);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "公文管理系统";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.cmsListDoc.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.cmsType.ResumeLayout(false);
-            this.scBody.Panel1.ResumeLayout(false);
-            this.scBody.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scBody)).EndInit();
-            this.scBody.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.scBody.Panel1.ResumeLayout(false);
+            this.scBody.Panel2.ResumeLayout(false);
+            this.scBody.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scBody)).EndInit();
+            this.scBody.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -790,13 +876,9 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripLabel tslMove;
-        private System.Windows.Forms.ToolStripComboBox tscbMove;
         private System.Windows.Forms.ToolStripButton tsbPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbSetting;
-        private System.Windows.Forms.ToolStripButton tsbClose;
-        private System.Windows.Forms.ToolStripButton tsbAbout;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolTip tipListDoc;
         private System.Windows.Forms.ListBox listDocType;
@@ -830,6 +912,12 @@
         private System.Windows.Forms.ToolTip tipListDocType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDelType;
+        private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ToolStripButton tsbAbout;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripSplitButton tssbMoveType;
     }
 }
 

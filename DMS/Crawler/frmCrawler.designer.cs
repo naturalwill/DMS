@@ -183,6 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(810, 454);
             this.Controls.Add(this.labPageAll);
             this.Controls.Add(this.btnPageDown);
@@ -196,6 +197,7 @@
             this.Controls.Add(this.txtURL);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listDoc);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmCrawler";
             this.Text = "批量下载器";
             this.Load += new System.EventHandler(this.frmMain_Load);

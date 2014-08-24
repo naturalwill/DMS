@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using DMS.Forms;
+using System.Drawing;
 
 namespace DMS
 {
@@ -34,6 +35,7 @@ namespace DMS
         /// <param name="e"></param>
         private void frmMain_Load(object sender, EventArgs e)
         {
+
             try
             {
 
@@ -42,22 +44,23 @@ namespace DMS
                 cConfig.ReadConfig();
 
 
-                string[] pi = { "10", "15", "20", "30", "50", cConfig.strNoLimit };
+                string[] pi = { "15", "20", "30", "50", cConfig.strNoLimit };
                 foreach (string p in pi)
                 {
                     comboBoxpaginal.Items.Add(p);
                 }
+
+
+                cSync.AddRecord();
+
                 if (cConfig.paginalItems == 0)
                     comboBoxpaginal.Text = cConfig.strNoLimit;
                 else
                     comboBoxpaginal.Text = cConfig.paginalItems.ToString();
-
-                cSync.AddRecord();
-
-
                 //this.listDoc.ListViewItemSorter = new ListViewColumnSorter();
                 //this.listDoc.ColumnClick += new ColumnClickEventHandler(ListViewHelper.ListView_ColumnClick);
                 initialize();
+
                 tsslStatus.Text = "启动完成！欢迎使用公文管理系统~";
             }
             catch (Exception ex)
@@ -76,11 +79,13 @@ namespace DMS
             try
             {
                 if (cAccess.newDt.Rows.Count > 0)
-                    dateStart.Value = DateTime.Parse(cAccess.newDt.Rows[(cAccess.newDt.Rows.Count - 1)]["AddTime"].ToString());
-                dateEnd.Value = DateTime.Now;
+                    dateStart.Value = DateTime.Parse(cAccess.newDt.Rows[(cAccess.newDt.Rows.Count - 1)]["AddTime"].ToString()).AddDays(-1);
+                dateEnd.Value = DateTime.Now.AddDays(1);
             }
-            catch { throw; }
+            catch { }
             flashTypeList();
+
+            search();
         }
 
         #endregion
@@ -91,17 +96,19 @@ namespace DMS
         //{
         //    tssbSync_ButtonClick(sender, e);
         //}
-        private void timer1_Tick(object sender, EventArgs e)
+
+
+        public void flash()
         {
-            //根据工作状态，判断是否需要刷新
-            if (cConfig.working)
-            {
-                tsslStatus.Text = "正在工作中...";
-            }
-            else
-            {
-                if (cConfig.needFlash) { search(); tsslStatus.Text = "OK!"; timer1.Enabled = false; }
-            }
+            dateEnd.Value = DateTime.Now.AddDays(1);
+            flashTypeList();
+            search();
+            tsslStatus.Text = "OK!";
+        }
+
+        private void isWorking()
+        {
+            tsslStatus.Text = "正在工作中...";
         }
 
         #endregion
@@ -111,14 +118,14 @@ namespace DMS
         #region 列出公文
         List<string> listID = new List<string>();
 
-        private void getList()
+        public void getList()
         {
             if (listDocType.Items.Count == 1)
-                TypeIndex = 0;
-            else if (TypeIndex >= listDocType.Items.Count)
-                TypeIndex = listDocType.Items.Count - 1;
+                TypeSelectedIndex = 0;
+            else if (TypeSelectedIndex >= listDocType.Items.Count)
+                TypeSelectedIndex = listDocType.Items.Count - 1;
 
-            string strSelected = listDocType.Items[TypeIndex].ToString();
+            string strSelected = listDocType.Items[TypeSelectedIndex].ToString();
             if (strSelected == cConfig.strAllType)
             {
                 listID = cAccess.selectType();
@@ -137,6 +144,7 @@ namespace DMS
                 pagesAll = 1;
             if (pagesAll < 1) pagesAll = 1;
             labPageAll.Text = pagesAll.ToString();
+            listDocType.SelectedIndex = TypeSelectedIndex;
             list();
         }
 
@@ -194,19 +202,53 @@ namespace DMS
 
         #endregion
 
+        string keyword = "";
+
+        private void search()
+        {
+            string st = txtSearch.Text;
+            if (st == cConfig.strSearchTips)
+                st = "";
+            if (cAccess.isChanged)
+            {
+                keyword = st + dateStart.Value.ToString() + dateEnd.Value.ToString();
+                cAccess.search(st, dateStart.Value.ToString(), dateEnd.Value.ToString(), 0);
+                btnClear.Visible = true;
+            }
+            else
+            {
+                if (keyword == st + dateStart.Value.ToString() + dateEnd.Value.ToString())
+                {
+                }
+                else
+                {
+                    keyword = st + dateStart.Value.ToString() + dateEnd.Value.ToString();
+                    cAccess.search(st, dateStart.Value.ToString(), dateEnd.Value.ToString(), 0);
+                    btnClear.Visible = true;
+                }
+            }
+            getList();
+            Page();
+        }
+
+
         #region 更新类型列表
         public static List<string> TypeList = new List<string>();
-        static int TypeIndex = 0;
+        static int TypeSelectedIndex = 0;
         /// <summary>
         /// 刷新类型列表
         /// </summary>
         public void flashTypeList()
         {
             TypeList.Clear();
-            if (!Directory.Exists(cConfig.strWorkPath))
+            if (Directory.Exists(cConfig.strWorkPath))
+            {
+                searchDirectory(cConfig.strWorkPath);
+            }
+            else
+            {
                 Directory.CreateDirectory(cConfig.strWorkPath);
-            searchDirectory(cConfig.strWorkPath);
-
+            }
             for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
             {
                 string str = cAccess.basicDt.Rows[row]["DocType"].ToString();
@@ -224,26 +266,24 @@ namespace DMS
                     TypeList.Add(str);
             }
 
-            listDocType.Items.Clear(); tscbMove.Items.Clear();
+            listDocType.Items.Clear(); tssbMoveType.DropDownItems.Clear();
             listDocType.Items.Add(cConfig.strAllType);
             foreach (string str in TypeList)
             {
-                tscbMove.Items.Add(str);
+                tssbMoveType.DropDownItems.Add(str);
                 listDocType.Items.Add(str);
             }
-            tscbMove.Items.Add(cConfig.strNewType);
-
-            getList();
-
-
+            tssbMoveType.DropDownItems.Add(new ToolStripSeparator());
+            tssbMoveType.DropDownItems.Add(cConfig.strNewType);
+            listDocType.SelectedIndex = TypeSelectedIndex;
         }
 
-        public void btnMove()
-        {
-            btnAddType.Top = listDocType.ItemHeight * (listDocType.Items.Count + 1) + listDocType.Top + scBody.Top;
-            btnAddType.Left = ((listDocType.Width - btnAddType.Width) / 2) + listDocType.Left + scBody.Left;
-            if (btnAddType.Bottom >= scBody.Bottom) btnAddType.Top = scBody.Bottom + 3;
-        }
+        //public void btnMove()
+        //{
+        //    btnAddType.Top = listDocType.ItemHeight * (listDocType.Items.Count + 1) + listDocType.Top + scBody.Top;
+        //    btnAddType.Left = ((listDocType.Width - btnAddType.Width) / 2) + listDocType.Left + scBody.Left;
+        //    if (btnAddType.Bottom >= scBody.Bottom) btnAddType.Top = scBody.Bottom + 3;
+        //}
 
         /// <summary>
         /// 遍历文件夹，搜索符合条件的文件
@@ -277,16 +317,6 @@ namespace DMS
             search();
         }
 
-        private void search()
-        {
-            string st = txtSearch.Text;
-            if (st == cConfig.strSearchTips) st = "";
-            //cAccess.search(st, dateStart.Value.ToShortDateString(), dateEnd.Value.ToShortDateString(), 0);
-            cAccess.search(st, dateStart.Value.ToString(), dateEnd.Value.ToString(), 0);
-            getList();
-            flashTypeList();
-            btnClear.Visible = true;
-        }
 
         private void dateStart_CloseUp(object sender, EventArgs e)
         {
@@ -419,28 +449,21 @@ namespace DMS
         {
             using (frmAddDoc frmAd = new frmAddDoc())
             {
-                cConfig.working = true;
-                timer1.Enabled = true;
+                isWorking();
                 frmAd.ShowDialog();
             }
         }
 
         private void tsmiAdd_Click(object sender, EventArgs e)
         {
-            using (frmAddDoc frmAd = new frmAddDoc())
-            {
-                cConfig.working = true;
-                timer1.Enabled = true;
-                frmAd.ShowDialog();
-            }
+            tssbAdd_ButtonClick(sender, e);
         }
 
         private void tsmiAddMore_Click(object sender, EventArgs e)
         {
             using (Crawler.frmCrawler cr = new Crawler.frmCrawler())
             {
-                cConfig.working = true;
-                timer1.Enabled = true;
+                isWorking();
                 cr.ShowDialog();
             }
         }
@@ -449,8 +472,7 @@ namespace DMS
         {
             using (Camera.frmCamera frmScan = new Camera.frmCamera())
             {
-                cConfig.working = true;
-                timer1.Enabled = true;
+                isWorking();
                 frmScan.ShowDialog();
             }
         }
@@ -489,51 +511,60 @@ namespace DMS
                     {
                         cAccess.delect(listDoc.CheckedItems[i].SubItems[0].Text);
                     }
-                    getList();
+                    search();
                 }
             }
         }
 
-
-
-        private void tscbMove_SelectedIndexChanged(object sender, EventArgs e)
+        private void tssbMoveType_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (tscbMove.SelectedIndex >= 0)
+            if (string.IsNullOrWhiteSpace(e.ClickedItem.Text))
+                return;
+            else if (e.ClickedItem.Text == cConfig.strNewType)
             {
-
-                if (tscbMove.SelectedItem.ToString() == cConfig.strNewType)
+                using (frmNewType frmNewtype = new frmNewType())
                 {
-                    using (frmNewType frmNewtype = new frmNewType())
-                    {
-                        frmNewtype.labNewType.Text = "添加类型";
-                        frmNewtype.Text = "添加类型";
-                        frmNewtype.ShowDialog();
-                    }
-                    return;
+                    frmNewtype.groupBoxType.Text = "添加类型";
+                    frmNewtype.Text = "添加类型";
+                    frmNewtype.ShowDialog();
                 }
-                for (int i = 0; i < listDoc.CheckedItems.Count; i++)
-                {
-                    string OldPath;
-                    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                    {
-                        if (listDoc.CheckedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                        {
-                            OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-
-                            cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, tscbMove.Text);
-
-                            File.Move(OldPath, cAccess.basicDt.Rows[row]["LocalPath"].ToString());//移动相应的word文档到所需类型的目录
-                            string a = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-                        }
-                    }
-                }
-                tscbMove.Text = "";
-                flashTypeList();
-
+                return;
             }
+            for (int i = 0; i < listDoc.CheckedItems.Count; i++)
+            {
+                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                {
+                    if (listDoc.CheckedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+                    {
+                        string OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, e.ClickedItem.Text);
+                        string newPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        //移动相应的word文档到所需类型的目录
+                        try
+                        {
+                            File.Move(OldPath, newPath);
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+                }
+            }
+            flashTypeList();
+            search();
+
         }
 
-        public void AddNewType(string strNewType)
+
+
+
+        /// <summary>
+        /// 移动到新类型
+        /// </summary>
+        /// <param name="strNewType"></param>
+        public void MoveToNewType(string strNewType)
         {
             listDocType.Items.Add(strNewType);
             if (!Directory.Exists(cConfig.strWorkPath + "\\" + strNewType))//添加所添加类型的目录
@@ -541,32 +572,29 @@ namespace DMS
                 Directory.CreateDirectory(cConfig.strWorkPath + "\\" + strNewType);
             }
 
-            tscbMove.Items.Clear();
-            foreach (string str in listDocType.Items)
-            {
-                if (str != cConfig.strAllType)
-                {
-                    tscbMove.Items.Add(str);
-                }
-            }
-            tscbMove.Items.Add(cConfig.strNewType);
-
             for (int i = 0; i < listDoc.CheckedItems.Count; i++)
             {
-                string OldPath;
                 for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
                 {
                     if (listDoc.CheckedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
                     {
-                        OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        string OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, strNewType);
+                        string newPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        //移动相应的word文档到所需类型的目录
+                        try
+                        {
+                            File.Move(OldPath, newPath);
+                        }
+                        catch
+                        {
 
-                        cAccess.ModifyTheType(listDoc.CheckedItems[i].Text, strNewType);
-
-                        File.Move(OldPath, cAccess.basicDt.Rows[row]["LocalPath"].ToString());//移动相应的word文档到所需类型的目录
-                        string a = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
+                        }
                     }
                 }
             }
+            flashTypeList();
+            search();
         }
 
         private void tsbPrint_Click(object sender, EventArgs e)
@@ -598,15 +626,16 @@ namespace DMS
 
         private void listDocType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listDocType.SelectedIndex >= 0)
+            if (TypeSelectedIndex == listDocType.SelectedIndex) { }
+            else if (listDocType.SelectedIndex >= 0)
             {
-                TypeIndex = listDocType.SelectedIndex;
-                getList();  
+                TypeSelectedIndex = listDocType.SelectedIndex;
+                getList();
                 //当所加类型的名称过长时，完全显示其命名
-            tipListDocType.SetToolTip(this.listDocType, listDocType.SelectedItem.ToString());
+                tipListDocType.SetToolTip(this.listDocType, listDocType.SelectedItem.ToString());
             }
 
-          
+
         }
 
         #endregion
@@ -617,7 +646,7 @@ namespace DMS
         {
             using (frmNewType frmNewtype = new frmNewType())
             {
-                frmNewtype.labNewType.Text = "新增类型";
+                frmNewtype.groupBoxType.Text = "新增类型";
                 frmNewtype.Text = "新增类型";
                 frmNewtype.ShowDialog();
             }
@@ -635,6 +664,7 @@ namespace DMS
                 Directory.CreateDirectory(cConfig.strWorkPath + "\\" + strNewType);
             }
             flashTypeList();
+            search();
         }
 
 
@@ -642,10 +672,10 @@ namespace DMS
         {
             if (listDocType.SelectedIndex > 0)
             {
-                TypeIndex = listDocType.SelectedIndex;
+                TypeSelectedIndex = listDocType.SelectedIndex;
                 using (frmNewType frmNewtype = new frmNewType())
                 {
-                    frmNewtype.labNewType.Text = "修改类型";
+                    frmNewtype.groupBoxType.Text = "修改类型";
                     frmNewtype.Text = "修改类型";
                     frmNewtype.ShowDialog();
                 }
@@ -659,33 +689,14 @@ namespace DMS
         public void changeType(string strNewType)
         {
 
-            cAccess.ModifyType(listDocType.Items[TypeIndex].ToString(), strNewType);
+            cAccess.ModifyType(listDocType.Items[TypeSelectedIndex].ToString(), strNewType);
+            flashTypeList();
             search();
         }
 
         private void tsmiDeleteType_Click(object sender, EventArgs e)
         {
-            if (listDocType.SelectedIndex > 0)
-            {
-                string delType = listDocType.SelectedItem.ToString();
-                if (listDocType.SelectedItem.ToString() == cConfig.strNoType || listDocType.SelectedItem.ToString() == cConfig.strAllType)
-                    MessageBox.Show("禁止删除" + listDocType.SelectedItem);
-                else if (MessageBox.Show("确定删除该类型？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                {
-
-                    List<string> ls = new List<string>();
-                    string filterExpression = "DocType = '" + delType + "'";
-                    foreach (System.Data.DataRow drs in cAccess.basicDt.Select(filterExpression))
-                    {
-                        cAccess.delect(drs["ID"].ToString());
-                    }
-                    if (Directory.Exists(cConfig.strWorkPath + "\\" + delType))
-                    {
-                        DeleteRunner.Delete(cConfig.strWorkPath + "\\" + delType);
-                    }
-                    flashTypeList();
-                }
-            }
+            btnDelType_Click(sender, e);
         }
 
         #endregion
@@ -696,22 +707,34 @@ namespace DMS
 
         private void listDoc_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            tipListDoc.ShowAlways = false;
-            string notes = "";
-            if (listDoc.SelectedItems.Count > 0)
+            Point curPos = this.listDoc.PointToClient(Control.MousePosition);
+            ListViewItem lvwItem = this.listDoc.GetItemAt(curPos.X, curPos.Y);
+
+            if (lvwItem != null)
             {
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                {
-                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        notes = cAccess.basicDt.Rows[row]["Notes"].ToString();
-                    }
-                }
+                System.Diagnostics.Debug.WriteLine("aa");
             }
-            //显示备注
-            tipListDoc.SetToolTip(this.listDoc, notes);
-            //tipListDoc.Show(notes, this.listDoc);
-            tipListDoc.ShowAlways = true;
+
+            //tipListDoc.ShowAlways = false;
+            //string notes = "";
+            //if (listDoc.SelectedItems.Count > 0)
+            //{
+            //    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            //    {
+            //        try
+            //        {
+            //            if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+            //            {
+            //                notes = cAccess.basicDt.Rows[row]["Notes"].ToString();
+            //            }
+            //        }
+            //        catch { }
+            //    }
+            //}
+            ////显示备注
+            //tipListDoc.SetToolTip(this.listDoc, notes);
+            ////tipListDoc.Show(notes, this.listDoc);
+            //tipListDoc.ShowAlways = true;
         }
 
         private void listDoc_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -720,14 +743,12 @@ namespace DMS
             {
                 tsbDelete.Enabled = true;
                 tsbPrint.Enabled = true;
-                tslMove.Enabled = true;
-                tscbMove.Enabled = true;
+                tssbMoveType.Enabled = true;
             }
             else
             {
                 tsbDelete.Enabled = false;
-                tslMove.Enabled = false;
-                tscbMove.Enabled = false;
+                tssbMoveType.Enabled = false;
                 tsbPrint.Enabled = false;
             }
         }
@@ -850,7 +871,7 @@ namespace DMS
             }
         }
         /// <summary>
-        /// 查看配置
+        /// 查看属性
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -901,6 +922,7 @@ namespace DMS
         int pagesAll = 1, pageNow = 1;
         private void btnPageUp_Click(object sender, EventArgs e)
         {
+            Page();
             int temp = pageNow;
             if (pageNow-- <= 1)
             {
@@ -914,6 +936,7 @@ namespace DMS
 
         private void btnPageDown_Click(object sender, EventArgs e)
         {
+            Page();
             int temp = pageNow;
             if (pageNow++ >= pagesAll)
             {
@@ -923,6 +946,16 @@ namespace DMS
             }
             textBoxNow.Text = pageNow.ToString();
             list((pageNow - 1) * cConfig.paginalItems);
+        }
+
+        private void Page()
+        {
+            if (int.Parse(textBoxNow.Text) > int.Parse(labPageAll.Text))
+            {
+                textBoxNow.Text = labPageAll.Text;
+                pageNow = int.Parse(textBoxNow.Text);
+
+            }
         }
 
         #endregion
@@ -973,6 +1006,13 @@ namespace DMS
         {
             if (comboBoxpaginal.Text == cConfig.strNoLimit)
             {
+                if (cConfig.paginalItems == 0)
+                    return;
+            }
+            else if (cConfig.paginalItems == Convert.ToInt32(comboBoxpaginal.Text))
+                return;
+            if (comboBoxpaginal.Text == cConfig.strNoLimit)
+            {
                 cConfig.paginalItems = 0;
                 btnPageDown.Enabled = false;
                 btnPageUp.Enabled = false;
@@ -985,7 +1025,8 @@ namespace DMS
                 btnPageUp.Enabled = true;
                 textBoxNow.Enabled = true;
             }
-            flashTypeList();
+            getList();
+
             cConfig.SaveConfig();
         }
 
@@ -1015,7 +1056,7 @@ namespace DMS
         {
             using (frmNewType frmNewtype = new frmNewType())
             {
-                frmNewtype.labNewType.Text = "新增类型";
+                frmNewtype.groupBoxType.Text = "新增类型";
                 frmNewtype.Text = "新增类型";
                 frmNewtype.ShowDialog();
 
@@ -1028,11 +1069,10 @@ namespace DMS
             if (listDocType.SelectedIndex > 0)
             {
                 string delType = listDocType.SelectedItem.ToString();
-                if (listDocType.SelectedItem.ToString() == cConfig.strNoType || listDocType.SelectedItem.ToString() == cConfig.strAllType)
-                    MessageBox.Show("禁止删除" + listDocType.SelectedItem);
-                else if (MessageBox.Show("确定删除该类型？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (delType == cConfig.strNoType || delType == cConfig.strAllType)
+                    MessageBox.Show("禁止删除" + delType);
+                else if (MessageBox.Show("确定删除该类型及其中所有公文？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-
                     List<string> ls = new List<string>();
                     string filterExpression = "DocType = '" + delType + "'";
                     foreach (System.Data.DataRow drs in cAccess.basicDt.Select(filterExpression))
@@ -1043,7 +1083,9 @@ namespace DMS
                     {
                         DeleteRunner.Delete(cConfig.strWorkPath + "\\" + delType);
                     }
+
                     flashTypeList();
+                    search();
                 }
             }
         }
@@ -1084,6 +1126,9 @@ namespace DMS
             }
             Sync.Contrast();
             tsslSyncStatus.Text = "备份完成!";
+            //------------------------------------------------------------
+            flashTypeList(); search();
+            //------------------------------------------------------------
             tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。";
             tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
         }
@@ -1100,7 +1145,8 @@ namespace DMS
                     Byte[] b = DMS.Properties.Resources.help;
                     fs.Write(b, 0, b.Length);
                     if (fs != null)
-                        fs.Close(); System.Diagnostics.Process.Start(".\\help.chm");
+                        fs.Close();
+                    System.Diagnostics.Process.Start(".\\help.chm");
                 }
                 catch
                 {
@@ -1112,7 +1158,27 @@ namespace DMS
         }
 
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void btnMax_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
 
 
         //private void tsmiAutoSync_Click(object sender, EventArgs e)
@@ -1131,6 +1197,42 @@ namespace DMS
 
 
         //---------------------------------------------------------------
+
+
+
+
+        ////__________________________________________________拖动窗体——————————————————————————————————————————
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void listDoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+        ////__________________________________________________________拖动窗体__________________________________________________________________________
 
     }
 }

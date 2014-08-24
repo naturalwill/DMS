@@ -27,14 +27,36 @@ namespace DMS.Forms
             }
             else if (this.Text == "添加类型")
             {
-                frmMain.fm.AddNewType(txtNewType.Text);
+                frmMain.fm.MoveToNewType(txtNewType.Text);
             }
             this.Close();
         }
 
-        private void frmNewType_Load(object sender, EventArgs e)
-        {
 
+        #region 移动窗体
+
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+        #endregion
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
        

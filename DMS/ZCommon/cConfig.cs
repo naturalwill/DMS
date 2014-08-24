@@ -21,14 +21,6 @@ namespace DMS
 
         public static string strOaURL = "http://oa.gdmc.edu.cn";
 
-        /// <summary>
-        /// 一个变量，指示是否需要刷新列表
-        /// </summary>
-        public static bool needFlash = false;
-        /// <summary>
-        /// 指示是否正在工作
-        /// </summary>
-        public static bool working = false;
 
         ///// <summary>
         ///// 是否自动同步

@@ -20,6 +20,7 @@ namespace DMS
         public static DataTable basicDt;
         public static DataTable newDt;
 
+        public static bool isChanged = false;
         /// <summary>
         /// 加载数据库
         /// </summary>
@@ -124,6 +125,7 @@ namespace DMS
 
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+            isChanged = true;
         }
 
         /// <summary>
@@ -149,9 +151,10 @@ namespace DMS
                     try
                     {
                         File.Delete(basicDt.Rows[row]["LocalPath"].ToString());
+                        basicDt.Rows[row].Delete();
+
                     }
                     catch { }
-                    basicDt.Rows[row].Delete();
 
                 }
             }
@@ -159,6 +162,7 @@ namespace DMS
                 conn.Open();
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+            isChanged = true;
         }
 
 
@@ -225,6 +229,7 @@ namespace DMS
             Directory.Move(cConfig.strWorkPath + "\\" + currentType, cConfig.strWorkPath + "\\" + newType);
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+            isChanged = true;
         }
 
         /// <summary>
@@ -246,15 +251,12 @@ namespace DMS
                 conn.Open();
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+            isChanged = true;
         }
         //修改公文属性
         public static void ChangePermissions(string txtTitle, string txtreleasetime, string cobTypeText, string txtunit, string txtnote, int Row)
         {
-            try
-            {
-                basicDt.Rows[Row]["ReleaseDate"] = Convert.ToDateTime(txtreleasetime);
-            }
-            catch { }
+            basicDt.Rows[Row]["ReleaseDate"] = Convert.ToDateTime(txtreleasetime);
             basicDt.Rows[Row]["Provider"] = txtunit;
             basicDt.Rows[Row]["Notes"] = txtnote;
             basicDt.Rows[Row]["LocalPath"] = basicDt.Rows[Row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[Row]["DocType"].ToString() + '\\', '\\' + cobTypeText + '\\');
@@ -265,6 +267,7 @@ namespace DMS
                 conn.Open();
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+            isChanged = true;
         }
 
         //public static void searchDoc(string key)
@@ -352,6 +355,7 @@ namespace DMS
             {
                 newDt.ImportRow(drs);
             }
+            isChanged = false;
         }
 
         public static List<string> selectType(string _type = "")

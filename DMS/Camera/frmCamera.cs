@@ -80,6 +80,7 @@ namespace Camera
                 pictureBox2.Image = camera.NewFrame;
                 pictureBox2.Visible = true;
                 btnphotograph.Text = "重拍";
+                btnsave.Enabled = true;
                 inta = 1;
             }
             else if (inta == 1)
@@ -87,6 +88,7 @@ namespace Camera
                 pictureBox2.Image = null;
                 btnphotograph.Text = "拍照";
                 pictureBox2.Visible = false;
+                btnsave.Enabled = false;
                 inta = 0;
             }
         }
@@ -100,6 +102,7 @@ namespace Camera
 
         private void frmCamera_Load(object sender, EventArgs e)
         {
+            toolStripStatusLabel1.Text = "工作中......";
             pictureBox2.Visible = false;
             inta = 0;
         }
@@ -151,11 +154,23 @@ namespace Camera
                 pictureBox2.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
                 photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
                 cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType, "", Environment.UserName, txtnote.Text);
-                cConfig.working = false;
-                cConfig.needFlash = true;
-                this.Close();
+                frmMain.fm.flash();
+                toolStripStatusLabel1.Text = "照片已储存";
+                //this.Close();
             }
 
+        }
+        private void frmCamera_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (pictureBox2.Image != null && toolStripStatusLabel1.Text != "照片已储存")
+            {
+                if (MessageBox.Show("照片未保存，确定要退出吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    this.Dispose();
+                }
+                else
+                    e.Cancel = true;
+            }
         }
 
     }

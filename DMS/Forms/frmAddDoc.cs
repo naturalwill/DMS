@@ -19,11 +19,22 @@ namespace DMS.Forms
         {
             try
             {
+                if (txtDate.Text != "")
+                {
+                    DateTime data = Convert.ToDateTime(txtDate.Text);
+                }
                 if (cSync.GetDoc(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text))
+                {
+                    frmMain.fm.flash();
                     this.Close();
+                }
                 else { MessageBox.Show("添加失败！"); }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch
+            {
+                MessageBox.Show("发布时间输入错误！可能是日期格式错误，日期格式为：yyyy-mm-dd hh:nn:ss或yyyy/mm/dd hh:nn:ss(PS:可以不输入时间)", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.txtDate.Focus();
+            }
         }
 
 
@@ -76,6 +87,36 @@ namespace DMS.Forms
                 btnOK.Enabled = false;
             else btnOK.Enabled = true;
         }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        ////__________________________________________________拖动窗体——————————————————————————————————————————
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+        ////__________________________________________________________拖动窗体__________________________________________________________________________
+
+      
 
     }
 }
