@@ -393,7 +393,11 @@ namespace DMS
                 int titleStart = url.LastIndexOf('\\');
                 int typeStart = url.Substring(0, titleStart).LastIndexOf('\\');
                 int end = url.LastIndexOf('.');
-                string title = url.Substring(titleStart + 1, end - titleStart - 1);
+                string title;
+                if (end > titleStart)
+                    title = url.Substring(titleStart + 1, end - titleStart - 1);
+                else
+                    title = url.Substring(titleStart + 1);
                 string type = url.Substring(typeStart + 1, titleStart - typeStart - 1);
                 if (type == cConfig.strWorkFolder) continue;
                 bool isNotRecord = true;

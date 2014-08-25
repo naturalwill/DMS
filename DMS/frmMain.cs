@@ -38,6 +38,14 @@ namespace DMS
 
             try
             {
+                listDoc.Columns.Clear();
+                string[] listColumnName = { "", "公文标题", "发布时间", "发布单位", "收录时间", "公文类型" };
+                int[] listColumnWidth = CalculateWidth(listDoc.Width);
+
+                for (int i = 0; i < listColumnName.Length; i++)
+                {
+                    listDoc.Columns.Add(listColumnName[i], listColumnWidth[i]);
+                }
 
                 if (cAccess.load() == false) MessageBox.Show("加载数据库失败");
 
@@ -67,6 +75,15 @@ namespace DMS
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private static int[] CalculateWidth(int w)
+        {
+            int[] listColumnWidth = { 20, 0, 132, 100, 132, 90, 22 };
+            foreach (int i in listColumnWidth)
+                w -= i;
+            listColumnWidth[1] = w;
+            return listColumnWidth;
         }
         /// <summary>
         /// 初始化
@@ -275,7 +292,10 @@ namespace DMS
             }
             tssbMoveType.DropDownItems.Add(new ToolStripSeparator());
             tssbMoveType.DropDownItems.Add(cConfig.strNewType);
-            listDocType.SelectedIndex = TypeSelectedIndex;
+            if (listDocType.Items.Count <= TypeSelectedIndex)
+                listDocType.SelectedIndex = listDocType.Items.Count - 1;
+            else
+                listDocType.SelectedIndex = TypeSelectedIndex;
         }
 
         //public void btnMove()
@@ -736,6 +756,16 @@ namespace DMS
             ////tipListDoc.Show(notes, this.listDoc);
             //tipListDoc.ShowAlways = true;
         }
+        private void listDoc_MouseClick(object sender, MouseEventArgs e)
+        {
+            Point curPos = this.listDoc.PointToClient(Control.MousePosition);
+            ListViewItem lvwItem = this.listDoc.GetItemAt(curPos.X, curPos.Y);
+
+            if (lvwItem != null)
+            {
+                System.Diagnostics.Debug.WriteLine("aa");
+            }
+        }
 
         private void listDoc_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
@@ -760,7 +790,12 @@ namespace DMS
                 {
                     if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
                     {
-                        System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
+                        try
+                        {
+                            System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
+
+                        }
+                        catch { MessageBox.Show("此文件的格式不被支持"); }
                     }
                 }
         }
@@ -952,8 +987,9 @@ namespace DMS
         {
             if (int.Parse(textBoxNow.Text) > int.Parse(labPageAll.Text))
             {
-                textBoxNow.Text = labPageAll.Text;
-                pageNow = int.Parse(textBoxNow.Text);
+                int page = 1;
+                textBoxNow.Text = page.ToString();
+                pageNow = page;
 
             }
         }
@@ -1071,7 +1107,7 @@ namespace DMS
                 string delType = listDocType.SelectedItem.ToString();
                 if (delType == cConfig.strNoType || delType == cConfig.strAllType)
                     MessageBox.Show("禁止删除" + delType);
-                else if (MessageBox.Show("确定删除该类型及其中所有公文？", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                else if (MessageBox.Show("确定删除该类型及其中所有公文？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     List<string> ls = new List<string>();
                     string filterExpression = "DocType = '" + delType + "'";
@@ -1104,33 +1140,40 @@ namespace DMS
 
         private void sync()
         {
-            tsslSyncStatus.Text = "正在同步...";
-            tsslSyncStatus.BackColor = System.Drawing.SystemColors.Highlight;
-            cSync Sync = new cSync();
-            Sync.Contrast();
-
-            Sync.LocalReplenish();
-
-            if (Sync.listNotRecord.count > 0)
+            try
             {
-                if (MessageBox.Show("发现有" + Sync.listNotRecord.count + "个文件未同步到本地。是否执行同步？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                tsslSyncStatus.Text = "正在同步...";
+                tsslSyncStatus.BackColor = System.Drawing.SystemColors.Highlight;
+                cSync Sync = new cSync();
+                Sync.Contrast();
+
+                Sync.LocalReplenish();
+
+                if (Sync.listNotRecord.count > 0)
                 {
-                    Sync.FtpToLocal();
+                    if (MessageBox.Show("发现有" + Sync.listNotRecord.count + "个文件未同步到本地。是否执行同步？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        Sync.FtpToLocal();
+                    }
                 }
-            }
 
-            if (Sync.listNotInFtp.Count > 0)
-            {
-                tsslSyncStatus.Text = "发现有" + Sync.listNotInFtp.Count + "个文件未备份，正在备份...";
-                Sync.LocalToFtp();
+                if (Sync.listNotInFtp.Count > 0)
+                {
+                    tsslSyncStatus.Text = "发现有" + Sync.listNotInFtp.Count + "个文件未备份，正在备份...";
+                    Sync.LocalToFtp();
+                }
+                Sync.Contrast();
+                tsslSyncStatus.Text = "备份完成!";
+                //------------------------------------------------------------
+                flashTypeList(); search();
+                //------------------------------------------------------------
+                tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。";
+                tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
             }
-            Sync.Contrast();
-            tsslSyncStatus.Text = "备份完成!";
-            //------------------------------------------------------------
-            flashTypeList(); search();
-            //------------------------------------------------------------
-            tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。";
-            tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "/n" + "ps:检查网络是否连接，备份服务器地址是否有错", "警告");
+            }
         }
 
         private void tsbHelp_Click(object sender, EventArgs e)
@@ -1165,13 +1208,13 @@ namespace DMS
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (this.WindowState != FormWindowState.Normal)
             {
-                this.WindowState = FormWindowState.Maximized;
+                this.WindowState = FormWindowState.Normal;
             }
             else
             {
-                this.WindowState = FormWindowState.Normal;
+                this.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -1217,22 +1260,19 @@ namespace DMS
             }
             base.WndProc(ref m);
         }
-
-        private void listDoc_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labto_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
         ////__________________________________________________________拖动窗体__________________________________________________________________________
+
+        private void tssbMoveType_ButtonClick(object sender, EventArgs e)
+        {
+            tssbMoveType.ShowDropDown();
+        }
+
+        private void listDoc_SizeChanged(object sender, EventArgs e)
+        {
+            int[] listColumnWidth = CalculateWidth(listDoc.Width);
+            if (listColumnWidth[1] > 0)
+                listDoc.Columns[1].Width = listColumnWidth[1];
+        }
 
     }
 }

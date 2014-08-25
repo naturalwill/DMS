@@ -3,58 +3,63 @@ using System.Windows.Forms;
 using System.IO;
 using DMS;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
 
 
-namespace Camera
+namespace DMS.Camera
 {
     public partial class frmCamera : Form
     {
         #region
-        WebCamera camera;
-        DeviceCapabilityInfo _DeviceCapabilityInfo;
-        DeviceInfo _DeviceInfo;
-        int inta;
+        public static WebCamera camera;
+        public static DeviceCapabilityInfo _DeviceCapabilityInfo;
+        public static DeviceInfo _DeviceInfo;
         string photopath;
-        string CameraPath = cConfig.strWorkPath + "\\" + cConfig.strScanType;
+      public static  string ScanDocPath = cConfig.strWorkPath + "\\" + cConfig.strScanType;
         //string ftpsource;
         #endregion
+
+
+        public static List<DeviceInfo> ls1;
         public frmCamera()
         {
             InitializeComponent();
             camera = new WebCamera();
+            ls1 = new List<DeviceInfo>();
             foreach (DeviceInfo info in camera.GetCameras())
             {
-                comboBox1.Items.Add(info);
+                ls1.Add(info);
             }
+
             camera.NewFrameEvent += new NewFrameEventHandler(camera_NewFrameEvent);
             Control.CheckForIllegalCrossThreadCalls = false;
         }
 
-        void camera_NewFrameEvent(object sender, EventArgs e)
+
+        private void frmCamera_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = camera.NewFrame;
-        }
+            while (cConfig.CameraIndex < 0 || cConfig.resolutionIndex < 0)
+            {
+                if (frmSetting.isClose)
+                { break; }
+                frmSetting fs = new frmSetting();
+                fs.ShowDialog();
 
+            }
 
+            if (frmSetting.isClose)
+            { this.Close(); return; }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            comboBox2.Items.Clear();
+            ls2.Clear();
             _DeviceCapabilityInfo = null;
-            _DeviceInfo = (DeviceInfo)comboBox1.SelectedItem;
+            _DeviceInfo = ls1[cConfig.CameraIndex];
             foreach (DeviceCapabilityInfo info in camera.GetDeviceCapability(_DeviceInfo))
             {
-                comboBox2.Items.Add(info);
+                ls2.Add(info);
             }
-        }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _DeviceCapabilityInfo = (DeviceCapabilityInfo)comboBox2.SelectedItem;
-        }
+            _DeviceCapabilityInfo = ls2[cConfig.resolutionIndex];
 
-        private void btnreunion_Click(object sender, EventArgs e)
-        {
             if (_DeviceInfo != null && _DeviceCapabilityInfo != null)
             {
                 if (camera.StartVideo(_DeviceInfo, _DeviceCapabilityInfo))
@@ -62,104 +67,91 @@ namespace Camera
                     btnphotograph.Enabled = true;
                 }
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (camera.DeviceExist)
-            {
-                if (camera.CloseVideo())
-                    btnphotograph.Enabled = false;
-            }
-        }
-
-        private void btnphotograph_Click(object sender, EventArgs e)
-        {
-            if (inta == 0)
-            {
-                pictureBox2.Image = camera.NewFrame;
-                pictureBox2.Visible = true;
-                btnphotograph.Text = "重拍";
-                btnsave.Enabled = true;
-                inta = 1;
-            }
-            else if (inta == 1)
-            {
-                pictureBox2.Image = null;
-                btnphotograph.Text = "拍照";
-                pictureBox2.Visible = false;
-                btnsave.Enabled = false;
-                inta = 0;
-            }
-        }
-
-        private void Camera_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (camera.DeviceExist)
-                camera.CloseVideo();
-            this.Dispose();
-        }
-
-        private void frmCamera_Load(object sender, EventArgs e)
-        {
             toolStripStatusLabel1.Text = "工作中......";
             pictureBox2.Visible = false;
-            inta = 0;
         }
-        ////使用两个进程，进程一是本地缓存，进程二是储存在ftp服务器上。
-        //bool singal = false;
-        //void thead_1()
-        //{
-        //    /*储存到本地磁盘。*/
-        //    Directory.CreateDirectory(CameraPath);
-        //    if (Directory.Exists(CameraPath))
-        //    {
-        //        if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-        //        {
-        //            pictureBox1.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
-        //            photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
-        //        }
-        //    }
-        //    else Directory.CreateDirectory(CameraPath);
-        //    singal = true;
-        //}
-        //void thead_2()
-        //{
-        //    //备份到ftp服务器
-        //    while (singal)
-        //    {
-        //        if (cConfig.FTP_IP != "")
-        //        {
-        //            FTPHelper FTP = new FTPHelper(cConfig.FTP_IP, "", cConfig.FTP_user, cConfig.FTP_password);
-        //            FTP.MakeDir(cConfig.strWorkFolder);
-        //            FTPHelper FTP1 = new FTPHelper(cConfig.FTP_IP, cConfig.strWorkFolder+"/", cConfig.FTP_user, cConfig.FTP_password);
-        //            FTP1.MakeDir(cConfig.strScanType);
-        //            FTP1.Upload(photopath);
-        //            ftpsource = FTPHelper.ftpsavePath;
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            //MessageBox.Show("请输入ftp服务器ip地址!", "提示", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-        //            break;
-        //        }
-        //    }
-        //}
-        private void btnsave_Click(object sender, EventArgs e)
-        {
 
-            if (MessageBox.Show("确定要储存照片吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+        ////__________________________________________________拖动窗体——————————————————————————————————————————
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
             {
-                if (!Directory.Exists(CameraPath)) Directory.CreateDirectory(CameraPath);
-                pictureBox2.Image.Save(CameraPath + "\\" + txtTitle.Text + ".jpg", ImageFormat.Jpeg);
-                photopath = CameraPath + "\\" + txtTitle.Text + ".jpg";
-                cAccess.add(txtTitle.Text, "", photopath, cConfig.strScanType, "", Environment.UserName, txtnote.Text);
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+        ////__________________________________________________________拖动窗体__________________________________________________________________________
+
+
+        void camera_NewFrameEvent(object sender, EventArgs e)
+        {
+            pictureBox1.Image = camera.NewFrame;
+        }
+
+        public static List<DeviceCapabilityInfo> ls2 = new List<DeviceCapabilityInfo>();
+
+
+        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    comboBox2.Items.Clear();
+        //    _DeviceCapabilityInfo = null;
+        //    _DeviceInfo = (DeviceInfo)comboBox1.SelectedItem;
+        //    foreach (DeviceCapabilityInfo info in camera.GetDeviceCapability(_DeviceInfo))
+        //    {
+        //        comboBox2.Items.Add(info);
+        //    }
+        //}
+
+        //private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    _DeviceCapabilityInfo = (DeviceCapabilityInfo)comboBox2.SelectedItem;
+        //}
+
+        //private void btnreunion_Click(object sender, EventArgs e)
+        //{
+        //    if (_DeviceInfo != null && _DeviceCapabilityInfo != null)
+        //    {
+        //        if (camera.StartVideo(_DeviceInfo, _DeviceCapabilityInfo))
+        //        {
+        //            btnphotograph.Enabled = true;
+        //        }
+        //    }
+        //}
+
+
+
+        public static bool shouldBeSave = false;
+        public static string name, note;
+        private void btnphotograph_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = camera.NewFrame;
+            pictureBox2.Visible = true;
+            frmSave fs = new frmSave();
+            fs.ShowDialog();
+            if (shouldBeSave)
+            {
+
+                if (!Directory.Exists(ScanDocPath)) Directory.CreateDirectory(ScanDocPath);
+                pictureBox2.Image.Save(ScanDocPath + "\\" + name + ".jpg", ImageFormat.Jpeg);
+                photopath = ScanDocPath + "\\" + name + ".jpg";
+                cAccess.add(name, DateTime.Now.ToString(), photopath, cConfig.strScanType, "", Environment.UserName, note);
                 frmMain.fm.flash();
                 toolStripStatusLabel1.Text = "照片已储存";
-                //this.Close();
+                shouldBeSave = false;
             }
+            pictureBox2.Image = null;
+            pictureBox2.Visible = false;
 
         }
+
+
         private void frmCamera_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (pictureBox2.Image != null && toolStripStatusLabel1.Text != "照片已储存")
@@ -171,6 +163,50 @@ namespace Camera
                 else
                     e.Cancel = true;
             }
+        }
+
+
+
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmSetting fs = new frmSetting();
+            fs.ShowDialog();
+        }
+
+        private void btnMax_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (camera.DeviceExist)
+            {
+                if (camera.CloseVideo())
+                    btnphotograph.Enabled = false;
+                this.Close();
+            }
+        }
+
+        private void Camera_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (camera.DeviceExist)
+                camera.CloseVideo();
+            this.Dispose();
         }
 
     }

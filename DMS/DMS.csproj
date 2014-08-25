@@ -63,6 +63,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Camera\Aforge\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ADODB">
+      <HintPath>DLL\Interop.ADODB.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.CDO">
+      <HintPath>DLL\Interop.CDO.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -84,7 +92,25 @@
     <Compile Include="Camera\frmCamera.designer.cs">
       <DependentUpon>frmCamera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Camera\frmSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Camera\frmSave.Designer.cs">
+      <DependentUpon>frmSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Camera\frmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Camera\frmSetting.Designer.cs">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Camera\WebCamera.cs" />
+    <Compile Include="Forms\frmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAboutBox.Designer.cs">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZCommon\cAccess.cs" />
     <Compile Include="ZCommon\cConfig.cs" />
     <Compile Include="ZCommon\cMakeWord.cs" />
@@ -101,12 +127,6 @@
     </Compile>
     <Compile Include="Crawler\frmCrawler.designer.cs">
       <DependentUpon>frmCrawler.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAboutBox.Designer.cs">
-      <DependentUpon>frmAboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmAddDoc.cs">
       <SubType>Form</SubType>
@@ -145,12 +165,17 @@
     <EmbeddedResource Include="Camera\frmCamera.resx">
       <DependentUpon>frmCamera.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Camera\frmSave.resx">
+      <DependentUpon>frmSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Camera\frmSetting.resx">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crawler\frmCrawler.resx">
       <DependentUpon>frmCrawler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddDoc.resx">
       <DependentUpon>frmAddDoc.cs</DependentUpon>
@@ -193,6 +218,7 @@
     <Content Include="Camera\Aforge\AForge.dll" />
     <Content Include="Camera\Aforge\AForge.Video.DirectShow.dll" />
     <Content Include="Camera\Aforge\AForge.Video.dll" />
+    <None Include="Resources\cam.png" />
     <None Include="Resources\doc.png" />
     <None Include="Resources\head.png" />
     <None Include="Resources\min.png" />
@@ -206,26 +232,6 @@
     <None Include="Resources\DMS.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="ADODB">
-      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
-      <VersionMajor>6</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CDO">
-      <Guid>{CD000000-8B95-11D1-82DB-00C04FB1625D}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

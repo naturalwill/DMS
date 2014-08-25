@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using AForge.Video.DirectShow;
+using System.Xml.Linq;
+using System.IO;
 
-namespace Camera
+namespace DMS.Camera
 {
     public delegate void NewFrameEventHandler(object sender, EventArgs e);
     public class WebCamera
@@ -170,6 +172,9 @@ namespace Camera
        {
            return string.Format("{0}x{1}  {2}fps", FrameSize.Width, FrameSize.Height, MaxFrameRate);
        }
+
+
+       
    }
 
 }

@@ -84,6 +84,7 @@ namespace Crawler
             {
                 listDoc.Columns.Add(ls[i], li[i]);
             }
+            btnUpdate_Click(sender, e);
         }
 
         private void btnPageDown_Click(object sender, EventArgs e)
@@ -189,6 +190,7 @@ namespace Crawler
 
         private void makeWord_Click(object sender, EventArgs e)
         {
+            this.UseWaitCursor = true;
             if (listDoc.CheckedItems.Count > 0)
             {
                 List<cWord> lw=new List<cWord>();
@@ -208,7 +210,51 @@ namespace Crawler
                 cMakeWord mw = new cMakeWord(lw);
                 Thread th = new Thread(new ThreadStart(mw.makeWord));
                 th.Start();
+                this.UseWaitCursor = false;
             }
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnMax_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+
+        ////__________________________________________________拖动窗体——————————————————————————————————————————
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
+                    return;
+            }
+            base.WndProc(ref m);
+        }
+        ////__________________________________________________________拖动窗体__________________________________________________________________________
+
+   
     }
 }

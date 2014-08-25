@@ -93,10 +93,10 @@
             this.tsbSetting = new System.Windows.Forms.ToolStripButton();
             this.tsbHelp = new System.Windows.Forms.ToolStripButton();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnMin = new System.Windows.Forms.Button();
-            this.btnMax = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
             this.cmsListDoc.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.cmsType.SuspendLayout();
@@ -203,7 +203,7 @@
             this.tsslSyncStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 538);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(947, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
             this.statusStrip1.TabIndex = 68;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -258,7 +258,7 @@
             this.labPageAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(384, 357);
+            this.labPageAll.Location = new System.Drawing.Point(326, 356);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(43, 21);
             this.labPageAll.TabIndex = 64;
@@ -271,7 +271,7 @@
             this.btnPageDown.BackColor = System.Drawing.SystemColors.Window;
             this.btnPageDown.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPageDown.Location = new System.Drawing.Point(460, 357);
+            this.btnPageDown.Location = new System.Drawing.Point(402, 356);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(54, 21);
             this.btnPageDown.TabIndex = 63;
@@ -285,7 +285,7 @@
             this.btnPageUp.BackColor = System.Drawing.SystemColors.Window;
             this.btnPageUp.FlatAppearance.BorderSize = 0;
             this.btnPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPageUp.Location = new System.Drawing.Point(182, 357);
+            this.btnPageUp.Location = new System.Drawing.Point(124, 356);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 21);
             this.btnPageUp.TabIndex = 62;
@@ -298,7 +298,7 @@
             this.textBoxNow.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.textBoxNow.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxNow.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxNow.Location = new System.Drawing.Point(294, 359);
+            this.textBoxNow.Location = new System.Drawing.Point(236, 358);
             this.textBoxNow.Name = "textBoxNow";
             this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBoxNow.Size = new System.Drawing.Size(40, 16);
@@ -312,7 +312,7 @@
             this.labPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(242, 357);
+            this.labPage.Location = new System.Drawing.Point(184, 356);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 61;
@@ -325,7 +325,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(596, 359);
+            this.label1.Location = new System.Drawing.Point(472, 359);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 14);
             this.label1.TabIndex = 69;
@@ -336,7 +336,7 @@
             this.comboBoxpaginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxpaginal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxpaginal.FormattingEnabled = true;
-            this.comboBoxpaginal.Location = new System.Drawing.Point(718, 357);
+            this.comboBoxpaginal.Location = new System.Drawing.Point(594, 357);
             this.comboBoxpaginal.Name = "comboBoxpaginal";
             this.comboBoxpaginal.Size = new System.Drawing.Size(60, 20);
             this.comboBoxpaginal.TabIndex = 70;
@@ -365,22 +365,18 @@
             // 
             // labto
             // 
-            this.labto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.labto.AutoSize = true;
             this.labto.BackColor = System.Drawing.Color.Transparent;
-            this.labto.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labto.Location = new System.Drawing.Point(159, 11);
+            this.labto.Font = new System.Drawing.Font("华文宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labto.Location = new System.Drawing.Point(156, 1);
             this.labto.Name = "labto";
-            this.labto.Size = new System.Drawing.Size(22, 10);
+            this.labto.Size = new System.Drawing.Size(25, 23);
             this.labto.TabIndex = 80;
             this.labto.Text = "~";
-            this.labto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.labto.Click += new System.EventHandler(this.labto_Click);
             // 
             // dateEnd
             // 
-            this.dateEnd.Location = new System.Drawing.Point(191, 3);
+            this.dateEnd.Location = new System.Drawing.Point(187, 3);
             this.dateEnd.Name = "dateEnd";
             this.dateEnd.Size = new System.Drawing.Size(149, 21);
             this.dateEnd.TabIndex = 79;
@@ -401,7 +397,7 @@
             this.panel1.Controls.Add(this.dateStart);
             this.panel1.Controls.Add(this.dateEnd);
             this.panel1.Controls.Add(this.labto);
-            this.panel1.Location = new System.Drawing.Point(589, 109);
+            this.panel1.Location = new System.Drawing.Point(9, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(340, 28);
             this.panel1.TabIndex = 81;
@@ -413,9 +409,9 @@
             this.panel2.Controls.Add(this.btnClear);
             this.panel2.Controls.Add(this.btnSearch);
             this.panel2.Controls.Add(this.txtSearch);
-            this.panel2.Location = new System.Drawing.Point(93, 112);
+            this.panel2.Location = new System.Drawing.Point(362, 114);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(427, 21);
+            this.panel2.Size = new System.Drawing.Size(426, 21);
             this.panel2.TabIndex = 82;
             // 
             // btnClear
@@ -451,6 +447,9 @@
             // 
             // scBody
             // 
+            this.scBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.scBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scBody.Location = new System.Drawing.Point(9, 152);
             this.scBody.Name = "scBody";
@@ -476,8 +475,8 @@
             this.scBody.Panel2.Controls.Add(this.labPageAll);
             this.scBody.Panel2.Controls.Add(this.labPage);
             this.scBody.Panel2.Controls.Add(this.btnPageDown);
-            this.scBody.Size = new System.Drawing.Size(926, 383);
-            this.scBody.SplitterDistance = 139;
+            this.scBody.Size = new System.Drawing.Size(779, 383);
+            this.scBody.SplitterDistance = 116;
             this.scBody.TabIndex = 1;
             // 
             // btnAddType
@@ -497,13 +496,13 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(3, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 20);
+            this.label2.Size = new System.Drawing.Size(108, 20);
             this.label2.TabIndex = 84;
             this.label2.Text = "公文类型";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -516,7 +515,7 @@
             this.btnDelType.FlatAppearance.BorderSize = 0;
             this.btnDelType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnDelType.Location = new System.Drawing.Point(101, 353);
+            this.btnDelType.Location = new System.Drawing.Point(78, 353);
             this.btnDelType.Name = "btnDelType";
             this.btnDelType.Size = new System.Drawing.Size(25, 25);
             this.btnDelType.TabIndex = 83;
@@ -525,9 +524,9 @@
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listDocType.BackColor = System.Drawing.SystemColors.Window;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listDocType.ContextMenuStrip = this.cmsType;
@@ -536,15 +535,15 @@
             this.listDocType.ItemHeight = 17;
             this.listDocType.Location = new System.Drawing.Point(3, 26);
             this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(131, 306);
+            this.listDocType.Size = new System.Drawing.Size(108, 306);
             this.listDocType.TabIndex = 59;
             this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -555,17 +554,17 @@
             this.columnHeaderAddTime,
             this.columnHeaderDocType});
             this.listDoc.ContextMenuStrip = this.cmsListDoc;
-            this.listDoc.Font = new System.Drawing.Font("华文中宋", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listDoc.FullRowSelect = true;
             this.listDoc.Location = new System.Drawing.Point(3, 3);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(775, 350);
+            this.listDoc.Size = new System.Drawing.Size(651, 350);
             this.listDoc.TabIndex = 58;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
             this.listDoc.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listDoc_ItemChecked);
             this.listDoc.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listDoc_ItemMouseHover);
-            this.listDoc.SelectedIndexChanged += new System.EventHandler(this.listDoc_SelectedIndexChanged);
+            this.listDoc.SizeChanged += new System.EventHandler(this.listDoc_SizeChanged);
+            this.listDoc.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listDoc_MouseClick);
             this.listDoc.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listDoc_MouseDoubleClick);
             // 
             // columnHeaderID
@@ -576,7 +575,7 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "公文标题";
-            this.columnHeaderName.Width = 242;
+            this.columnHeaderName.Width = 143;
             // 
             // columnHeaderTime
             // 
@@ -600,8 +599,8 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -625,7 +624,7 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip1.Size = new System.Drawing.Size(947, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(800, 50);
             this.toolStrip1.TabIndex = 67;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -638,8 +637,8 @@
             this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
             this.tssbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tssbAdd.Name = "tssbAdd";
-            this.tssbAdd.Size = new System.Drawing.Size(113, 47);
-            this.tssbAdd.Text = "添加公文";
+            this.tssbAdd.Size = new System.Drawing.Size(85, 47);
+            this.tssbAdd.Text = "添加";
             this.tssbAdd.ButtonClick += new System.EventHandler(this.tssbAdd_ButtonClick);
             // 
             // tsmiAdd
@@ -673,8 +672,8 @@
             this.tsbDelete.Image = ((System.Drawing.Image)(resources.GetObject("tsbDelete.Image")));
             this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDelete.Name = "tsbDelete";
-            this.tsbDelete.Size = new System.Drawing.Size(101, 47);
-            this.tsbDelete.Text = "删除公文";
+            this.tsbDelete.Size = new System.Drawing.Size(73, 47);
+            this.tsbDelete.Text = "删除";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
             // 
             // toolStripSeparator1
@@ -689,6 +688,7 @@
             this.tssbMoveType.Name = "tssbMoveType";
             this.tssbMoveType.Size = new System.Drawing.Size(92, 47);
             this.tssbMoveType.Text = "移动到";
+            this.tssbMoveType.ButtonClick += new System.EventHandler(this.tssbMoveType_ButtonClick);
             this.tssbMoveType.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tssbMoveType_DropDownItemClicked);
             // 
             // tsbPrint
@@ -699,8 +699,8 @@
             this.tsbPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
             this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPrint.Name = "tsbPrint";
-            this.tsbPrint.Size = new System.Drawing.Size(129, 47);
-            this.tsbPrint.Text = "打印选中公文";
+            this.tsbPrint.Size = new System.Drawing.Size(73, 47);
+            this.tsbPrint.Text = "打印";
             this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
             // 
             // toolStripSeparator2
@@ -752,6 +752,16 @@
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("华文行楷", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(268, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(227, 37);
+            this.label3.TabIndex = 87;
+            this.label3.Text = "公文管理系统";
+            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -761,12 +771,27 @@
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnClose.Location = new System.Drawing.Point(910, 12);
+            this.btnClose.Location = new System.Drawing.Point(763, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
             this.btnClose.TabIndex = 86;
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMax.BackColor = System.Drawing.Color.Transparent;
+            this.btnMax.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMax.BackgroundImage")));
+            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Location = new System.Drawing.Point(728, 12);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(25, 25);
+            this.btnMax.TabIndex = 85;
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // btnMin
             // 
@@ -777,45 +802,19 @@
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.ForeColor = System.Drawing.Color.Black;
-            this.btnMin.Location = new System.Drawing.Point(844, 12);
+            this.btnMin.Location = new System.Drawing.Point(697, 12);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(25, 25);
             this.btnMin.TabIndex = 84;
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
-            // btnMax
-            // 
-            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMax.BackColor = System.Drawing.Color.Transparent;
-            this.btnMax.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMax.BackgroundImage")));
-            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnMax.FlatAppearance.BorderSize = 0;
-            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMax.Location = new System.Drawing.Point(875, 12);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(25, 25);
-            this.btnMax.TabIndex = 85;
-            this.btnMax.UseVisualStyleBackColor = false;
-            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("华文行楷", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(353, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(227, 37);
-            this.label3.TabIndex = 87;
-            this.label3.Text = "公文管理系统";
-            // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(947, 560);
+            this.ClientSize = new System.Drawing.Size(800, 560);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnMax);
@@ -836,6 +835,7 @@
             this.statusStrip1.PerformLayout();
             this.cmsType.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.scBody.Panel1.ResumeLayout(false);

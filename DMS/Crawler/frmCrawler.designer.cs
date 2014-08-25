@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCrawler));
             this.btnContrary = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
             this.makeWord = new System.Windows.Forms.Button();
@@ -40,50 +41,64 @@
             this.btnPageUp = new System.Windows.Forms.Button();
             this.txtPageNow = new System.Windows.Forms.TextBox();
             this.labPage = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnContrary
             // 
             this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnContrary.Location = new System.Drawing.Point(91, 420);
+            this.btnContrary.BackColor = System.Drawing.Color.Transparent;
+            this.btnContrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContrary.Location = new System.Drawing.Point(74, 414);
             this.btnContrary.Name = "btnContrary";
-            this.btnContrary.Size = new System.Drawing.Size(60, 23);
+            this.btnContrary.Size = new System.Drawing.Size(56, 25);
             this.btnContrary.TabIndex = 40;
             this.btnContrary.Text = "反选";
-            this.btnContrary.UseVisualStyleBackColor = true;
+            this.btnContrary.UseVisualStyleBackColor = false;
             this.btnContrary.Click += new System.EventHandler(this.btnContrary_Click);
             // 
             // btnAll
             // 
             this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAll.Location = new System.Drawing.Point(25, 420);
+            this.btnAll.BackColor = System.Drawing.Color.Transparent;
+            this.btnAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAll.Location = new System.Drawing.Point(8, 414);
             this.btnAll.Name = "btnAll";
-            this.btnAll.Size = new System.Drawing.Size(60, 23);
+            this.btnAll.Size = new System.Drawing.Size(60, 25);
             this.btnAll.TabIndex = 39;
             this.btnAll.Text = "全选";
-            this.btnAll.UseVisualStyleBackColor = true;
+            this.btnAll.UseVisualStyleBackColor = false;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
             // 
             // makeWord
             // 
             this.makeWord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.makeWord.Location = new System.Drawing.Point(679, 420);
+            this.makeWord.BackColor = System.Drawing.Color.Transparent;
+            this.makeWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.makeWord.Location = new System.Drawing.Point(670, 409);
             this.makeWord.Name = "makeWord";
-            this.makeWord.Size = new System.Drawing.Size(107, 24);
+            this.makeWord.Size = new System.Drawing.Size(100, 25);
             this.makeWord.TabIndex = 38;
             this.makeWord.Text = "生成Word文档";
-            this.makeWord.UseVisualStyleBackColor = true;
+            this.makeWord.UseVisualStyleBackColor = false;
             this.makeWord.Click += new System.EventHandler(this.makeWord_Click);
             // 
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(694, 33);
+            this.btnUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Location = new System.Drawing.Point(670, 13);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(92, 21);
+            this.btnUpdate.Size = new System.Drawing.Size(100, 21);
             this.btnUpdate.TabIndex = 30;
             this.btnUpdate.Text = "更新公文列表";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtURL
@@ -91,9 +106,10 @@
             this.txtURL.AllowDrop = true;
             this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtURL.Location = new System.Drawing.Point(27, 33);
+            this.txtURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtURL.Location = new System.Drawing.Point(47, 13);
             this.txtURL.Name = "txtURL";
-            this.txtURL.Size = new System.Drawing.Size(661, 21);
+            this.txtURL.Size = new System.Drawing.Size(612, 21);
             this.txtURL.TabIndex = 29;
             this.txtURL.Text = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid" +
     "=704&pageno=1";
@@ -101,7 +117,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 18);
+            this.label2.Location = new System.Drawing.Point(6, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 28;
@@ -112,21 +128,22 @@
             this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDoc.CheckBoxes = true;
             this.listDoc.FullRowSelect = true;
-            this.listDoc.Location = new System.Drawing.Point(27, 60);
+            this.listDoc.Location = new System.Drawing.Point(8, 40);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(759, 354);
+            this.listDoc.Size = new System.Drawing.Size(762, 368);
             this.listDoc.TabIndex = 31;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
             // 
             // labPageAll
             // 
-            this.labPageAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labPageAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(416, 423);
+            this.labPageAll.Location = new System.Drawing.Point(397, 416);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(41, 21);
             this.labPageAll.TabIndex = 69;
@@ -135,30 +152,34 @@
             // 
             // btnPageDown
             // 
-            this.btnPageDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPageDown.Location = new System.Drawing.Point(489, 423);
+            this.btnPageDown.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnPageDown.BackColor = System.Drawing.Color.Transparent;
+            this.btnPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPageDown.Location = new System.Drawing.Point(470, 414);
             this.btnPageDown.Name = "btnPageDown";
-            this.btnPageDown.Size = new System.Drawing.Size(54, 21);
+            this.btnPageDown.Size = new System.Drawing.Size(52, 25);
             this.btnPageDown.TabIndex = 68;
             this.btnPageDown.Text = "下一页";
-            this.btnPageDown.UseVisualStyleBackColor = true;
+            this.btnPageDown.UseVisualStyleBackColor = false;
             this.btnPageDown.Click += new System.EventHandler(this.btnPageDown_Click);
             // 
             // btnPageUp
             // 
-            this.btnPageUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPageUp.Location = new System.Drawing.Point(211, 423);
+            this.btnPageUp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnPageUp.BackColor = System.Drawing.Color.Transparent;
+            this.btnPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPageUp.Location = new System.Drawing.Point(192, 414);
             this.btnPageUp.Name = "btnPageUp";
-            this.btnPageUp.Size = new System.Drawing.Size(54, 21);
+            this.btnPageUp.Size = new System.Drawing.Size(54, 25);
             this.btnPageUp.TabIndex = 67;
             this.btnPageUp.Text = "上一页";
-            this.btnPageUp.UseVisualStyleBackColor = true;
+            this.btnPageUp.UseVisualStyleBackColor = false;
             this.btnPageUp.Click += new System.EventHandler(this.btnPageUp_Click);
             // 
             // txtPageNow
             // 
-            this.txtPageNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtPageNow.Location = new System.Drawing.Point(324, 423);
+            this.txtPageNow.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtPageNow.Location = new System.Drawing.Point(305, 416);
             this.txtPageNow.Name = "txtPageNow";
             this.txtPageNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtPageNow.Size = new System.Drawing.Size(40, 21);
@@ -169,38 +190,115 @@
             // 
             // labPage
             // 
-            this.labPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(271, 423);
+            this.labPage.Location = new System.Drawing.Point(252, 416);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 66;
             this.labPage.Text = "当前是第        页   共        页";
             this.labPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.labPageAll);
+            this.groupBox1.Controls.Add(this.listDoc);
+            this.groupBox1.Controls.Add(this.btnPageDown);
+            this.groupBox1.Controls.Add(this.txtURL);
+            this.groupBox1.Controls.Add(this.btnPageUp);
+            this.groupBox1.Controls.Add(this.btnUpdate);
+            this.groupBox1.Controls.Add(this.txtPageNow);
+            this.groupBox1.Controls.Add(this.makeWord);
+            this.groupBox1.Controls.Add(this.labPage);
+            this.groupBox1.Controls.Add(this.btnAll);
+            this.groupBox1.Controls.Add(this.btnContrary);
+            this.groupBox1.Location = new System.Drawing.Point(12, 43);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(776, 445);
+            this.groupBox1.TabIndex = 70;
+            this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(289, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(209, 20);
+            this.label1.TabIndex = 71;
+            this.label1.Text = "办公网公文批量下载器";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.BackgroundImage = global::DMS.Properties.Resources.close;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnClose.Location = new System.Drawing.Point(763, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(25, 25);
+            this.btnClose.TabIndex = 89;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMax.BackColor = System.Drawing.Color.Transparent;
+            this.btnMax.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMax.BackgroundImage")));
+            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Location = new System.Drawing.Point(728, 12);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(25, 25);
+            this.btnMax.TabIndex = 88;
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
+            // 
+            // btnMin
+            // 
+            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMin.BackColor = System.Drawing.Color.Transparent;
+            this.btnMin.BackgroundImage = global::DMS.Properties.Resources.min;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMin.FlatAppearance.BorderSize = 0;
+            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMin.ForeColor = System.Drawing.Color.Black;
+            this.btnMin.Location = new System.Drawing.Point(697, 12);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(25, 25);
+            this.btnMin.TabIndex = 87;
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
+            // 
             // frmCrawler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(810, 454);
-            this.Controls.Add(this.labPageAll);
-            this.Controls.Add(this.btnPageDown);
-            this.Controls.Add(this.btnPageUp);
-            this.Controls.Add(this.txtPageNow);
-            this.Controls.Add(this.labPage);
-            this.Controls.Add(this.btnContrary);
-            this.Controls.Add(this.btnAll);
-            this.Controls.Add(this.makeWord);
-            this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.txtURL);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.listDoc);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnMax);
+            this.Controls.Add(this.btnMin);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmCrawler";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "批量下载器";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,6 +318,11 @@
         private System.Windows.Forms.Button btnPageUp;
         private System.Windows.Forms.TextBox txtPageNow;
         private System.Windows.Forms.Label labPage;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnMin;
     }
 }
 

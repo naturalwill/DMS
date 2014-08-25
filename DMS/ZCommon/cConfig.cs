@@ -9,6 +9,11 @@ namespace DMS
 {
     public class cConfig
     {
+        /// <summary>
+        /// 扫描的配置
+        /// </summary>
+        public static int CameraIndex = -1, resolutionIndex = -1;
+
         #region 字段
 
         public const string strSearchTips = "搜索公文";
@@ -130,7 +135,7 @@ namespace DMS
         public static void SaveConfig()
         {
             char dp = '0';
-           //char sync = '0';
+            //char sync = '0';
             if (isDefaultPath) dp = '1';
             //if (isAutoSync) sync = '1';
             XElement xe = new XElement("Config",
@@ -139,7 +144,9 @@ namespace DMS
                 new XElement("FTP_IP", FTP_IP),
                 new XElement("FTP_user", FTP_user),
                 new XElement("FTP_password", FTP_password),
-                new XElement("paginalItems", paginalItems)
+                new XElement("paginalItems", paginalItems),
+                new XElement("CameraIndex", CameraIndex),
+                new XElement("resolutionIndex", resolutionIndex)
                 //new XElement("AutoSync", sync.ToString())
                 );
             xe.Save(".\\Config.xml");
@@ -162,7 +169,7 @@ namespace DMS
                         isDefaultPath = false;
                     }
                     strWorkPath = xe.Element("WorkPath").Value;
-                    
+
                     //if (xe.Element("AutoSync").Value == "1")
                     //{
                     //    isAutoSync = true;
@@ -175,7 +182,8 @@ namespace DMS
                     FTP_user = xe.Element("FTP_user").Value;
                     FTP_password = xe.Element("FTP_password").Value;
                     paginalItems = Convert.ToInt32(xe.Element("paginalItems").Value);
-
+                    CameraIndex = Convert.ToInt32(xe.Element("CameraIndex").Value);
+                    resolutionIndex = Convert.ToInt32(xe.Element("resolutionIndex").Value);
                     xe.RemoveAll();
                 }
                 else
