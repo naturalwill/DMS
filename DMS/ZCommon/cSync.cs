@@ -367,10 +367,7 @@ namespace DMS
             }
             foreach (DirectoryInfo f in dir.GetDirectories())
             {
-                if (f.Name != cConfig.strTemp)
-                {
                     searchFile(f.FullName);
-                }
             }
         }
         private static void delectFiles(string[] path)

@@ -145,6 +145,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximumSize = new System.Drawing.Size(284, 147);
+            this.MinimumSize = new System.Drawing.Size(284, 147);
             this.Name = "frmSetting";
             this.Text = "frmSetting";
             this.groupBox1.ResumeLayout(false);

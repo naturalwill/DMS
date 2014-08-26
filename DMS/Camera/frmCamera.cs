@@ -15,7 +15,7 @@ namespace DMS.Camera
         public static DeviceCapabilityInfo _DeviceCapabilityInfo;
         public static DeviceInfo _DeviceInfo;
         string photopath;
-      public static  string ScanDocPath = cConfig.strWorkPath + "\\" + cConfig.strScanType;
+        public static string ScanDocPath = cConfig.strWorkPath + "\\" + cConfig.strScanType;
         //string ftpsource;
         #endregion
 
@@ -141,7 +141,7 @@ namespace DMS.Camera
                 if (!Directory.Exists(ScanDocPath)) Directory.CreateDirectory(ScanDocPath);
                 pictureBox2.Image.Save(ScanDocPath + "\\" + name + ".jpg", ImageFormat.Jpeg);
                 photopath = ScanDocPath + "\\" + name + ".jpg";
-                cAccess.add(name, DateTime.Now.ToString(), photopath, cConfig.strScanType, "", Environment.UserName, note);
+                cAccess.add(name, "", photopath, cConfig.strScanType, DateTime.Now.ToString(), Environment.UserName, note);
                 frmMain.fm.flash();
                 toolStripStatusLabel1.Text = "照片已储存";
                 shouldBeSave = false;
@@ -194,16 +194,16 @@ namespace DMS.Camera
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (camera.DeviceExist)
-            {
-                if (camera.CloseVideo())
-                    btnphotograph.Enabled = false;
-                this.Close();
-            }
+            this.Close();
         }
 
         private void Camera_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (camera.DeviceExist)
+            {
+                if (camera.CloseVideo())
+                    btnphotograph.Enabled = false;
+            }
             if (camera.DeviceExist)
                 camera.CloseVideo();
             this.Dispose();

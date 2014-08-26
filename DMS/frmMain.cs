@@ -38,6 +38,7 @@ namespace DMS
 
             try
             {
+                labHead.Left = (this.Width - labHead.Width) / 2;
                 listDoc.Columns.Clear();
                 string[] listColumnName = { "", "公文标题", "发布时间", "发布单位", "收录时间", "公文类型" };
                 int[] listColumnWidth = CalculateWidth(listDoc.Width);
@@ -160,7 +161,10 @@ namespace DMS
             else
                 pagesAll = 1;
             if (pagesAll < 1) pagesAll = 1;
+            if (pageNow > pagesAll)
+                pageNow = pagesAll;
             labPageAll.Text = pagesAll.ToString();
+            textBoxNow.Text = pageNow.ToString();
             listDocType.SelectedIndex = TypeSelectedIndex;
             list();
         }
@@ -184,7 +188,10 @@ namespace DMS
                             ListViewItem lvitem = new ListViewItem();
                             lvitem = listDoc.Items.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
-                            lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString());
+                            if (string.IsNullOrWhiteSpace(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString()))
+                                lvitem.SubItems.Add("");
+                            else
+                                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Provider"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["AddTime"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocType"].ToString());
@@ -245,7 +252,6 @@ namespace DMS
                 }
             }
             getList();
-            Page();
         }
 
 
@@ -318,11 +324,8 @@ namespace DMS
             //}
             foreach (DirectoryInfo f in dir.GetDirectories())
             {
-                if (f.Name != cConfig.strTemp)
-                {
-                    TypeList.Add(f.Name);
-                    searchDirectory(f.FullName);
-                }
+                TypeList.Add(f.Name);
+                searchDirectory(f.FullName);
             }
         }
 
@@ -957,7 +960,6 @@ namespace DMS
         int pagesAll = 1, pageNow = 1;
         private void btnPageUp_Click(object sender, EventArgs e)
         {
-            Page();
             int temp = pageNow;
             if (pageNow-- <= 1)
             {
@@ -971,7 +973,6 @@ namespace DMS
 
         private void btnPageDown_Click(object sender, EventArgs e)
         {
-            Page();
             int temp = pageNow;
             if (pageNow++ >= pagesAll)
             {
@@ -981,17 +982,6 @@ namespace DMS
             }
             textBoxNow.Text = pageNow.ToString();
             list((pageNow - 1) * cConfig.paginalItems);
-        }
-
-        private void Page()
-        {
-            if (int.Parse(textBoxNow.Text) > int.Parse(labPageAll.Text))
-            {
-                int page = 1;
-                textBoxNow.Text = page.ToString();
-                pageNow = page;
-
-            }
         }
 
         #endregion

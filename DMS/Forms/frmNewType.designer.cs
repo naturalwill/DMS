@@ -97,6 +97,8 @@
             this.ClientSize = new System.Drawing.Size(284, 105);
             this.Controls.Add(this.groupBoxType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximumSize = new System.Drawing.Size(284, 105);
+            this.MinimumSize = new System.Drawing.Size(284, 105);
             this.Name = "frmNewType";
             this.Text = "frmNewType";
             this.groupBoxType.ResumeLayout(false);

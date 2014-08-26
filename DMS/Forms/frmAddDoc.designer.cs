@@ -53,9 +53,9 @@
             // 
             // txtRemindMessage
             // 
-            this.txtRemindMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRemindMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRemindMessage.Location = new System.Drawing.Point(6, 20);
             this.txtRemindMessage.Multiline = true;
             this.txtRemindMessage.Name = "txtRemindMessage";
@@ -294,6 +294,8 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximumSize = new System.Drawing.Size(578, 392);
+            this.MinimumSize = new System.Drawing.Size(578, 392);
             this.Name = "frmAddDoc";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddDoc";

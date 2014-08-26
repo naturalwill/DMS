@@ -46,7 +46,10 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnContrary
@@ -54,7 +57,7 @@
             this.btnContrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnContrary.BackColor = System.Drawing.Color.Transparent;
             this.btnContrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnContrary.Location = new System.Drawing.Point(74, 414);
+            this.btnContrary.Location = new System.Drawing.Point(74, 401);
             this.btnContrary.Name = "btnContrary";
             this.btnContrary.Size = new System.Drawing.Size(56, 25);
             this.btnContrary.TabIndex = 40;
@@ -67,7 +70,7 @@
             this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAll.BackColor = System.Drawing.Color.Transparent;
             this.btnAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAll.Location = new System.Drawing.Point(8, 414);
+            this.btnAll.Location = new System.Drawing.Point(8, 401);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(60, 25);
             this.btnAll.TabIndex = 39;
@@ -80,7 +83,7 @@
             this.makeWord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.makeWord.BackColor = System.Drawing.Color.Transparent;
             this.makeWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.makeWord.Location = new System.Drawing.Point(670, 409);
+            this.makeWord.Location = new System.Drawing.Point(670, 401);
             this.makeWord.Name = "makeWord";
             this.makeWord.Size = new System.Drawing.Size(100, 25);
             this.makeWord.TabIndex = 38;
@@ -95,10 +98,9 @@
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.Location = new System.Drawing.Point(670, 13);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(100, 21);
+            this.btnUpdate.Size = new System.Drawing.Size(100, 27);
             this.btnUpdate.TabIndex = 30;
             this.btnUpdate.Text = "更新公文列表";
-            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtURL
@@ -106,10 +108,9 @@
             this.txtURL.AllowDrop = true;
             this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtURL.Location = new System.Drawing.Point(47, 13);
+            this.txtURL.Location = new System.Drawing.Point(47, 17);
             this.txtURL.Name = "txtURL";
-            this.txtURL.Size = new System.Drawing.Size(612, 21);
+            this.txtURL.Size = new System.Drawing.Size(617, 21);
             this.txtURL.TabIndex = 29;
             this.txtURL.Text = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid" +
     "=704&pageno=1";
@@ -117,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 17);
+            this.label2.Location = new System.Drawing.Point(6, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 28;
@@ -131,9 +132,9 @@
             this.listDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDoc.CheckBoxes = true;
             this.listDoc.FullRowSelect = true;
-            this.listDoc.Location = new System.Drawing.Point(8, 40);
+            this.listDoc.Location = new System.Drawing.Point(8, 46);
             this.listDoc.Name = "listDoc";
-            this.listDoc.Size = new System.Drawing.Size(762, 368);
+            this.listDoc.Size = new System.Drawing.Size(762, 349);
             this.listDoc.TabIndex = 31;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
@@ -143,7 +144,7 @@
             this.labPageAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPageAll.BackColor = System.Drawing.Color.Transparent;
             this.labPageAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPageAll.Location = new System.Drawing.Point(397, 416);
+            this.labPageAll.Location = new System.Drawing.Point(397, 403);
             this.labPageAll.Name = "labPageAll";
             this.labPageAll.Size = new System.Drawing.Size(41, 21);
             this.labPageAll.TabIndex = 69;
@@ -155,7 +156,7 @@
             this.btnPageDown.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPageDown.BackColor = System.Drawing.Color.Transparent;
             this.btnPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPageDown.Location = new System.Drawing.Point(470, 414);
+            this.btnPageDown.Location = new System.Drawing.Point(470, 401);
             this.btnPageDown.Name = "btnPageDown";
             this.btnPageDown.Size = new System.Drawing.Size(52, 25);
             this.btnPageDown.TabIndex = 68;
@@ -168,7 +169,7 @@
             this.btnPageUp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPageUp.BackColor = System.Drawing.Color.Transparent;
             this.btnPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPageUp.Location = new System.Drawing.Point(192, 414);
+            this.btnPageUp.Location = new System.Drawing.Point(192, 401);
             this.btnPageUp.Name = "btnPageUp";
             this.btnPageUp.Size = new System.Drawing.Size(54, 25);
             this.btnPageUp.TabIndex = 67;
@@ -179,7 +180,7 @@
             // txtPageNow
             // 
             this.txtPageNow.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtPageNow.Location = new System.Drawing.Point(305, 416);
+            this.txtPageNow.Location = new System.Drawing.Point(305, 403);
             this.txtPageNow.Name = "txtPageNow";
             this.txtPageNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtPageNow.Size = new System.Drawing.Size(40, 21);
@@ -193,7 +194,7 @@
             this.labPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labPage.BackColor = System.Drawing.Color.Transparent;
             this.labPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labPage.Location = new System.Drawing.Point(252, 416);
+            this.labPage.Location = new System.Drawing.Point(252, 403);
             this.labPage.Name = "labPage";
             this.labPage.Size = new System.Drawing.Size(212, 21);
             this.labPage.TabIndex = 66;
@@ -219,7 +220,7 @@
             this.groupBox1.Controls.Add(this.btnContrary);
             this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 445);
+            this.groupBox1.Size = new System.Drawing.Size(776, 432);
             this.groupBox1.TabIndex = 70;
             this.groupBox1.TabStop = false;
             // 
@@ -262,7 +263,7 @@
             this.btnMax.Name = "btnMax";
             this.btnMax.Size = new System.Drawing.Size(25, 25);
             this.btnMax.TabIndex = 88;
-            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Visible = false;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // btnMin
@@ -281,24 +282,47 @@
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 478);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 90;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(62, 17);
+            this.tsslStatus.Text = "tsslStatus";
+            // 
             // frmCrawler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnMax);
             this.Controls.Add(this.btnMin);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(800, 500);
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "frmCrawler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "批量下载器";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,6 +347,8 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnMax;
         private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
     }
 }
 

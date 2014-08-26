@@ -21,7 +21,7 @@ namespace DMS
             Note = note;
             AddRecord = isAddRecord;
 
-            tFilePath = cConfig.strWorkPath + "\\" + cConfig.strTemp + "\\" + fileName + ".html";
+            tFilePath = cConfig.TempPath + "\\" + fileName + ".mht";
 
             if (type == "")
                 type = cConfig.strNoType;
@@ -35,7 +35,7 @@ namespace DMS
 
     public class cMakeWord
     {
-        static string tPath = cConfig.strWorkPath + "\\" + cConfig.strTemp;
+        static string tPath = cConfig.TempPath;
 
         List<cWord> listWord;
 
@@ -49,7 +49,7 @@ namespace DMS
             if (!(Directory.Exists(tPath)))
             {
                 Directory.CreateDirectory(tPath);
-                File.SetAttributes(tPath, FileAttributes.Hidden);
+                //File.SetAttributes(tPath, FileAttributes.Hidden);
             }
             listWord = lw;
         }
@@ -83,8 +83,8 @@ namespace DMS
                 object file2 = listWord[i].pFilePath;
 
                 Word._Document oWordDoc = oWordApp.Documents.Open(ref file1, ref format, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible, ref missing, ref missing, ref missing, ref missing);
-                oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
-
+                //oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                oWordDoc.SaveAs2(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,ref missing);
 
                 oWordDoc.Close(ref missing, ref missing, ref missing);
                 oWordDoc = null;

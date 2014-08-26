@@ -93,7 +93,7 @@
             this.tsbSetting = new System.Windows.Forms.ToolStripButton();
             this.tsbHelp = new System.Windows.Forms.ToolStripButton();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labHead = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
@@ -300,10 +300,10 @@
             this.textBoxNow.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBoxNow.Location = new System.Drawing.Point(236, 358);
             this.textBoxNow.Name = "textBoxNow";
-            this.textBoxNow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBoxNow.Size = new System.Drawing.Size(40, 16);
             this.textBoxNow.TabIndex = 60;
             this.textBoxNow.Text = "1";
+            this.textBoxNow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNow_KeyPress);
             this.textBoxNow.Leave += new System.EventHandler(this.textBoxNow_Leave);
             // 
@@ -338,6 +338,7 @@
             this.comboBoxpaginal.FormattingEnabled = true;
             this.comboBoxpaginal.Location = new System.Drawing.Point(594, 357);
             this.comboBoxpaginal.Name = "comboBoxpaginal";
+            this.comboBoxpaginal.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.comboBoxpaginal.Size = new System.Drawing.Size(60, 20);
             this.comboBoxpaginal.TabIndex = 70;
             this.comboBoxpaginal.Text = "20";
@@ -447,9 +448,9 @@
             // 
             // scBody
             // 
-            this.scBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.scBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scBody.Location = new System.Drawing.Point(9, 152);
             this.scBody.Name = "scBody";
@@ -482,8 +483,8 @@
             // btnAddType
             // 
             this.btnAddType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddType.BackgroundImage = global::DMS.Properties.Resources.add;
-            this.btnAddType.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnAddType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddType.BackgroundImage")));
+            this.btnAddType.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddType.FlatAppearance.BorderSize = 0;
             this.btnAddType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -496,8 +497,8 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(3, 3);
@@ -510,8 +511,8 @@
             // btnDelType
             // 
             this.btnDelType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelType.BackgroundImage = global::DMS.Properties.Resources.del;
-            this.btnDelType.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnDelType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelType.BackgroundImage")));
+            this.btnDelType.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnDelType.FlatAppearance.BorderSize = 0;
             this.btnDelType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -524,9 +525,9 @@
             // 
             // listDocType
             // 
-            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDocType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listDocType.BackColor = System.Drawing.SystemColors.Window;
             this.listDocType.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listDocType.ContextMenuStrip = this.cmsType;
@@ -535,15 +536,15 @@
             this.listDocType.ItemHeight = 17;
             this.listDocType.Location = new System.Drawing.Point(3, 26);
             this.listDocType.Name = "listDocType";
-            this.listDocType.Size = new System.Drawing.Size(108, 306);
+            this.listDocType.Size = new System.Drawing.Size(108, 323);
             this.listDocType.TabIndex = 59;
             this.listDocType.SelectedIndexChanged += new System.EventHandler(this.listDocType_SelectedIndexChanged);
             // 
             // listDoc
             // 
-            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listDoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listDoc.CheckBoxes = true;
             this.listDoc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -599,8 +600,8 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -752,15 +753,15 @@
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
-            // label3
+            // labHead
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("华文行楷", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(268, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(227, 37);
-            this.label3.TabIndex = 87;
-            this.label3.Text = "公文管理系统";
+            this.labHead.AutoSize = true;
+            this.labHead.Font = new System.Drawing.Font("华文行楷", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labHead.Location = new System.Drawing.Point(247, 9);
+            this.labHead.Name = "labHead";
+            this.labHead.Size = new System.Drawing.Size(227, 37);
+            this.labHead.TabIndex = 87;
+            this.labHead.Text = "公文管理系统";
             // 
             // btnClose
             // 
@@ -815,7 +816,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(800, 560);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labHead);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnMax);
             this.Controls.Add(this.btnMin);
@@ -916,7 +917,7 @@
         private System.Windows.Forms.Button btnMax;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ToolStripButton tsbAbout;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labHead;
         private System.Windows.Forms.ToolStripSplitButton tssbMoveType;
     }
 }

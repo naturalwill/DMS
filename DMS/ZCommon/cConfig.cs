@@ -21,8 +21,9 @@ namespace DMS
         public const string strNoType = "(未分类)";
         public const string strNewType = "(新类型)";
         public const string strScanType = "扫描文档";
-        public const string strTemp = ".temp";
         public const string strNoLimit = "无限制";
+
+        public static string TempPath = System.IO.Path.GetTempPath() + "DMS";
 
         public static string strOaURL = "http://oa.gdmc.edu.cn";
 
@@ -95,7 +96,9 @@ namespace DMS
                         workpath = u.LocalPath;
                     }
                 }
-                catch { throw; }
+                catch
+                {
+                }
             }
         }
 

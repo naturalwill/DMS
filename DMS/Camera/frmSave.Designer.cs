@@ -78,7 +78,7 @@
             this.btnsave.Location = new System.Drawing.Point(6, 164);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(95, 30);
-            this.btnsave.TabIndex = 8;
+            this.btnsave.TabIndex = 2;
             this.btnsave.Text = "储存";
             this.btnsave.UseVisualStyleBackColor = false;
             this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
@@ -92,7 +92,7 @@
             this.txtnote.Multiline = true;
             this.txtnote.Name = "txtnote";
             this.txtnote.Size = new System.Drawing.Size(255, 81);
-            this.txtnote.TabIndex = 0;
+            this.txtnote.TabIndex = 1;
             // 
             // label4
             // 
@@ -122,7 +122,7 @@
             this.txtTitle.Location = new System.Drawing.Point(6, 35);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(255, 23);
-            this.txtTitle.TabIndex = 5;
+            this.txtTitle.TabIndex = 0;
             // 
             // label1
             // 
