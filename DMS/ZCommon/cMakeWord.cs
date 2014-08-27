@@ -61,6 +61,7 @@ namespace DMS
         /// <returns>返回网页源码</returns>
         public void makeWord()
         {
+
             object missing = System.Reflection.Missing.Value;
             object readOnly = true;
             object isVisible = false;
@@ -75,6 +76,8 @@ namespace DMS
 
             for (int i = 0; i < listWord.Count; i++)
             {
+                GC.Collect();
+
                 if (File.Exists(listWord[i].pFilePath)) { intExist++; continue; }
 
                 DMS.SaveWebPage.SaveOaWebPageToMHTFile(listWord[i].URL, listWord[i].tFilePath);
@@ -94,6 +97,7 @@ namespace DMS
                     isAccess = true;
                 }
                 intSuccess++;
+               
             }
             if (isAccess)
                 cAccess.DtAdapter.Update(cAccess.basicDt);

@@ -253,6 +253,12 @@ namespace Crawler
             }
             base.WndProc(ref m);
         }
+ToolTip tt = new ToolTip();
+        private void txtURL_Enter(object sender, EventArgs e)
+        {
+            
+            tt.SetToolTip(this.txtURL,"办公网公文下载器，暂时只支持对“http://oa.gdmc.edu.cn:8083/ggxx_new/”网站公文的下载，如果你有其他需求，请联系我们！");
+        }
         ////__________________________________________________________拖动窗体__________________________________________________________________________
 
    

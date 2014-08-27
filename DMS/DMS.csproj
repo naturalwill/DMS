@@ -220,6 +220,10 @@
     <Content Include="Camera\Aforge\AForge.dll" />
     <Content Include="Camera\Aforge\AForge.Video.DirectShow.dll" />
     <Content Include="Camera\Aforge\AForge.Video.dll" />
+    <Content Include="DLL\Interop.ADODB.dll" />
+    <Content Include="DLL\Interop.CDO.dll" />
+    <Content Include="DLL\Microsoft.Office.Interop.Word.dll" />
+    <None Include="Resources\picHead.Image.png" />
     <None Include="Resources\cam.png" />
     <None Include="Resources\doc.png" />
     <None Include="Resources\head.png" />

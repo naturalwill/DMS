@@ -75,9 +75,9 @@ namespace DMS
                     System.Threading.Thread.Sleep(1000 * listWord.Count);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
             finally
             {

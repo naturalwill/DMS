@@ -150,11 +150,13 @@ namespace DMS
                 {
                     try
                     {
+                        int i= basicDt.Rows[row]["LocalPath"].ToString().LastIndexOf('\\');
+                        cSync.DeleteFile(basicDt.Rows[row]["DocType"].ToString(),basicDt.Rows[row]["LocalPath"].ToString().Substring(i+1));
                         File.Delete(basicDt.Rows[row]["LocalPath"].ToString());
                         basicDt.Rows[row].Delete();
-
                     }
-                    catch { }
+                    catch// (Exception ex)
+                    { }
 
                 }
             }

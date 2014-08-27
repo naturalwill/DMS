@@ -22,7 +22,7 @@ namespace DMS
         public const string strNewType = "(新类型)";
         public const string strScanType = "扫描文档";
         public const string strNoLimit = "无限制";
-
+        //public const string strAutoSize = "自适应";
         public static string TempPath = System.IO.Path.GetTempPath() + "DMS";
 
         public static string strOaURL = "http://oa.gdmc.edu.cn";
@@ -121,13 +121,13 @@ namespace DMS
         #endregion
 
         #region 日志
-
-        public void writeLog(string operate, string fullFileName)
+        public static string logPath = ".\\run.log";
+        public static void writeLog(string[] operate)
         {
-            using (StreamWriter sw = new StreamWriter(".\\run.log", true, Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(logPath, true, Encoding.Default))
             {
-                sw.WriteLine(DateTime.Now + "\t" + operate + "\t" + fullFileName);
-                //sw.Close();
+                foreach (string s in operate)
+                    sw.WriteLine(DateTime.Now + " \t" + s);
             }
         }
         #endregion

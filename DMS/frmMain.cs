@@ -19,12 +19,76 @@ namespace DMS
 
         public frmMain()
         {
+
             InitializeComponent();
+            //int SW = Screen.PrimaryScreen.Bounds.Width;
+            int w = System.Windows.Forms.SystemInformation.WorkingArea.Width;
+            if (w * 0.8 > this.Width)
+                this.Width = (int)(w * 0.8);
             fm = this;
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        //-----------------------下有2个函数未做完---------------
+
+        //-----------------------------拖动窗体------------------------------
+        #region 拖动窗体
+        /// <summary>
+        /// 判断鼠标是否按下
+        /// </summary>
+        private bool _isDown = false;
+        /// <summary>
+        /// 原来的鼠标点
+        /// </summary>
+        private Point _oldPoint;
+        /// <summary>
+        /// 原来窗口点
+        /// </summary>
+        private Point _oldForm;
+        private void pBody_MouseDown(object sender, MouseEventArgs e)
+        {
+            _isDown = true;
+            _oldPoint = new Point();
+            _oldPoint = e.Location;
+            _oldForm = this.Location;
+        }
+
+        private void pBody_MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDown = false;
+        }
+
+        private void pBody_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDown)
+            {
+                _oldForm.Offset(e.X - _oldPoint.X, e.Y - _oldPoint.Y);
+                this.Location = _oldForm;
+            }
+        }
+
+        private void picHead_MouseDown(object sender, MouseEventArgs e)
+        {
+            _isDown = true;
+            _oldPoint = new Point();
+            _oldPoint = e.Location;
+            _oldForm = this.Location;
+        }
+
+        private void picHead_MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDown = false;
+        }
+
+        private void picHead_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDown)
+            {
+                _oldForm.Offset(e.X - _oldPoint.X, e.Y - _oldPoint.Y);
+                this.Location = _oldForm;
+            }
+        }
+        #endregion
+        //---------------------------------------------------------
 
         #region 启动时运行
 
@@ -38,9 +102,10 @@ namespace DMS
 
             try
             {
-                labHead.Left = (this.Width - labHead.Width) / 2;
+                //labHead.Left = (this.Width - labHead.Width) / 2;
+
                 listDoc.Columns.Clear();
-                string[] listColumnName = { "", "公文标题", "发布时间", "发布单位", "收录时间", "公文类型" };
+                string[] listColumnName = { "", "公文标题", "发布时间", "发布单位", "收录时间", "公文类型", "备注" };
                 int[] listColumnWidth = CalculateWidth(listDoc.Width);
 
                 for (int i = 0; i < listColumnName.Length; i++)
@@ -53,7 +118,7 @@ namespace DMS
                 cConfig.ReadConfig();
 
 
-                string[] pi = { "15", "20", "30", "50", cConfig.strNoLimit };
+                string[] pi = { "20", "30", "50", "100", cConfig.strNoLimit };//,cConfig.strAutoSize };
                 foreach (string p in pi)
                 {
                     comboBoxpaginal.Items.Add(p);
@@ -64,6 +129,8 @@ namespace DMS
 
                 if (cConfig.paginalItems == 0)
                     comboBoxpaginal.Text = cConfig.strNoLimit;
+                //else if (cConfig.paginalItems == -1)
+                //    comboBoxpaginal.Text = cConfig.strAutoSize;
                 else
                     comboBoxpaginal.Text = cConfig.paginalItems.ToString();
                 //this.listDoc.ListViewItemSorter = new ListViewColumnSorter();
@@ -80,10 +147,20 @@ namespace DMS
 
         private static int[] CalculateWidth(int w)
         {
-            int[] listColumnWidth = { 20, 0, 132, 100, 132, 90, 22 };
+            int[] listColumnWidth = { 20, 0, 132, 100, 132, 90, 0, 22 };
             foreach (int i in listColumnWidth)
                 w -= i;
-            listColumnWidth[1] = w;
+            if (w - 90 > 132)
+            {
+                listColumnWidth[6] = 90;
+                listColumnWidth[1] = w - 90;
+            }
+
+            else
+            {
+                listColumnWidth[1] = w - 1;
+                listColumnWidth[6] = 1;
+            }
             return listColumnWidth;
         }
         /// <summary>
@@ -131,7 +208,7 @@ namespace DMS
 
         #endregion
 
-        //---------------------------上有2个函数没完成----------------------------
+        //---------------------------------------------------------
 
         #region 列出公文
         List<string> listID = new List<string>();
@@ -167,6 +244,7 @@ namespace DMS
             textBoxNow.Text = pageNow.ToString();
             listDocType.SelectedIndex = TypeSelectedIndex;
             list();
+            GC.Collect();
         }
 
         /// <summary>
@@ -178,6 +256,7 @@ namespace DMS
             listDoc.Items.Clear();
 
             if (cConfig.paginalItems > 0)
+            {
                 for (int i = 0; i < cConfig.paginalItems; i++)
                 {
                     if (startIndex >= listID.Count) break;
@@ -195,12 +274,15 @@ namespace DMS
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Provider"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["AddTime"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocType"].ToString());
+                            lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Notes"].ToString());
+                            //lvitem.ToolTipText = cAccess.basicDt.Rows[row]["DocTitle"].ToString();//+ "\n备注：\n" + cAccess.basicDt.Rows[row]["Notes"].ToString();
                             break;
                             //System.Diagnostics.Debug.WriteLine("vv" + cConfig.paginalItems);
                         }
                     }
                     startIndex++;
                 }
+            }
             else if (cConfig.paginalItems == 0)
             {
                 for (int i = 0; i < listID.Count; i++)
@@ -212,15 +294,49 @@ namespace DMS
                             ListViewItem lvitem = new ListViewItem();
                             lvitem = listDoc.Items.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
-                            lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString());
+                            if (string.IsNullOrWhiteSpace(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString()))
+                                lvitem.SubItems.Add("");
+                            else
+                                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Provider"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["AddTime"].ToString());
                             lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocType"].ToString());
+                            lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Notes"].ToString());
+                            //lvitem.ToolTipText = cAccess.basicDt.Rows[row]["DocTitle"].ToString();//+ "\n备注：\n" + cAccess.basicDt.Rows[row]["Notes"].ToString();
                             break;
                         }
                     }
                 }
             }
+            //else if (cConfig.paginalItems == -1)
+            //{
+            //    int num = (this.listDoc.Height - 50) / this.listDoc.Font.Height;
+            //    for (int i = 0; i < cConfig.paginalItems; i++)
+            //    {
+            //        if (startIndex >= listID.Count) break;
+            //        for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            //        {
+            //            if (listID[startIndex] == cAccess.basicDt.Rows[row]["ID"].ToString())
+            //            {
+            //                ListViewItem lvitem = new ListViewItem();
+            //                lvitem = listDoc.Items.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
+            //                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
+            //                if (string.IsNullOrWhiteSpace(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString()))
+            //                    lvitem.SubItems.Add("");
+            //                else
+            //                    lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["ReleaseDate"].ToString());
+            //                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Provider"].ToString());
+            //                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["AddTime"].ToString());
+            //                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["DocType"].ToString());
+            //                lvitem.SubItems.Add(cAccess.basicDt.Rows[row]["Notes"].ToString());
+            //                lvitem.ToolTipText = cAccess.basicDt.Rows[row]["DocTitle"].ToString();//+ "\n备注：\n" + cAccess.basicDt.Rows[row]["Notes"].ToString();
+            //                break;
+            //                //System.Diagnostics.Debug.WriteLine("vv" + cConfig.paginalItems);
+            //            }
+            //        }
+            //        startIndex++;
+            //    }
+            //}
         }
 
 
@@ -288,6 +404,7 @@ namespace DMS
                 if (different)
                     TypeList.Add(str);
             }
+
 
             listDocType.Items.Clear(); tssbMoveType.DropDownItems.Clear();
             listDocType.Items.Add(cConfig.strAllType);
@@ -533,6 +650,7 @@ namespace DMS
                     for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                     {
                         cAccess.delect(listDoc.CheckedItems[i].SubItems[0].Text);
+
                     }
                     search();
                 }
@@ -637,7 +755,9 @@ namespace DMS
                     }
                 }
                 cPrintFiles cpf = new cPrintFiles(ls);
+                //cpf.printFiles();
                 Thread th = new Thread(new ThreadStart(cpf.printFiles));
+                th.Start();
             }
         }
 
@@ -728,37 +848,7 @@ namespace DMS
 
         #region 公文列表事件 listDoc
 
-        private void listDoc_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-            Point curPos = this.listDoc.PointToClient(Control.MousePosition);
-            ListViewItem lvwItem = this.listDoc.GetItemAt(curPos.X, curPos.Y);
 
-            if (lvwItem != null)
-            {
-                System.Diagnostics.Debug.WriteLine("aa");
-            }
-
-            //tipListDoc.ShowAlways = false;
-            //string notes = "";
-            //if (listDoc.SelectedItems.Count > 0)
-            //{
-            //    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-            //    {
-            //        try
-            //        {
-            //            if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-            //            {
-            //                notes = cAccess.basicDt.Rows[row]["Notes"].ToString();
-            //            }
-            //        }
-            //        catch { }
-            //    }
-            //}
-            ////显示备注
-            //tipListDoc.SetToolTip(this.listDoc, notes);
-            ////tipListDoc.Show(notes, this.listDoc);
-            //tipListDoc.ShowAlways = true;
-        }
         private void listDoc_MouseClick(object sender, MouseEventArgs e)
         {
             Point curPos = this.listDoc.PointToClient(Control.MousePosition);
@@ -896,14 +986,7 @@ namespace DMS
             {
                 for (int i = 0; i < listDoc.SelectedItems.Count; i++)
                 {
-                    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                    {
-                        if (listDoc.SelectedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                        {
-                            cAccess.delect(listDoc.SelectedItems[i].Text);
-                            //System.Diagnostics.Debug.WriteLine(listDoc.CheckedItems[i].Text);
-                        }
-                    }
+                    cAccess.delect(listDoc.SelectedItems[i].Text);
                 }
                 getList();
             }
@@ -1035,6 +1118,11 @@ namespace DMS
                 if (cConfig.paginalItems == 0)
                     return;
             }
+            //else if (comboBoxpaginal.Text == cConfig.strAutoSize)
+            //{
+            //    if (cConfig.paginalItems == -1)
+            //        return;
+            //}
             else if (cConfig.paginalItems == Convert.ToInt32(comboBoxpaginal.Text))
                 return;
             if (comboBoxpaginal.Text == cConfig.strNoLimit)
@@ -1044,6 +1132,13 @@ namespace DMS
                 btnPageUp.Enabled = false;
                 textBoxNow.Enabled = false;
             }
+            //else if (comboBoxpaginal.Text == cConfig.strAutoSize)
+            //{
+            //    cConfig.paginalItems =-1;
+            //    btnPageDown.Enabled = false;
+            //    btnPageUp.Enabled = false;
+            //    textBoxNow.Enabled = false;
+            //}
             else
             {
                 cConfig.paginalItems = Convert.ToInt32(comboBoxpaginal.Text);
@@ -1115,17 +1210,22 @@ namespace DMS
                 }
             }
         }
-
+        static bool isNotSyncing = true;
         private void tssbSync_ButtonClick(object sender, EventArgs e)
         {
+            GC.Collect();
             if (string.IsNullOrWhiteSpace(cConfig.FTP_IP))
             {
                 if (MessageBox.Show("未设置备份服务器，是否现在设置？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     tsbSetting_Click(sender, e);
                 return;
             }
-            Thread th = new Thread(new ThreadStart(sync));
-            th.Start();
+            if (isNotSyncing)
+            {
+                isNotSyncing = false;
+                Thread th = new Thread(new ThreadStart(sync));
+                th.Start();
+            }
         }
 
         private void sync()
@@ -1133,7 +1233,7 @@ namespace DMS
             try
             {
                 tsslSyncStatus.Text = "正在同步...";
-                tsslSyncStatus.BackColor = System.Drawing.SystemColors.Highlight;
+                //tsslSyncStatus.BackColor = System.Drawing.SystemColors.Highlight;
                 cSync Sync = new cSync();
                 Sync.Contrast();
 
@@ -1152,17 +1252,25 @@ namespace DMS
                     tsslSyncStatus.Text = "发现有" + Sync.listNotInFtp.Count + "个文件未备份，正在备份...";
                     Sync.LocalToFtp();
                 }
-                Sync.Contrast();
+
                 tsslSyncStatus.Text = "备份完成!";
+                System.Threading.Thread.Sleep(500);
+                Sync.Contrast();
                 //------------------------------------------------------------
-                flashTypeList(); search();
+                frmMain.fm.flashTypeList(); frmMain.fm.search();
                 //------------------------------------------------------------
-                tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。";
-                tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
+                if (Sync.listNotInFtp.Count > 0)
+                    tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。请重试！";
+                //tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "/n" + "ps:检查网络是否连接，备份服务器地址是否有错", "警告");
+                MessageBox.Show("Error ： " + ex.Message + "\n" + "（请检查网络是否连接，备份服务器地址是否有错）", "错误");
+                tsslSyncStatus.Text = "";
+            }
+            finally
+            {
+                isNotSyncing = true;
             }
         }
 
@@ -1171,9 +1279,10 @@ namespace DMS
             if (File.Exists(".\\help.chm")) { System.Diagnostics.Process.Start(".\\help.chm"); }
             else
             {
-                FileStream fs = new FileStream(".\\help.chm", FileMode.OpenOrCreate, FileAccess.Write);
+
                 try
                 {
+                    FileStream fs = new FileStream(".\\help.chm", FileMode.OpenOrCreate, FileAccess.Write);
                     //创建byte数组，装资源 
                     Byte[] b = DMS.Properties.Resources.help;
                     fs.Write(b, 0, b.Length);
@@ -1183,8 +1292,7 @@ namespace DMS
                 }
                 catch
                 {
-                    if (fs != null)
-                        fs.Close();
+
                 }
 
             }
@@ -1223,34 +1331,8 @@ namespace DMS
         //}
 
 
-
-
-
-
-
-
         //---------------------------------------------------------------
 
-
-
-
-        ////__________________________________________________拖动窗体——————————————————————————————————————————
-        private const int WM_NCHITTEST = 0x84;
-        private const int HTCLIENT = 0x1;
-        private const int HTCAPTION = 0x2;
-        protected override void WndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if ((int)m.Result == HTCLIENT)
-                        m.Result = (IntPtr)HTCAPTION;
-                    return;
-            }
-            base.WndProc(ref m);
-        }
-        ////__________________________________________________________拖动窗体__________________________________________________________________________
 
         private void tssbMoveType_ButtonClick(object sender, EventArgs e)
         {
@@ -1262,7 +1344,13 @@ namespace DMS
             int[] listColumnWidth = CalculateWidth(listDoc.Width);
             if (listColumnWidth[1] > 0)
                 listDoc.Columns[1].Width = listColumnWidth[1];
+            if (listColumnWidth[6] > 1)
+                listDoc.Columns[6].Width = listColumnWidth[6];
         }
+
+
+
+
 
     }
 }

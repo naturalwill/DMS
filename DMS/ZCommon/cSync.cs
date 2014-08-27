@@ -191,7 +191,6 @@ namespace DMS
                     if (!string.IsNullOrWhiteSpace(cConfig.FTP_IP))
                     {
                         //本地文件不存在
-
                         for (int i = 0; i < FtpFS.typeList.Count; i++)
                         {
                             if (FtpFS.typeList[i].name == cAccess.basicDt.Rows[row]["DocType"].ToString())
@@ -212,23 +211,44 @@ namespace DMS
                                         catch { }
                                         break;
                                     }
-                                    if (noFileOnFtp)
-                                    { //从来源下载
-
-                                        if (GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
-                                              cAccess.basicDt.Rows[row]["DocType"].ToString(), "", "", "", false))
-                                        { }
-                                        else
+                                }
+                                if (noFileOnFtp)
+                                { //从来源下载
+                                    noFileOnFtp = false;
+                                    if (GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
+                                          cAccess.basicDt.Rows[row]["DocType"].ToString(), "", "", "", false))
+                                    { }
+                                    else
+                                    {
+                                        ls.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
+                                        string s = "Delete \t";
+                                        for (int c = 0; c < cAccess.basicDt.Columns.Count; c++)
                                         {
-                                            ls.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
-                                            lst.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
+                                            s += cAccess.basicDt.Rows[row][c].ToString() + "\t";
                                         }
+                                        lst.Add(s);
                                     }
                                 }
                             }
                         }
+                        if (noFileOnFtp)
+                        { //从来源下载
+                            if (GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
+                                  cAccess.basicDt.Rows[row]["DocType"].ToString(), "", "", "", false))
+                            { }
+                            else
+                            {
+                                ls.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
+                                string s = "Delete \t";
+                                for (int c = 0; c < cAccess.basicDt.Columns.Count; c++)
+                                {
+                                    s += cAccess.basicDt.Rows[row][c].ToString() + "\t";
+                                }
+                                lst.Add(s);
+                            }
+                        }
                     }
-                    if (noFileOnFtp)
+                    else
                     { //从来源下载
 
                         if (GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
@@ -237,26 +257,43 @@ namespace DMS
                         else
                         {
                             ls.Add(cAccess.basicDt.Rows[row]["ID"].ToString());
-                            lst.Add(cAccess.basicDt.Rows[row]["DocTitle"].ToString());
+                            string s = "Delete \t";
+                            for (int c = 0; c < cAccess.basicDt.Columns.Count; c++)
+                            {
+                                s += cAccess.basicDt.Rows[row][c].ToString() + "\t";
+                            }
+                            lst.Add(s);
                         }
                     }
                 }
             }
             if (ls.Count > 0)
             {
-                string s = "";
-                foreach (string str in lst)
+
+                cConfig.writeLog(lst.ToArray());
+                foreach (string str in ls)
                 {
-                    s += str + "\n";
+                    cAccess.delect(str);
                 }
-                if (MessageBox.Show("有" + ls.Count + "个文件丢失，并且通过来源重新获取失败，是否从数据库中排除这些文件？\n" + s, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    foreach (string str in ls)
-                    {
-                        cAccess.delect(str);
-                    }
+                if (MessageBox.Show("有" + ls.Count + "个文件丢失，并且通过来源重新获取失败，已从数据库中排除这些文件。\n是否查看运行日志？", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                { System.Diagnostics.Process.Start(cConfig.logPath); }
             }
         }
-
+        public static void DeleteFile(string type, string fileName)
+        {
+            FTPHelper ftp= new FTPHelper(cConfig.FTP_IP, cConfig.strFtpRoot, cConfig.FTP_user, cConfig.FTP_password);
+            try
+            {
+                ftp.GotoDirectory(cConfig.strFtpRoot + "/" + type, true);
+                ftp.Delete(fileName);
+            }
+            catch { }
+            finally
+            {
+                if (ftp != null)
+                    ftp = null;
+            }
+        }
         ///// <summary>
         ///// 将FTP上被标记的文件下载下来
         ///// </summary>
@@ -367,7 +404,7 @@ namespace DMS
             }
             foreach (DirectoryInfo f in dir.GetDirectories())
             {
-                    searchFile(f.FullName);
+                searchFile(f.FullName);
             }
         }
         private static void delectFiles(string[] path)

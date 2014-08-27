@@ -101,6 +101,7 @@
             this.btnUpdate.Size = new System.Drawing.Size(100, 27);
             this.btnUpdate.TabIndex = 30;
             this.btnUpdate.Text = "更新公文列表";
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtURL
@@ -110,10 +111,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtURL.Location = new System.Drawing.Point(47, 17);
             this.txtURL.Name = "txtURL";
+            this.txtURL.ReadOnly = true;
             this.txtURL.Size = new System.Drawing.Size(617, 21);
             this.txtURL.TabIndex = 29;
             this.txtURL.Text = "http://oa.gdmc.edu.cn:8083/ggxx_new/list_bm.jsp?notemplate=&classcode=704&boardid" +
     "=704&pageno=1";
+            this.txtURL.Enter += new System.EventHandler(this.txtURL_Enter);
             // 
             // label2
             // 
@@ -229,7 +232,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(289, 17);
+            this.label1.Location = new System.Drawing.Point(295, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(209, 20);
             this.label1.TabIndex = 71;
@@ -263,6 +266,7 @@
             this.btnMax.Name = "btnMax";
             this.btnMax.Size = new System.Drawing.Size(25, 25);
             this.btnMax.TabIndex = 88;
+            this.btnMax.UseVisualStyleBackColor = false;
             this.btnMax.Visible = false;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
@@ -317,7 +321,6 @@
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "frmCrawler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "批量下载器";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
