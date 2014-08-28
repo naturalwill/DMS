@@ -25,7 +25,7 @@ namespace DMS.Forms
                 }
                 if (cSync.GetDoc(txtTitle.Text, txtURL.Text, comboBoxDocType.Text, txtDate.Text, txtProvider.Text, txtRemindMessage.Text))
                 {
-                    frmMain.fm.flash();
+                    frmMain.fm.initialize();
                     this.Close();
                 }
                 else { MessageBox.Show("添加失败！"); }

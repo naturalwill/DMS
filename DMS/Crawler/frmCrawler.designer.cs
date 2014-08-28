@@ -99,7 +99,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(670, 13);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 27);
-            this.btnUpdate.TabIndex = 30;
+            this.btnUpdate.TabIndex = 0;
             this.btnUpdate.Text = "更新公文列表";
             this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -141,6 +141,7 @@
             this.listDoc.TabIndex = 31;
             this.listDoc.UseCompatibleStateImageBehavior = false;
             this.listDoc.View = System.Windows.Forms.View.Details;
+            this.listDoc.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listDoc_MouseClick);
             // 
             // labPageAll
             // 
@@ -299,6 +300,7 @@
             // 
             // tsslStatus
             // 
+            this.tsslStatus.ForeColor = System.Drawing.Color.Red;
             this.tsslStatus.Name = "tsslStatus";
             this.tsslStatus.Size = new System.Drawing.Size(62, 17);
             this.tsslStatus.Text = "tsslStatus";

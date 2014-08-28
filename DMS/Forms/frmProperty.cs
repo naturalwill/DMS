@@ -59,7 +59,7 @@ namespace DMS.Forms
                         }
                     }
                 }
-                frmMain.fm.flash();
+                frmMain.fm.initialize();
                 this.Close();
             }
             catch //(Exception )

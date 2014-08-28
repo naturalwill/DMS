@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using DMS;
+using System.Drawing;
 
 namespace Crawler
 {
@@ -85,6 +86,7 @@ namespace Crawler
                 listDoc.Columns.Add(ls[i], li[i]);
             }
             btnUpdate_Click(sender, e);
+            tsslStatus.Text = "";
         }
 
         private void btnPageDown_Click(object sender, EventArgs e)
@@ -190,28 +192,30 @@ namespace Crawler
 
         private void makeWord_Click(object sender, EventArgs e)
         {
-            this.UseWaitCursor = true;
+
             if (listDoc.CheckedItems.Count > 0)
             {
-                List<cWord> lw=new List<cWord>();
+                this.UseWaitCursor = true;
+                List<cWord> lw = new List<cWord>();
                 for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                 {
                     for (int j = 0; j < cCrawler.lcl.Count; j++)
                     {
                         if (listDoc.CheckedItems[i].SubItems[0].Text == cCrawler.lcl[j].ID.ToString())
                         {
-                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, strType, cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2],"批量添加的公文"));
+                            lw.Add(new cWord(cCrawler.lcl[j].listInfo[0], cCrawler.lcl[j].URL, strType, cCrawler.lcl[j].listInfo[1], cCrawler.lcl[j].listInfo[2], "批量添加的公文"));
                             break;
                         }
                     }
                 }
-                frmMain.fm.flash();
                 //执行下载操作
                 cMakeWord mw = new cMakeWord(lw);
                 Thread th = new Thread(new ThreadStart(mw.makeWord));
                 th.Start();
                 this.UseWaitCursor = false;
+                tsslStatus.Text = "命令已执行！";
             }
+            else { tsslStatus.Text = "请选择公文！"; }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -253,14 +257,29 @@ namespace Crawler
             }
             base.WndProc(ref m);
         }
-ToolTip tt = new ToolTip();
+        ToolTip tt = new ToolTip();
         private void txtURL_Enter(object sender, EventArgs e)
         {
-            
-            tt.SetToolTip(this.txtURL,"办公网公文下载器，暂时只支持对“http://oa.gdmc.edu.cn:8083/ggxx_new/”网站公文的下载，如果你有其他需求，请联系我们！");
+
+            tt.SetToolTip(this.txtURL, "办公网公文下载器，暂时只支持对“http://oa.gdmc.edu.cn:8083/ggxx_new/”网站公文的下载，如果你有其他需求，请联系我们！");
+        }
+
+        private void listDoc_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.X <= 16) return;
+            Point curPos = this.listDoc.PointToClient(Control.MousePosition);
+            ListViewItem lvwItem = this.listDoc.GetItemAt(curPos.X, curPos.Y);
+
+            if (lvwItem != null)
+            {
+                if (lvwItem.Checked)
+                    lvwItem.Checked = false;
+                else
+                    lvwItem.Checked = true;
+            }
         }
         ////__________________________________________________________拖动窗体__________________________________________________________________________
 
-   
+
     }
 }

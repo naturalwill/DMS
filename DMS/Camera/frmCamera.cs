@@ -142,7 +142,7 @@ namespace DMS.Camera
                 pictureBox2.Image.Save(ScanDocPath + "\\" + name + ".jpg", ImageFormat.Jpeg);
                 photopath = ScanDocPath + "\\" + name + ".jpg";
                 cAccess.add(name, "", photopath, cConfig.strScanType, DateTime.Now.ToString(), Environment.UserName, note);
-                frmMain.fm.flash();
+                frmMain.fm.initialize();
                 toolStripStatusLabel1.Text = "照片已储存";
                 shouldBeSave = false;
             }

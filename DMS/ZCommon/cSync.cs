@@ -379,7 +379,7 @@ namespace DMS
                         cAccess.add(Title, u.LocalPath, pFilePath, type, rlDate, provider, notes);
                 }
                 else { return false; }
-                frmMain.fm.flash();
+                frmMain.fm.initialize();
                 return true;
             }
             catch

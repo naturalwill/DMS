@@ -166,7 +166,7 @@ namespace DMS
         /// <summary>
         /// 初始化
         /// </summary>
-        private void initialize()
+        public void initialize()
         {
             txtSearch.Text = cConfig.strSearchTips;
 
@@ -181,6 +181,7 @@ namespace DMS
             flashTypeList();
 
             search();
+            tsslStatus.Text = "OK!";
         }
 
         #endregion
@@ -192,14 +193,6 @@ namespace DMS
         //    tssbSync_ButtonClick(sender, e);
         //}
 
-
-        public void flash()
-        {
-            dateEnd.Value = DateTime.Now.AddDays(1);
-            flashTypeList();
-            search();
-            tsslStatus.Text = "OK!";
-        }
 
         private void isWorking()
         {
@@ -806,8 +799,7 @@ namespace DMS
             {
                 Directory.CreateDirectory(cConfig.strWorkPath + "\\" + strNewType);
             }
-            flashTypeList();
-            search();
+            initialize();
         }
 
 
@@ -831,10 +823,8 @@ namespace DMS
         /// <param name="strNewType"></param>
         public void changeType(string strNewType)
         {
-
             cAccess.ModifyType(listDocType.Items[TypeSelectedIndex].ToString(), strNewType);
-            flashTypeList();
-            search();
+            initialize();
         }
 
         private void tsmiDeleteType_Click(object sender, EventArgs e)
@@ -851,12 +841,16 @@ namespace DMS
 
         private void listDoc_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.X <= 16) return;
             Point curPos = this.listDoc.PointToClient(Control.MousePosition);
             ListViewItem lvwItem = this.listDoc.GetItemAt(curPos.X, curPos.Y);
 
             if (lvwItem != null)
             {
-                System.Diagnostics.Debug.WriteLine("aa");
+                if (lvwItem.Checked)
+                    lvwItem.Checked = false;
+                else
+                    lvwItem.Checked = true;
             }
         }
 
@@ -1253,12 +1247,13 @@ namespace DMS
                     Sync.LocalToFtp();
                 }
 
-                tsslSyncStatus.Text = "备份完成!";
-                System.Threading.Thread.Sleep(500);
+                //------------------------------------------------------------
+                this.initialize();
+                //------------------------------------------------------------
+                tsslSyncStatus.Text = "同步完成!";
+                System.Threading.Thread.Sleep(2000);
                 Sync.Contrast();
-                //------------------------------------------------------------
-                frmMain.fm.flashTypeList(); frmMain.fm.search();
-                //------------------------------------------------------------
+
                 if (Sync.listNotInFtp.Count > 0)
                     tsslSyncStatus.Text += "有" + Sync.listNotInFtp.Count + "个文件备份失败。请重试！";
                 //tsslSyncStatus.BackColor = System.Drawing.SystemColors.Control;
@@ -1346,6 +1341,11 @@ namespace DMS
                 listDoc.Columns[1].Width = listColumnWidth[1];
             if (listColumnWidth[6] > 1)
                 listDoc.Columns[6].Width = listColumnWidth[6];
+        }
+
+        private void listDoc_Click(object sender, EventArgs e)
+        {
+
         }
 
 

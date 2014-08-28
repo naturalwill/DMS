@@ -86,8 +86,8 @@ namespace DMS
                 object file2 = listWord[i].pFilePath;
 
                 Word._Document oWordDoc = oWordApp.Documents.Open(ref file1, ref format, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref isVisible, ref missing, ref missing, ref missing, ref missing);
-                //oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
-                oWordDoc.SaveAs2(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,ref missing);
+                oWordDoc.SaveAs(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                //oWordDoc.SaveAs2(ref file2, ref format, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
 
                 oWordDoc.Close(ref missing, ref missing, ref missing);
                 oWordDoc = null;
@@ -106,10 +106,10 @@ namespace DMS
             oWordApp = null;
 
             if (listWord.Count > 1)
-                MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档已存在，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
+                MessageBox.Show("批量下载完成！共选择了" + listWord.Count + "个。成功下载" + intSuccess + "个，有" + intExist + "个文档在此之前已下载，有" + (listWord.Count - intSuccess - intExist) + "个下载失败");
             //else if (listWord.Count == 1)
             //    MessageBox.Show("添加成功");
-            frmMain.fm.flash();
+            frmMain.fm.initialize();
         }
 
 
