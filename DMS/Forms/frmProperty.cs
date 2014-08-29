@@ -20,7 +20,6 @@ namespace DMS.Forms
             {
                 cobType.Items.Add(str);
             }
-            cobType.Items.Add(cConfig.strNewType);
 
             for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
             {
@@ -75,16 +74,7 @@ namespace DMS.Forms
             this.Close();
         }
 
-        private void cobType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cobType.Text == cConfig.strNewType || cobType.Text == cConfig.strNoType)
-                cobType.Text = "";
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+    
 
         private void btnMin_Click(object sender, EventArgs e)
         {
@@ -117,5 +107,16 @@ namespace DMS.Forms
             this.Close();
         }
 
+        private void liblocalpath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.liblocalpath.Text);
+        }
+
+        private void libsource_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.libsource.Text);
+        }
+
+     
     }
 }

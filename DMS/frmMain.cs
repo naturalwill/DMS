@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using DMS.Forms;
 using System.Drawing;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace DMS
 {
@@ -208,10 +209,9 @@ namespace DMS
 
         public void getList()
         {
-            if (listDocType.Items.Count == 1)
-                TypeSelectedIndex = 0;
-            else if (TypeSelectedIndex >= listDocType.Items.Count)
+            if (TypeSelectedIndex >= listDocType.Items.Count)
                 TypeSelectedIndex = listDocType.Items.Count - 1;
+            if (TypeSelectedIndex < 0) TypeSelectedIndex = 0;
 
             string strSelected = listDocType.Items[TypeSelectedIndex].ToString();
             if (strSelected == cConfig.strAllType)
@@ -408,10 +408,14 @@ namespace DMS
             }
             tssbMoveType.DropDownItems.Add(new ToolStripSeparator());
             tssbMoveType.DropDownItems.Add(cConfig.strNewType);
-            if (listDocType.Items.Count <= TypeSelectedIndex)
-                listDocType.SelectedIndex = listDocType.Items.Count - 1;
-            else
-                listDocType.SelectedIndex = TypeSelectedIndex;
+            if (TypeSelectedIndex < 0) TypeSelectedIndex = 0;
+            if (listDocType.Items.Count > 0)
+            {
+                if (listDocType.Items.Count <= TypeSelectedIndex)
+                    listDocType.SelectedIndex = listDocType.Items.Count - 1;
+                else
+                    listDocType.SelectedIndex = TypeSelectedIndex;
+            }
         }
 
         //public void btnMove()
@@ -1271,24 +1275,95 @@ namespace DMS
 
         private void tsbHelp_Click(object sender, EventArgs e)
         {
-            if (File.Exists(".\\help.chm")) { System.Diagnostics.Process.Start(".\\help.chm"); }
+            string helpPath = cConfig.TempPath + "\\help.html";
+            if (File.Exists(helpPath)) { System.Diagnostics.Process.Start(helpPath); }
             else
             {
-
+                //FileStream fs = new FileStream(help, FileMode.OpenOrCreate, FileAccess.Write);
+                ////创建byte数组，装资源 
+                //Byte[] b = DMS.Properties.Resources.help;
+                //fs.Write(b, 0, b.Length);
+                //if (fs != null)
+                //    fs.Close();
                 try
                 {
-                    FileStream fs = new FileStream(".\\help.chm", FileMode.OpenOrCreate, FileAccess.Write);
-                    //创建byte数组，装资源 
-                    Byte[] b = DMS.Properties.Resources.help;
-                    fs.Write(b, 0, b.Length);
-                    if (fs != null)
-                        fs.Close();
-                    System.Diagnostics.Process.Start(".\\help.chm");
-                }
-                catch
-                {
+                    Stream S = new MemoryStream(DMS.Properties.Resources.help);
+                    //using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
+                    string rootFile = "";
+                    string fileDir = cConfig.TempPath;
+                    //读取压缩文件(zip文件)，准备解压缩
+                    ZipInputStream s = new ZipInputStream(S);
+                    ZipEntry theEntry;
+                    string path = fileDir;  //解压出来的文件保存的路径
 
+                    string rootDir = ""; //根目录下的第一个子文件夹的名称
+                    while ((theEntry = s.GetNextEntry()) != null)
+                    {
+                        rootDir = Path.GetDirectoryName(theEntry.Name); //得到根目录下的第一级子文件夹的名称
+                        if (rootDir.IndexOf("\\") >= 0)
+                        {
+                            rootDir = rootDir.Substring(0, rootDir.IndexOf("\\") + 1);
+                        }
+                        string dir = Path.GetDirectoryName(theEntry.Name); //根目录下的第一级子文件夹的下的文件夹的名称
+                        string fileName = Path.GetFileName(theEntry.Name); //根目录下的文件名称
+                        if (dir != "" && fileName == "") //创建根目录下的子文件夹,不限制级别
+                        {
+                            if (!Directory.Exists(fileDir + "\\" + dir))
+                            {
+                                path = fileDir + "\\" + dir; //在指定的路径创建文件夹
+                                Directory.CreateDirectory(path);
+                            }
+                        }
+                        else if (dir == "" && fileName != "") //根目录下的文件
+                        {
+                            path = fileDir;
+                            rootFile = fileName;
+                        }
+                        else if (dir != "" && fileName != "") //根目录下的第一级子文件夹下的文件
+                        {
+                            if (dir.IndexOf("\\") > 0) //指定文件保存的路径
+                            {
+                                path = fileDir + "\\" + dir;
+                            }
+                        }
+
+                        if (dir == rootDir) //判断是不是需要保存在根目录下的文件
+                        {
+                            path = fileDir + "\\" + rootDir;
+                        }
+                        //以下为解压缩zip文件的基本步骤
+                        //基本思路就是遍历压缩文件里的所有文件，创建一个相同的文件。
+                        if (fileName != String.Empty)
+                        {
+                            FileStream streamWriter = File.Create(path + "\\" + fileName);
+
+                            int size = 2048;
+                            byte[] data = new byte[2048];
+                            while (true)
+                            {
+                                size = s.Read(data, 0, data.Length);
+                                if (size > 0)
+                                {
+                                    streamWriter.Write(data, 0, size);
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            streamWriter.Close();
+                        }
+                    }
+                    s.Close();
+
+                    System.Diagnostics.Process.Start(helpPath);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
 
             }
         }

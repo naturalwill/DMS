@@ -63,6 +63,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Camera\Aforge\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.ADODB">
       <HintPath>DLL\Interop.ADODB.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -223,6 +226,7 @@
     <Content Include="DLL\Interop.ADODB.dll" />
     <Content Include="DLL\Interop.CDO.dll" />
     <Content Include="DLL\Microsoft.Office.Interop.Word.dll" />
+    <None Include="Resources\help.zip" />
     <None Include="Resources\picHead.Image.png" />
     <None Include="Resources\cam.png" />
     <None Include="Resources\doc.png" />

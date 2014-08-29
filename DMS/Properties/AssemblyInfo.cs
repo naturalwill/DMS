@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("DMS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("广东医学院**团队")]
+[assembly: AssemblyCompany("广东医学院 **团队")]
 [assembly: AssemblyProduct("公文管理系统")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

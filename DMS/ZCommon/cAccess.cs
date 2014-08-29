@@ -269,6 +269,8 @@ namespace DMS
             basicDt.Rows[Row]["Notes"] = txtnote;
             basicDt.Rows[Row]["LocalPath"] = basicDt.Rows[Row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[Row]["DocType"].ToString() + '\\', '\\' + cobTypeText + '\\');
             basicDt.Rows[Row]["LocalPath"] = basicDt.Rows[Row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[Row]["DocTitle"].ToString(), '\\' + txtTitle);
+            if (string.IsNullOrWhiteSpace(cobTypeText))
+                cobTypeText = cConfig.strNoType;
             basicDt.Rows[Row]["DocType"] = cobTypeText;
             basicDt.Rows[Row]["DocTitle"] = txtTitle;
             if (conn.State != ConnectionState.Open)
