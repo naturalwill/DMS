@@ -42,8 +42,10 @@ namespace DMS.Camera
             {
                 if (frmSetting.isClose)
                 { break; }
-                frmSetting fs = new frmSetting();
-                fs.ShowDialog();
+                using (frmSetting fs = new frmSetting())
+                {
+                    fs.ShowDialog();
+                }
 
             }
 
@@ -71,24 +73,44 @@ namespace DMS.Camera
             pictureBox2.Visible = false;
         }
 
-        ////__________________________________________________拖动窗体——————————————————————————————————————————
-        private const int WM_NCHITTEST = 0x84;
-        private const int HTCLIENT = 0x1;
-        private const int HTCAPTION = 0x2;
-        protected override void WndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if ((int)m.Result == HTCLIENT)
-                        m.Result = (IntPtr)HTCAPTION;
-                    return;
-            }
-            base.WndProc(ref m);
-        }
-        ////__________________________________________________________拖动窗体__________________________________________________________________________
+        #region 拖动窗体
 
+        /// <summary>
+        /// 判断鼠标是否按下
+        /// </summary>
+        private bool _isDown = false;
+        /// <summary>
+        /// 原来的鼠标点
+        /// </summary>
+        private System.Drawing.Point _oldPoint;
+        /// <summary>
+        /// 原来窗口点
+        /// </summary>
+        private System.Drawing.Point _oldForm;
+
+        private void _MouseDown(object sender, MouseEventArgs e)
+        {
+            _isDown = true;
+            _oldPoint = new System.Drawing.Point();
+            _oldPoint = e.Location;
+            _oldForm = this.Location;
+        }
+
+        private void _MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDown)
+            {
+                _oldForm.Offset(e.X - _oldPoint.X, e.Y - _oldPoint.Y);
+                this.Location = _oldForm;
+            }
+        }
+
+        private void _MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDown = false;
+        }
+
+        #endregion
 
         void camera_NewFrameEvent(object sender, EventArgs e)
         {
@@ -133,8 +155,9 @@ namespace DMS.Camera
         {
             pictureBox2.Image = camera.NewFrame;
             pictureBox2.Visible = true;
-            frmSave fs = new frmSave();
-            fs.ShowDialog();
+            using (frmSave fs = new frmSave())
+            { fs.ShowDialog(); }
+
             if (shouldBeSave)
             {
 
@@ -171,8 +194,10 @@ namespace DMS.Camera
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmSetting fs = new frmSetting();
-            fs.ShowDialog();
+            using (frmSetting fs = new frmSetting())
+            {
+                fs.ShowDialog();
+            }
         }
 
         private void btnMax_Click(object sender, EventArgs e)

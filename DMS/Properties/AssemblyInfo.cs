@@ -7,9 +7,9 @@ using System.Resources;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("DMS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("联系方式：\r\n\tQQ: 2319779062\r\n\tEmail: 2319779062@qq.com\r\n\r\n项目地址：\r\nhttps://github.com/NaturalWill/DMS")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("广东医学院 **团队")]
+[assembly: AssemblyCompany("广东医学院 破晓技术团队")]
 [assembly: AssemblyProduct("公文管理系统")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

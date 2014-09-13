@@ -146,6 +146,9 @@
             this.Opacity = 0.9D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmSave";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.gbDoc.ResumeLayout(false);
             this.gbDoc.PerformLayout();
             this.ResumeLayout(false);

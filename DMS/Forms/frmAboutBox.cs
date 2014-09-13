@@ -21,23 +21,45 @@ namespace DMS.Forms
             this.textBoxDescription.Text = AssemblyDescription;
         }
 
-        ////__________________________________________________拖动窗体——————————————————————————————————————————
-        private const int WM_NCHITTEST = 0x84;
-        private const int HTCLIENT = 0x1;
-        private const int HTCAPTION = 0x2;
-        protected override void WndProc(ref Message m)
+
+        #region 拖动窗体
+
+        /// <summary>
+        /// 判断鼠标是否按下
+        /// </summary>
+        private bool _isDown = false;
+        /// <summary>
+        /// 原来的鼠标点
+        /// </summary>
+        private System.Drawing.Point _oldPoint;
+        /// <summary>
+        /// 原来窗口点
+        /// </summary>
+        private System.Drawing.Point _oldForm;
+
+        private void _MouseDown(object sender, MouseEventArgs e)
         {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if ((int)m.Result == HTCLIENT)
-                        m.Result = (IntPtr)HTCAPTION;
-                    return;
-            }
-            base.WndProc(ref m);
+            _isDown = true;
+            _oldPoint = new System.Drawing.Point();
+            _oldPoint = e.Location;
+            _oldForm = this.Location;
         }
-        ////__________________________________________________________拖动窗体__________________________________________________________________________
+
+        private void _MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDown)
+            {
+                _oldForm.Offset(e.X - _oldPoint.X, e.Y - _oldPoint.Y);
+                this.Location = _oldForm;
+            }
+        }
+
+        private void _MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDown = false;
+        }
+
+        #endregion
 
 
         #region 程序集特性访问器

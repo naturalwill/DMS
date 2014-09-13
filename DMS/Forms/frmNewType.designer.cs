@@ -100,7 +100,11 @@
             this.MaximumSize = new System.Drawing.Size(284, 105);
             this.MinimumSize = new System.Drawing.Size(284, 105);
             this.Name = "frmNewType";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmNewType";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.groupBoxType.ResumeLayout(false);
             this.groupBoxType.PerformLayout();
             this.ResumeLayout(false);

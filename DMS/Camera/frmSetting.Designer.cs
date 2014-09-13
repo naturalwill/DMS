@@ -149,6 +149,9 @@
             this.MinimumSize = new System.Drawing.Size(284, 147);
             this.Name = "frmSetting";
             this.Text = "frmSetting";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

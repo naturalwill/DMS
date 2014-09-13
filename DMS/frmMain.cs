@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using DMS.Forms;
-using System.Drawing;
 using ICSharpCode.SharpZipLib.Zip;
-
 namespace DMS
 {
     public partial class frmMain : Form
@@ -584,11 +583,15 @@ namespace DMS
 
         private void tssbAdd_ButtonClick(object sender, EventArgs e)
         {
-            using (frmAddDoc frmAd = new frmAddDoc())
+            try
             {
-                isWorking();
-                frmAd.ShowDialog();
+                using (frmAddDoc frmAd = new frmAddDoc())
+                {
+                    isWorking();
+                    frmAd.ShowDialog();
+                }
             }
+            catch { }
         }
 
         private void tsmiAdd_Click(object sender, EventArgs e)
@@ -598,28 +601,41 @@ namespace DMS
 
         private void tsmiAddMore_Click(object sender, EventArgs e)
         {
-            using (Crawler.frmCrawler cr = new Crawler.frmCrawler())
+            try
             {
-                isWorking();
-                cr.ShowDialog();
+                using (Crawler.frmCrawler cr = new Crawler.frmCrawler())
+                {
+                    isWorking();
+                    cr.ShowDialog();
+                }
             }
+            catch { }
         }
 
         private void tsbScan_Click(object sender, EventArgs e)
         {
-            using (Camera.frmCamera frmScan = new Camera.frmCamera())
+
+            try
             {
-                isWorking();
-                frmScan.ShowDialog();
+                using (Camera.frmCamera frmScan = new Camera.frmCamera())
+                {
+                    isWorking();
+                    frmScan.ShowDialog();
+                }
             }
+            catch { }
         }
 
         private void tsbSetting_Click(object sender, EventArgs e)
         {
-            using (frmSettings frmS = new frmSettings())
+            try
             {
-                frmS.ShowDialog();
+                using (frmSettings frmS = new frmSettings())
+                {
+                    frmS.ShowDialog();
+                }
             }
+            catch { }
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
@@ -670,25 +686,7 @@ namespace DMS
             }
             for (int i = 0; i < listDoc.CheckedItems.Count; i++)
             {
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                {
-                    if (listDoc.CheckedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        string OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-                        cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, e.ClickedItem.Text);
-                        string newPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-                        //移动相应的word文档到所需类型的目录
-                        try
-                        {
-                            File.Move(OldPath, newPath);
-                        }
-                        catch
-                        {
-
-                        }
-
-                    }
-                }
+                cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, e.ClickedItem.Text);
             }
             flashTypeList();
             search();
@@ -712,24 +710,7 @@ namespace DMS
 
             for (int i = 0; i < listDoc.CheckedItems.Count; i++)
             {
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                {
-                    if (listDoc.CheckedItems[i].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        string OldPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-                        cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, strNewType);
-                        string newPath = cAccess.basicDt.Rows[row]["LocalPath"].ToString();
-                        //移动相应的word文档到所需类型的目录
-                        try
-                        {
-                            File.Move(OldPath, newPath);
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                }
+                cAccess.ModifyTheType(listDoc.CheckedItems[i].SubItems[0].Text, strNewType);
             }
             flashTypeList();
             search();
@@ -742,14 +723,15 @@ namespace DMS
                 List<string> ls = new List<string>();
                 for (int i = 0; i < listDoc.CheckedItems.Count; i++)
                 {
-                    //if (listDoc.CheckedItems[i].Checked == true)
-                    for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
-                    {
-                        if (listDoc.CheckedItems[i].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                        {
-                            ls.Add(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
-                        }
-                    }
+                    ls.Add(cAccess.basicDt.Select("ID = " + listDoc.CheckedItems[i].SubItems[0].Text)[0]["LocalPath"].ToString());
+                    ////if (listDoc.CheckedItems[i].Checked == true)
+                    //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                    //{
+                    //    if (listDoc.CheckedItems[i].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+                    //    {
+                    //        ls.Add(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
+                    //    }
+                    //}
                 }
                 cPrintFiles cpf = new cPrintFiles(ls);
                 //cpf.printFiles();
@@ -877,18 +859,39 @@ namespace DMS
         private void listDoc_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listDoc.SelectedItems.Count > 0)
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            {
+                try
                 {
-                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
-
+                    var dr = cAccess.basicDt.Select("ID = " + listDoc.SelectedItems[0].SubItems[0].Text);//[0]["LocalPath"].ToString();
+                    if (File.Exists(dr[0]["LocalPath"].ToString()))
+                        System.Diagnostics.Process.Start(dr[0]["LocalPath"].ToString());
+                    else
+                        if (MessageBox.Show("文件不存在，是否从来源获取？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        {//从来源下载
+                            if (cSync.GetDoc(dr[0]["DocTitle"].ToString(), dr[0]["Source"].ToString(),
+                                  dr[0]["DocType"].ToString(), "", "", "", false))
+                            { System.Diagnostics.Process.Start(dr[0]["LocalPath"].ToString()); }
+                            else
+                            { MessageBox.Show("获取失败！"); }
                         }
-                        catch { MessageBox.Show("此文件的格式不被支持"); }
-                    }
+
                 }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                //{
+                //    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+                //    {
+                //        try
+                //        {
+                //            System.Diagnostics.Process.Start(cAccess.basicDt.Select("ID = "
+                //                + listDoc.SelectedItems[0].SubItems[0].Text)[0]["LocalPath"].ToString());
+                //            System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
+
+                //        }
+                //        catch { MessageBox.Show("此文件的格式不被支持"); }
+                //    }
+                //}
+            }
         }
 
         #endregion
@@ -903,27 +906,25 @@ namespace DMS
         private void tsmiLook_Click(object sender, EventArgs e)
         {
             if (listDoc.SelectedItems.Count > 0)
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            {
+                try
                 {
-                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        if (!File.Exists(cAccess.basicDt.Rows[row]["LocalPath"].ToString()))
-                        {
-                            if (MessageBox.Show("文件不存在，是否从来源获取？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                            {//从来源下载
-                                if (cSync.GetDoc(cAccess.basicDt.Rows[row]["DocTitle"].ToString(), cAccess.basicDt.Rows[row]["Source"].ToString(),
-                                      cAccess.basicDt.Rows[row]["DocType"].ToString(), "", "", "", false))
-                                { System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString()); }
-                                else
-                                { MessageBox.Show("获取失败！"); }
-                            }
+                    var dr = cAccess.basicDt.Select("ID = " + listDoc.SelectedItems[0].SubItems[0].Text);//[0]["LocalPath"].ToString();
+                    if (File.Exists(dr[0]["LocalPath"].ToString()))
+                        System.Diagnostics.Process.Start(dr[0]["LocalPath"].ToString());
+                    else
+                        if (MessageBox.Show("文件不存在，是否从来源获取？", "", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        {//从来源下载
+                            if (cSync.GetDoc(dr[0]["DocTitle"].ToString(), dr[0]["Source"].ToString(),
+                                  dr[0]["DocType"].ToString(), "", "", "", false))
+                            { System.Diagnostics.Process.Start(dr[0]["LocalPath"].ToString()); }
+                            else
+                            { MessageBox.Show("获取失败！"); }
                         }
-                        else
-                        {
-                            System.Diagnostics.Process.Start(cAccess.basicDt.Rows[row]["LocalPath"].ToString());
-                        }
-                    }
+
                 }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+            }
         }
 
         /// <summary>
@@ -935,15 +936,23 @@ namespace DMS
         {
             if (listDoc.SelectedItems.Count == 1)
             {
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                try
                 {
-                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        int localint = cAccess.basicDt.Rows[row]["LocalPath"].ToString().LastIndexOf(@"\");
-                        string loacaldirect = cAccess.basicDt.Rows[row]["LocalPath"].ToString().Substring(0, localint);
-                        Process.Start(loacaldirect);
-                    }
+                    var dr = cAccess.basicDt.Select("ID = " + listDoc.SelectedItems[0].SubItems[0].Text);//[0]["LocalPath"].ToString();
+                    int localint = dr[0]["LocalPath"].ToString().LastIndexOf(@"\");
+                    string loacaldirect = dr[0]["LocalPath"].ToString().Substring(0, localint);
+                    Process.Start(loacaldirect);
                 }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                //{
+                //    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+                //    {
+                //        int localint = cAccess.basicDt.Rows[row]["LocalPath"].ToString().LastIndexOf(@"\");
+                //        string loacaldirect = cAccess.basicDt.Rows[row]["LocalPath"].ToString().Substring(0, localint);
+                //        Process.Start(loacaldirect);
+                //    }
+                //}
             }
         }
 
@@ -956,21 +965,30 @@ namespace DMS
         {
             if (listDoc.SelectedItems.Count == 1)
             {
-                for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+
+                try
                 {
-                    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
-                    {
-                        try
-                        {
-                            Process.Start(cAccess.basicDt.Rows[row]["Source"].ToString());
-                        }
-                        catch
-                        {
-                            if (MessageBox.Show("文件丢失，并且通过来源重新获取失败，是否从数据库中排除这些文件？\n", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                                cAccess.delect(cAccess.basicDt.Rows[row]["Source"].ToString());
-                        }
-                    }
+                    var dr = cAccess.basicDt.Select("ID = " + listDoc.SelectedItems[0].SubItems[0].Text);//[0]["LocalPath"].ToString();
+                    Process.Start(dr[0]["Source"].ToString());
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+                //{
+                //    if (listDoc.SelectedItems[0].SubItems[0].Text == cAccess.basicDt.Rows[row]["ID"].ToString())
+                //    {
+                //        try
+                //        {
+                //            Process.Start(cAccess.basicDt.Rows[row]["Source"].ToString());
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            MessageBox.Show(ex.Message);
+                //        }
+                //    }
+                //}
             }
         }
         /// <summary>
@@ -1226,6 +1244,27 @@ namespace DMS
             }
         }
 
+        #region 委托
+
+        //delegate void SetTextCallback(string text);
+
+        //private void SetBtnStartText(string text)
+        //{
+        //    // InvokeRequired required compares the thread ID of the
+        //    // calling thread to the thread ID of the creating thread.
+        //    // If these threads are different, it returns true.
+        //    if (this.btnStart.InvokeRequired)
+        //    {
+        //        SetTextCallback d = new SetTextCallback(SetBtnStartText);
+        //        this.Invoke(d, new object[] { text });
+        //    }
+        //    else
+        //    {
+        //        this.btnStart.Text = text;
+        //    }
+        //}
+        #endregion
+
         private void sync()
         {
             try
@@ -1293,6 +1332,7 @@ namespace DMS
                     string fileDir = cConfig.TempPath;
                     //读取压缩文件(zip文件)，准备解压缩
                     ZipInputStream s = new ZipInputStream(S);
+
                     ZipEntry theEntry;
                     string path = fileDir;  //解压出来的文件保存的路径
 
@@ -1353,10 +1393,13 @@ namespace DMS
                             }
 
                             streamWriter.Close();
+                            //streamWriter.Dispose();
                         }
                     }
-                    s.Close();
 
+                    s.Close();
+                    //S.Close();
+                    //S.Dispose();
                     System.Diagnostics.Process.Start(helpPath);
                 }
                 catch (Exception ex)
@@ -1364,7 +1407,7 @@ namespace DMS
                     MessageBox.Show(ex.Message);
                 }
 
-
+                GC.Collect();
             }
         }
 
@@ -1418,9 +1461,11 @@ namespace DMS
                 listDoc.Columns[6].Width = listColumnWidth[6];
         }
 
-        private void listDoc_Click(object sender, EventArgs e)
-        {
 
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.ExitThread();
+            Application.Exit();
         }
 
 

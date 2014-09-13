@@ -32,9 +32,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.liblocalpath = new System.Windows.Forms.LinkLabel();
             this.cobType = new System.Windows.Forms.ComboBox();
-            this.btnsave = new System.Windows.Forms.Button();
-            this.btncancel = new System.Windows.Forms.Button();
-            this.txtnote = new System.Windows.Forms.TextBox();
             this.txtunit = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -48,6 +45,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtnote = new System.Windows.Forms.TextBox();
+            this.btnsave = new System.Windows.Forms.Button();
+            this.btncancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -101,45 +101,6 @@
             this.cobType.Name = "cobType";
             this.cobType.Size = new System.Drawing.Size(147, 20);
             this.cobType.TabIndex = 2;
-            // 
-            // btnsave
-            // 
-            this.btnsave.BackColor = System.Drawing.SystemColors.Window;
-            this.btnsave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnsave.FlatAppearance.BorderSize = 0;
-            this.btnsave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnsave.Location = new System.Drawing.Point(345, 385);
-            this.btnsave.Name = "btnsave";
-            this.btnsave.Size = new System.Drawing.Size(75, 23);
-            this.btnsave.TabIndex = 6;
-            this.btnsave.Text = "保存";
-            this.btnsave.UseVisualStyleBackColor = false;
-            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
-            // 
-            // btncancel
-            // 
-            this.btncancel.BackColor = System.Drawing.SystemColors.Window;
-            this.btncancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btncancel.FlatAppearance.BorderSize = 0;
-            this.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncancel.Location = new System.Drawing.Point(486, 385);
-            this.btncancel.Name = "btncancel";
-            this.btncancel.Size = new System.Drawing.Size(75, 23);
-            this.btncancel.TabIndex = 7;
-            this.btncancel.Text = "取消";
-            this.btncancel.UseVisualStyleBackColor = false;
-            this.btncancel.Click += new System.EventHandler(this.btncancel_Click);
-            // 
-            // txtnote
-            // 
-            this.txtnote.AcceptsReturn = true;
-            this.txtnote.AcceptsTab = true;
-            this.txtnote.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtnote.Location = new System.Drawing.Point(76, 287);
-            this.txtnote.Multiline = true;
-            this.txtnote.Name = "txtnote";
-            this.txtnote.Size = new System.Drawing.Size(473, 50);
-            this.txtnote.TabIndex = 5;
             // 
             // txtunit
             // 
@@ -277,6 +238,45 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // txtnote
+            // 
+            this.txtnote.AcceptsReturn = true;
+            this.txtnote.AcceptsTab = true;
+            this.txtnote.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtnote.Location = new System.Drawing.Point(76, 287);
+            this.txtnote.Multiline = true;
+            this.txtnote.Name = "txtnote";
+            this.txtnote.Size = new System.Drawing.Size(473, 50);
+            this.txtnote.TabIndex = 5;
+            // 
+            // btnsave
+            // 
+            this.btnsave.BackColor = System.Drawing.SystemColors.Window;
+            this.btnsave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnsave.FlatAppearance.BorderSize = 0;
+            this.btnsave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnsave.Location = new System.Drawing.Point(345, 385);
+            this.btnsave.Name = "btnsave";
+            this.btnsave.Size = new System.Drawing.Size(75, 23);
+            this.btnsave.TabIndex = 6;
+            this.btnsave.Text = "保存";
+            this.btnsave.UseVisualStyleBackColor = false;
+            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
+            // 
+            // btncancel
+            // 
+            this.btncancel.BackColor = System.Drawing.SystemColors.Window;
+            this.btncancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btncancel.FlatAppearance.BorderSize = 0;
+            this.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btncancel.Location = new System.Drawing.Point(486, 385);
+            this.btncancel.Name = "btncancel";
+            this.btncancel.Size = new System.Drawing.Size(75, 23);
+            this.btncancel.TabIndex = 7;
+            this.btncancel.Text = "取消";
+            this.btncancel.UseVisualStyleBackColor = false;
+            this.btncancel.Click += new System.EventHandler(this.btncancel_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -306,6 +306,9 @@
             this.Tag = "";
             this.Text = "公文属性";
             this.Load += new System.EventHandler(this.frmProperty_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

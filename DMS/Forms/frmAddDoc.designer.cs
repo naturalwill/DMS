@@ -300,6 +300,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddDoc";
             this.Load += new System.EventHandler(this.frmAddDoc_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -144,28 +144,45 @@ namespace DMS
         }
         public static void delect(string id)
         {
-            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            try
             {
-                if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
-                {
-                    try
-                    {
-                        string path = basicDt.Rows[row]["LocalPath"].ToString();
-                        string _type = basicDt.Rows[row]["DocType"].ToString();
-                        int i = path.LastIndexOf('\\');
 
-                        basicDt.Rows[row].Delete();
+                DataRow[] dr = basicDt.Select("ID = " + id);
+                string path = dr[0]["LocalPath"].ToString();
+                string _type = dr[0]["DocType"].ToString();
+                int i = path.LastIndexOf('\\');
+                dr[0].Delete();
 
-                        cSync.DeleteFile(_type, path.Substring(i + 1));
+                cSync.DeleteFile(_type, path.Substring(i + 1));
 
-                        File.Delete(path);
-
-                    }
-                    catch// (Exception ex)
-                    { }
-
-                }
+                File.Delete(path);
             }
+            catch// (Exception ex)
+            { }
+            //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            //{
+            //    if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
+            //    {
+            //        try
+            //        {
+
+
+            //            string path = basicDt.Rows[row]["LocalPath"].ToString();
+            //            string _type = basicDt.Rows[row]["DocType"].ToString();
+            //            int i = path.LastIndexOf('\\');
+
+            //            basicDt.Rows[row].Delete();
+
+            //            cSync.DeleteFile(_type, path.Substring(i + 1));
+
+            //            File.Delete(path);
+
+            //        }
+            //        catch// (Exception ex)
+            //        { }
+
+            //    }
+            //}
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
@@ -232,6 +249,8 @@ namespace DMS
                     basicDt.Rows[row]["DocType"] = newType;
                 }
             }
+
+
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             Directory.Move(cConfig.strWorkPath + "\\" + currentType, cConfig.strWorkPath + "\\" + newType);
@@ -247,18 +266,34 @@ namespace DMS
         /// <param name="newType"></param>
         public static void ModifyTheType(string id, string newType)
         {
-            for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            //for (int row = 0; row < cAccess.basicDt.Rows.Count; row++)
+            //{
+            //    if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
+            //    {
+            //        basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[row]["DocType"].ToString() + '\\', '\\' + newType + '\\');
+            //        basicDt.Rows[row]["DocType"] = newType;
+            //    }
+            //}
+
+            DataRow[] dr = basicDt.Select("ID = " + id);
+
+            string OldPath = dr[0]["LocalPath"].ToString();
+
+            dr[0]["LocalPath"] = dr[0]["LocalPath"].ToString().Replace('\\' + dr[0]["DocType"].ToString() + '\\', '\\' + newType + '\\');
+            dr[0]["DocType"] = newType;
+
+            string newPath = dr[0]["LocalPath"].ToString();
+            //移动相应的word文档到所需类型的目录
+            try
             {
-                if (id == cAccess.basicDt.Rows[row]["ID"].ToString())
-                {
-                    basicDt.Rows[row]["LocalPath"] = basicDt.Rows[row]["LocalPath"].ToString().Replace('\\' + basicDt.Rows[row]["DocType"].ToString() + '\\', '\\' + newType + '\\');
-                    basicDt.Rows[row]["DocType"] = newType;
-                }
+                File.Move(OldPath, newPath);
             }
+            catch { }
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             DtAdapter.Update(basicDt);//用Update（）方法更新数据库
             conn.Close();
+
             isChanged = true;
         }
         //修改公文属性

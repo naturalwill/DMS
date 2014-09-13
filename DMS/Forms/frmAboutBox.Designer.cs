@@ -79,6 +79,9 @@
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
+            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.logoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.logoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             // 
             // labelProductName
             // 
@@ -178,6 +181,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAboutBox";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this._MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this._MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this._MouseUp);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();

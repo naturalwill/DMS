@@ -81,26 +81,45 @@ namespace DMS.Forms
             this.WindowState = FormWindowState.Minimized;
         }
 
-        #region 移动窗体
+        #region 拖动窗体
 
-        private const int WM_NCHITTEST = 0x84;
-        private const int HTCLIENT = 0x1;
-        private const int HTCAPTION = 0x2;
+        /// <summary>
+        /// 判断鼠标是否按下
+        /// </summary>
+        private bool _isDown = false;
+        /// <summary>
+        /// 原来的鼠标点
+        /// </summary>
+        private System.Drawing.Point _oldPoint;
+        /// <summary>
+        /// 原来窗口点
+        /// </summary>
+        private System.Drawing.Point _oldForm;
 
-
-        protected override void WndProc(ref Message m)
+        private void _MouseDown(object sender, MouseEventArgs e)
         {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if ((int)m.Result == HTCLIENT)
-                        m.Result = (IntPtr)HTCAPTION;
-                    return;
-            }
-            base.WndProc(ref m);
+            _isDown = true;
+            _oldPoint = new System.Drawing.Point();
+            _oldPoint = e.Location;
+            _oldForm = this.Location;
         }
+
+        private void _MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDown)
+            {
+                _oldForm.Offset(e.X - _oldPoint.X, e.Y - _oldPoint.Y);
+                this.Location = _oldForm;
+            }
+        }
+
+        private void _MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDown = false;
+        }
+
         #endregion
+
 
         private void btnClose_Click_1(object sender, EventArgs e)
         {
