@@ -612,6 +612,19 @@ namespace DMS
             catch { }
         }
 
+        private void tsmiAddMoreNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (Crawler.frmCrawlerNew cr = new Crawler.frmCrawlerNew())
+                {
+                    isWorking();
+                    cr.ShowDialog();
+                }
+            }
+            catch { }
+
+        }
         private void tsbScan_Click(object sender, EventArgs e)
         {
 

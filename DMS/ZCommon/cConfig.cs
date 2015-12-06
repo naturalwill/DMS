@@ -107,11 +107,12 @@ namespace DMS
         /// FTP设置
         /// </summary>
         public static string FTP_IP = "", FTP_user = "", FTP_password = "";
+        static string stmp = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
         /// <summary>
         /// 数据库路径
         /// </summary>
-        public static string strDatabasePath = Environment.CurrentDirectory + @"\DMS.mdb";
+        public static string strDatabasePath = stmp.Substring(0, stmp.LastIndexOf('\\')) + "\\DMS.mdb";
 
         /// <summary>
         /// 每页的条目数量
@@ -121,7 +122,7 @@ namespace DMS
         #endregion
 
         #region 日志
-        public static string logPath = ".\\run.log";
+        public static string logPath = stmp.Substring(0, stmp.LastIndexOf('\\')) + "\\run.log";
         public static void writeLog(string[] operate)
         {
             using (StreamWriter sw = new StreamWriter(logPath, true, Encoding.Default))

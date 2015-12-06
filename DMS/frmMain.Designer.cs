@@ -95,6 +95,7 @@
             this.btnMin = new System.Windows.Forms.Button();
             this.pBody = new System.Windows.Forms.Panel();
             this.picHead = new System.Windows.Forms.PictureBox();
+            this.tsmiAddMoreNew = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsListDoc.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.cmsType.SuspendLayout();
@@ -634,6 +635,7 @@
             // 
             this.tssbAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAdd,
+            this.tsmiAddMoreNew,
             this.tsmiAddMore});
             this.tssbAdd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tssbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tssbAdd.Image")));
@@ -646,15 +648,15 @@
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(204, 24);
+            this.tsmiAdd.Size = new System.Drawing.Size(232, 24);
             this.tsmiAdd.Text = "添加公文";
             this.tsmiAdd.Click += new System.EventHandler(this.tsmiAdd_Click);
             // 
             // tsmiAddMore
             // 
             this.tsmiAddMore.Name = "tsmiAddMore";
-            this.tsmiAddMore.Size = new System.Drawing.Size(204, 24);
-            this.tsmiAddMore.Text = "批量下载器（定制）";
+            this.tsmiAddMore.Size = new System.Drawing.Size(232, 24);
+            this.tsmiAddMore.Text = "批量下载器（旧办公网）";
             this.tsmiAddMore.Click += new System.EventHandler(this.tsmiAddMore_Click);
             // 
             // tsbScan
@@ -823,6 +825,13 @@
             this.picHead.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picHead_MouseMove);
             this.picHead.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picHead_MouseUp);
             // 
+            // tsmiAddMoreNew
+            // 
+            this.tsmiAddMoreNew.Name = "tsmiAddMoreNew";
+            this.tsmiAddMoreNew.Size = new System.Drawing.Size(232, 24);
+            this.tsmiAddMoreNew.Text = "批量下载器（办公网）";
+            this.tsmiAddMoreNew.Click += new System.EventHandler(this.tsmiAddMoreNew_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -926,6 +935,7 @@
         private System.Windows.Forms.Panel pBody;
         private System.Windows.Forms.PictureBox picHead;
         private System.Windows.Forms.ColumnHeader columnHeaderNotes;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddMoreNew;
     }
 }
 

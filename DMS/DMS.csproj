@@ -74,10 +74,18 @@
       <HintPath>DLL\Interop.CDO.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jurassic.2.2.0\lib\Jurassic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>DLL\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -110,6 +118,13 @@
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Camera\WebCamera.cs" />
+    <Compile Include="Crawler\CrawlerNew.cs" />
+    <Compile Include="Crawler\frmCrawlerNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crawler\frmCrawlerNew.designer.cs">
+      <DependentUpon>frmCrawlerNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +133,7 @@
     </Compile>
     <Compile Include="ZCommon\cAccess.cs" />
     <Compile Include="ZCommon\cConfig.cs" />
+    <Compile Include="ZCommon\cMakeWord2.cs" />
     <Compile Include="ZCommon\cMakeWord.cs" />
     <Compile Include="ZCommon\cPrintFiles.cs" />
     <Compile Include="ZCommon\cRegex.cs" />
@@ -176,6 +192,9 @@
     <EmbeddedResource Include="Camera\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Crawler\frmCrawlerNew.resx">
+      <DependentUpon>frmCrawlerNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crawler\frmCrawler.resx">
       <DependentUpon>frmCrawler.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +228,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -264,6 +284,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
